@@ -226,10 +226,22 @@ function renderRace() {
     }
   }
 
-  // Next race card (last race → hide; else infer date +7 days)
-  const nextDate = state.races.races[state.raceIdx + 1]?.date;
+  // Next race card. For past races we use the actual following race's date.
+  // For the most recent race (no next entry in data yet) we project current
+  // race date + 7 days so the card shows next Tuesday by default.
+  let nextDate = null;
+  let nextNumber = null;
+  const followUp = state.races.races[state.raceIdx + 1];
+  if (followUp) {
+    nextDate = followUp.date;
+    nextNumber = followUp.n;
+  } else if (race.date) {
+    const d = new Date(race.date + "T12:00:00Z");
+    d.setUTCDate(d.getUTCDate() + 7);
+    nextDate = d.toISOString().slice(0, 10);
+    nextNumber = race.n + 1;
+  }
   if (nextDate) {
-    const n = state.races.races[state.raceIdx + 1];
     const day = document.querySelector(".next__day");
     const num = document.querySelector(".next__num");
     const mon = document.querySelector(".next__mon");
@@ -237,7 +249,7 @@ function renderRace() {
     if (day) day.textContent = nlDayShort(nextDate).replace(/^./, (c) => c.toUpperCase());
     if (num) num.textContent = String(new Date(nextDate + "T12:00:00Z").getUTCDate());
     if (mon) mon.textContent = MAANDEN[new Date(nextDate + "T12:00:00Z").getUTCMonth()];
-    if (nm) nm.textContent = `Race ${n.n} — Zomeravondcompetitie`;
+    if (nm) nm.textContent = `Race ${nextNumber} — Zomeravondcompetitie`;
   }
 }
 
