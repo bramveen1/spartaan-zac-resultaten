@@ -107,10 +107,9 @@ async function loadData() {
   ]);
   state.standings = standings;
   state.races = races;
-  // Default to latest race; default class follows the pinned rider, else A.
+  // Default to latest race; default class is always A (mepin chip + class
+  // toggle let the user jump to B in one tap).
   state.raceIdx = Math.max(0, (races.races?.length ?? 1) - 1);
-  const me = getMe();
-  if (me && classFromMe(me)) state.cls = classFromMe(me);
 }
 
 /* ---------- RENDERERS ---------- */
