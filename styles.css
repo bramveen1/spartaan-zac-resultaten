@@ -1,0 +1,636 @@
+/* ============================================================================
+   De Spartaan — race-uitslagen & klassement
+   Design tokens + prototype styles.
+
+   This stylesheet is the visual source of truth. Sam: tokens at the top are the
+   design system for this project. Don't introduce new colors/fonts/radii without
+   pinging Lin — extending the token set is a design decision, not a styling fix.
+   ============================================================================ */
+
+/* ---------- TOKENS ----------
+   Palette sourced from the club logo (assets/logo-spartaan.png):
+   navy = primary brand, orange = secondary/accent. Race-red is reserved as the
+   "you / me" highlight so it stays semantically distinct from the brand — when
+   the user sees red, it means "this is about you" (your row, your pin).
+   --------------------------- */
+:root {
+  /* Brand */
+  --c-navy:      #0A2540;
+  --c-navy-2:    #143055;        /* hover/elevated navy */
+  --c-orange:    #F26522;        /* brand accent — eyebrow, primary CTA, pager focus */
+  --c-orange-2:  #D9531A;        /* hover */
+  --c-red:       #D72638;        /* RESERVED — "this is you" highlights only */
+  --c-red-2:     #B81E2D;
+
+  /* Surface */
+  --c-bg:        #F7F7F9;
+  --c-card:      #FFFFFF;
+  --c-row-alt:   #F3F5F7;
+  --c-me-bg:     #FFEFF1;        /* "this is me" row tint */
+  --c-border:    #E4E7EC;
+  --c-border-2:  #D6DAE2;
+
+  /* Text */
+  --c-text:      #1C2229;
+  --c-muted:     #737B89;
+  --c-on-navy:   #FFFFFF;
+  --c-on-navy-2: #B9C4D4;
+
+  /* Type */
+  --f-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Space (4pt scale) */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+
+  /* Radius */
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-pill: 999px;
+
+  /* Elevation */
+  --e-1: 0 1px 2px rgba(10, 37, 64, 0.06), 0 1px 3px rgba(10, 37, 64, 0.04);
+  --e-2: 0 4px 12px rgba(10, 37, 64, 0.08), 0 2px 4px rgba(10, 37, 64, 0.04);
+  --e-3: 0 18px 48px rgba(10, 37, 64, 0.18), 0 4px 12px rgba(10, 37, 64, 0.08);
+
+  /* Layout */
+  --container: 1180px;
+  --bp-tablet: 720px;
+}
+
+/* ---------- RESET ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--f-sans);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--c-text);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; }
+table { border-collapse: collapse; width: 100%; }
+sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
+
+/* ---------- LAYOUT ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--s-4);
+}
+@media (min-width: 720px) {
+  .container { padding: 0 var(--s-6); }
+}
+
+/* ---------- TOPBAR ---------- */
+.topbar {
+  background: var(--c-navy);
+  color: var(--c-on-navy);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: var(--e-1);
+}
+.topbar__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--s-3) var(--s-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+@media (min-width: 720px) {
+  .topbar__inner { padding: var(--s-4) var(--s-6); }
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+.brand__icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 3px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.brand__text { display: flex; flex-direction: column; min-width: 0; }
+.brand__name { font-weight: 700; font-size: 17px; line-height: 1.1; }
+.brand__tag  { font-size: 12px; color: var(--c-on-navy-2); line-height: 1.2; }
+.topbar__season {
+  font-weight: 500; font-size: 13px;
+  padding: var(--s-1) var(--s-3);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* View tabs — sit inside the topbar visually */
+.viewnav {
+  background: var(--c-navy-2);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.viewnav__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--s-2);
+  display: flex;
+  gap: var(--s-1);
+  overflow-x: auto;
+}
+@media (min-width: 720px) {
+  .viewnav__inner { padding: 0 var(--s-6); }
+}
+.viewnav__tab {
+  background: transparent;
+  border: 0;
+  padding: var(--s-3) var(--s-4);
+  color: var(--c-on-navy-2);
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.viewnav__tab.is-active {
+  color: var(--c-on-navy);
+  border-bottom-color: var(--c-orange);
+}
+.viewnav__tab:hover { color: var(--c-on-navy); }
+
+/* ---------- MOBILE "JOUW POSITIE" CHIP ----------
+   Mobile-only sticky chip that surfaces the pinned rider's current standing.
+   Sits inside .topbar so it scrolls into the sticky stack and stays anchored
+   to the top of the viewport. Hidden on desktop — the standings table itself
+   already keeps the row visible there. JS toggles .is-hidden.
+   ------------------------------------------------ */
+.mepin {
+  background: var(--c-orange);
+  color: #fff;
+  display: none;            /* mobile-only — see breakpoint below */
+}
+.mepin.is-hidden { display: none !important; }
+.mepin__btn {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: var(--s-2) var(--s-4);
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  text-align: left;
+  font-weight: 600;
+}
+.mepin__label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  opacity: 0.85;
+}
+.mepin__pos {
+  font-size: 16px;
+  font-weight: 700;
+}
+.mepin__pos sup { font-size: 0.6em; }
+.mepin__nrm { opacity: 0.85; font-size: 13px; font-weight: 500; margin-left: auto; }
+.mepin__pts { font-size: 13px; font-weight: 500; opacity: 0.95; }
+@media (max-width: 719px) {
+  .mepin:not(.is-hidden) { display: block; }
+}
+
+/* ---------- VIEWS ---------- */
+.view { display: none; padding: var(--s-6) 0 var(--s-7); }
+.view.is-active { display: block; }
+
+.view__head { margin-bottom: var(--s-5); }
+.view__head--race {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.view__title { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; }
+.view__sub   { color: var(--c-muted); font-size: 14px; margin-top: var(--s-1); }
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-orange);
+  margin-bottom: var(--s-1);
+}
+@media (min-width: 720px) {
+  .view { padding: var(--s-7) 0; }
+  .view__title { font-size: 34px; }
+}
+
+/* ---------- CLASS TOGGLE ---------- */
+.classtoggle {
+  display: inline-flex;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  padding: 4px;
+  margin-bottom: var(--s-4);
+  width: 100%;
+  max-width: 360px;
+}
+.classtoggle__opt {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  padding: var(--s-2) var(--s-4);
+  border-radius: var(--r-pill);
+  font-weight: 600; font-size: 14px;
+  color: var(--c-muted);
+}
+.classtoggle__opt.is-active {
+  background: var(--c-navy);
+  color: var(--c-on-navy);
+}
+
+/* ---------- CARD ---------- */
+.card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--e-1);
+  overflow: hidden;
+}
+.card__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--c-border);
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+.card__title { font-size: 16px; font-weight: 600; }
+.card__meta  { color: var(--c-muted); font-size: 13px; }
+
+/* ---------- TABLE (shared) ---------- */
+.table { font-size: 14px; }
+.table thead th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-muted);
+  padding: var(--s-3) var(--s-4);
+  background: var(--c-row-alt);
+  border-bottom: 1px solid var(--c-border);
+}
+.table tbody td {
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: middle;
+}
+.table tbody tr:last-child td { border-bottom: 0; }
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.table .pin { width: 36px; text-align: center; }
+.table tbody tr { cursor: pointer; transition: background 80ms ease; }
+.table tbody tr:hover { background: var(--c-row-alt); }
+
+/* "Me" row — left red rail + tinted bg */
+.table tbody tr.is-me {
+  background: var(--c-me-bg);
+  position: relative;
+}
+.table tbody tr.is-me td:first-child { box-shadow: inset 3px 0 0 var(--c-red); }
+
+/* Standings-specific */
+.table--standings .nr  { color: var(--c-muted); }
+.table--standings .pos { font-weight: 700; }
+.table--standings .pts { font-weight: 700; }
+.table--standings .delta--up   { color: #1B7F3D; font-weight: 600; }
+.table--standings .delta--down { color: var(--c-red); font-weight: 600; }
+.table--standings .delta--flat { color: var(--c-muted); }
+.pin-mark {
+  display: inline-block; width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--c-red);
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+.pin-mark--hollow {
+  background: transparent;
+  color: var(--c-border-2);
+  border: 1.5px solid var(--c-border-2);
+  line-height: 15px;
+}
+
+/* Hide certain columns on small screens */
+.desktop-only { display: none; }
+@media (min-width: 720px) {
+  .desktop-only { display: table-cell; }
+}
+
+/* ---------- LEGEND ---------- */
+.legend {
+  margin-top: var(--s-4);
+  color: var(--c-muted);
+  font-size: 13px;
+  display: flex; align-items: center; gap: var(--s-2);
+}
+.legend__me {
+  display: inline-block; width: 14px; height: 14px;
+  background: var(--c-me-bg);
+  border-left: 3px solid var(--c-red);
+  border-radius: 2px;
+}
+
+/* ---------- RACE GRID (view 2) ---------- */
+.racegrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+}
+@media (min-width: 980px) {
+  .racegrid {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+  }
+}
+.racegrid__side { display: flex; flex-direction: column; gap: var(--s-4); }
+
+/* Race pager */
+.racepager {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  padding: 4px;
+}
+.racepager__btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: var(--c-navy);
+  font-size: 18px; line-height: 1;
+}
+.racepager__btn:hover { background: var(--c-row-alt); }
+.racepager__btn.is-disabled { color: var(--c-border-2); cursor: not-allowed; }
+.racepager__label { font-size: 13px; color: var(--c-muted); padding: 0 var(--s-2); }
+
+/* Movers card */
+.movers { list-style: none; padding: 0; margin: 0; }
+.mover {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-5);
+  border-bottom: 1px solid var(--c-border);
+}
+.mover:last-child { border-bottom: 0; }
+.mover__arrow {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 14px; font-weight: 700;
+  flex-shrink: 0;
+}
+.mover__arrow--up   { background: #E6F4EB; color: #1B7F3D; }
+.mover__arrow--down { background: #FFE7EA; color: var(--c-red); }
+.mover__id { flex: 1; min-width: 0; }
+.mover__name { font-weight: 600; font-size: 14px; }
+.mover__nrm { color: var(--c-muted); font-size: 12px; }
+.mover__shift { font-size: 13px; font-weight: 600; }
+.mover__shift small { color: var(--c-muted); font-weight: 400; }
+.mover.is-me { background: var(--c-me-bg); }
+
+/* Next race card */
+.next { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-4) var(--s-5); }
+.next__date {
+  width: 64px; flex-shrink: 0;
+  background: var(--c-navy);
+  color: var(--c-on-navy);
+  border-radius: var(--r-md);
+  padding: var(--s-2) 0;
+  text-align: center;
+  display: flex; flex-direction: column;
+}
+.next__day { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.7; }
+.next__num { font-size: 22px; font-weight: 700; line-height: 1.1; }
+.next__mon { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.7; }
+.next__name { font-weight: 600; font-size: 14px; }
+.next__loc  { color: var(--c-muted); font-size: 13px; margin-top: 2px; }
+
+/* ---------- RIDER DETAIL (view 3) ---------- */
+.modal-shell { display: flex; justify-content: center; }
+.modal {
+  width: 100%;
+  max-width: 820px;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--e-2);
+  overflow: hidden;
+}
+@media (min-width: 720px) {
+  .modal { box-shadow: var(--e-3); }
+}
+
+.modal__head {
+  background: var(--c-navy);
+  color: var(--c-on-navy);
+  padding: var(--s-5);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+}
+.ridercard { display: flex; align-items: center; gap: var(--s-4); }
+.ridercard__num {
+  font-size: 28px; font-weight: 700;
+  background: var(--c-red);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-md);
+  line-height: 1;
+}
+.ridercard__name { font-size: 22px; font-weight: 700; }
+.ridercard__pos  { color: var(--c-on-navy-2); font-size: 14px; margin-top: 2px; }
+.modal__close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 22px; line-height: 1;
+}
+.modal__close:hover { background: rgba(255,255,255,0.16); }
+
+/* Stats grid */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+}
+@media (min-width: 720px) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+.stat { background: var(--c-card); padding: var(--s-4) var(--s-5); }
+.stat__label { color: var(--c-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+.stat__value { display: block; font-size: 26px; font-weight: 700; margin-top: var(--s-1); }
+.stat__value--up { color: #1B7F3D; }
+.stat__meta  { color: var(--c-muted); font-size: 12px; }
+
+/* History */
+.history__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: var(--s-4) var(--s-5) var(--s-2);
+}
+.history__title { font-size: 15px; font-weight: 600; }
+.history__meta { color: var(--c-muted); font-size: 13px; }
+.table--history tbody tr.is-dns { color: var(--c-muted); font-style: italic; }
+.table--history tbody tr.is-dns .num { color: var(--c-muted); }
+
+/* Modal footer */
+.modal__foot {
+  padding: var(--s-4) var(--s-5);
+  border-top: 1px solid var(--c-border);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  background: var(--c-row-alt);
+  flex-wrap: wrap;
+}
+.btn {
+  border: 0;
+  padding: var(--s-3) var(--s-5);
+  border-radius: var(--r-md);
+  font-weight: 600; font-size: 14px;
+  display: inline-flex; align-items: center; gap: var(--s-2);
+}
+.btn--primary { background: var(--c-orange); color: #fff; }
+.btn--primary:hover { background: var(--c-orange-2); }
+.btn--primary.is-pinned { background: var(--c-navy); }
+.btn--ghost   { background: transparent; color: var(--c-navy); }
+.btn--ghost:hover { background: var(--c-border); }
+.btn__icon { font-size: 16px; }
+
+/* ---------- FOOTER ---------- */
+.sitefoot {
+  margin-top: var(--s-8);
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--c-border);
+  background: #fff;
+}
+.sitefoot__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+  align-items: center;
+}
+@media (min-width: 720px) {
+  .sitefoot__inner {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--s-5);
+  }
+}
+.sitefoot__brand img { display: block; max-width: 180px; height: auto; }
+.sitefoot p { color: var(--c-muted); font-size: 13px; margin: 0; }
+.sitefoot a { color: var(--c-navy); }
+.sitefoot__build { font-variant-numeric: tabular-nums; text-align: left; }
+@media (min-width: 720px) {
+  .sitefoot__build { text-align: right; }
+}
+
+/* ============================================================================
+   MOBILE OVERRIDES (<720px)
+   This block is where the wireframe-faithful mobile design lives:
+   - tighter type scale + reduced card padding (more rows above the fold)
+   - bottom-sheet rider detail with a drag-handle affordance
+   - "row" pattern for standings — single cell content (no awkward columns)
+   - sticky #mepin chip surfaces "where am I in the field" at all times
+   ============================================================================ */
+@media (max-width: 719px) {
+  body { font-size: 14px; }
+
+  /* Topbar collapses tagline to keep the bar single-line */
+  .brand__tag { display: none; }
+  .brand__name { font-size: 16px; }
+  .topbar__inner { padding: var(--s-2) var(--s-4); }
+  .topbar__season { font-size: 12px; padding: 2px var(--s-2); }
+
+  .view { padding: var(--s-4) 0 var(--s-6); }
+  .view__title { font-size: 22px; }
+  .view__sub   { font-size: 13px; }
+  .view__head  { margin-bottom: var(--s-4); }
+  .view__head--race { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .racepager { align-self: stretch; justify-content: space-between; width: 100%; }
+  .racepager__label { flex: 1; text-align: center; }
+
+  .card__head { padding: var(--s-3) var(--s-4); }
+  .card__title { font-size: 15px; }
+  .card__meta  { font-size: 12px; }
+
+  /* Mobile tables — denser, columns trimmed to the essentials */
+  .table { font-size: 13px; }
+  .table thead th { padding: var(--s-2) var(--s-3); font-size: 11px; }
+  .table tbody td { padding: var(--s-3) var(--s-3); }
+
+  /* Standings: drop the Nr. column on mobile — name + position + points is enough,
+     start number stays accessible via rider detail. */
+  .table--standings th:nth-child(2),
+  .table--standings td:nth-child(2) { display: none; }
+
+  /* Race-night: drop Ronden column (covered by "+1 ronde" suffix in time) */
+  .table--race th:nth-child(4),
+  .table--race td:nth-child(4) { display: none; }
+
+  /* Rider history: drop Ronden + raw Tijd on mobile — position + points carry the answer */
+  .table--history th:nth-child(4),
+  .table--history td:nth-child(4),
+  .table--history th:nth-child(5),
+  .table--history td:nth-child(5) { display: none; }
+
+  /* Bigger tap targets — rows act like buttons on mobile */
+  .table tbody tr { min-height: 44px; }
+
+  /* Race-night: movers card sits ABOVE the results table on mobile —
+     the "did my standing change?" answer should appear before the field list. */
+  .racegrid { gap: var(--s-4); }
+  .racegrid__side { order: -1; }
+  .next__date { width: 56px; }
+
+  /* Class toggle — full-width on mobile, larger tap target */
+  .classtoggle { max-width: none; }
+  .classtoggle__opt { padding: var(--s-3) var(--s-4); }
+
+  /* Bottom-sheet rider detail */
+  #rider .container { padding: 0; }
+  #rider .modal {
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    min-height: calc(100vh - 120px);
+    border-left: 0; border-right: 0; border-bottom: 0;
+    max-width: none;
+  }
+  /* Drag handle pseudo-element above the rider header */
+  #rider .modal::before {
+    content: "";
+    display: block;
+    width: 44px; height: 4px;
+    margin: var(--s-2) auto var(--s-1);
+    border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.32);
+  }
+  .modal__head { padding: var(--s-3) var(--s-4) var(--s-4); }
+  .ridercard__num { font-size: 20px; padding: var(--s-1) var(--s-2); }
+  .ridercard__name { font-size: 17px; }
+  .ridercard__pos { font-size: 13px; }
+  .stat { padding: var(--s-3) var(--s-4); }
+  .stat__label { font-size: 11px; }
+  .stat__value { font-size: 20px; }
+  .stat__meta { font-size: 11px; }
+  .modal__foot { padding: var(--s-3) var(--s-4); }
+  .modal__foot .btn { flex: 1; justify-content: center; }
+
+  .legend { font-size: 12px; }
+}

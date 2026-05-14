@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>De Spartaan — Race-uitslagen & klassement</title>
+  <meta name="description" content="Wekelijkse uitslagen en seizoenstand van de Spartaan zomeravondcompetitie." />
+  <link rel="icon" type="image/png" href="assets/icon-spartaan.png" />
+  <link rel="apple-touch-icon" href="assets/icon-spartaan.png" />
+  <meta name="theme-color" content="#0A2540" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!--
+    DESIGN PROTOTYPE — first commit of the production codebase.
+    This file is the visual source of truth for Sam. It is intentionally vanilla HTML/CSS/JS,
+    not a framework, so the structure stays close to what ships. Real data wiring (Sporthive CSV
+    parsing, points/standings computation) is out of scope for this PR — sample data is hardcoded
+    in prototype.js to make the screens reviewable.
+
+    See mobile-preview.html for a side-by-side mobile review surface (390px iPhone frames).
+  -->
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#standings" aria-label="De Spartaan — naar het klassement">
+        <img class="brand__icon" src="assets/icon-spartaan.png" alt="" width="40" height="40" />
+        <span class="brand__text">
+          <span class="brand__name">De Spartaan</span>
+          <span class="brand__tag">Race-uitslagen &amp; klassement</span>
+        </span>
+      </a>
+      <span class="topbar__season">Zomer 2026</span>
+    </div>
+    <nav class="viewnav" aria-label="Weergave">
+      <div class="viewnav__inner">
+        <button class="viewnav__tab is-active" data-view="standings" type="button">Klassement</button>
+        <button class="viewnav__tab" data-view="race" type="button">Race-avond</button>
+        <button class="viewnav__tab" data-view="rider" type="button">Renner #47</button>
+      </div>
+    </nav>
+
+    <!--
+      Mobile-only sticky "Jouw positie" chip. Renders only when a rider is pinned
+      via localStorage. Tap → scrolls to the user's row in the standings table.
+      This is the mobile-specific pattern from the wireframes: keep the user's
+      answer to "where am I?" visible while they scroll the field.
+    -->
+    <div class="mepin is-hidden" id="mepin" role="status" aria-live="polite">
+      <button class="mepin__btn" type="button" id="mepin-jump">
+        <span class="mepin__label">Jouw positie</span>
+        <span class="mepin__pos" id="mepin-pos">—</span>
+        <span class="mepin__nrm" id="mepin-nrm">#—</span>
+        <span class="mepin__pts" id="mepin-pts">— pnt</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========================= VIEW 1 — STANDINGS ========================= -->
+    <section id="standings" class="view is-active" aria-labelledby="standings-title">
+      <div class="container">
+        <div class="view__head">
+          <h1 id="standings-title" class="view__title">Klassement</h1>
+          <p class="view__sub">Na 8 van 26 races · bijgewerkt 14 mei 21:47</p>
+        </div>
+
+        <div class="classtoggle" role="tablist" aria-label="Klasse">
+          <button class="classtoggle__opt is-active" role="tab" aria-selected="true" data-class="A" type="button">Klasse A</button>
+          <button class="classtoggle__opt" role="tab" aria-selected="false" data-class="B" type="button">Klasse B</button>
+        </div>
+
+        <div class="card">
+          <table class="table table--standings">
+            <thead>
+              <tr>
+                <th scope="col" class="num">#</th>
+                <th scope="col" class="num">Nr.</th>
+                <th scope="col">Renner</th>
+                <th scope="col" class="num">Punten</th>
+                <th scope="col" class="num desktop-only">Laatste race</th>
+                <th scope="col" class="num desktop-only">Achterstand</th>
+                <th scope="col" class="pin" aria-label="Vastgepind"></th>
+              </tr>
+            </thead>
+            <tbody id="standings-body"><!-- rendered by prototype.js --></tbody>
+          </table>
+        </div>
+
+        <p class="legend">
+          Tik op een renner om je eigen positie vast te pinnen. <span class="legend__me"></span> = jij.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================= VIEW 2 — RACE NIGHT ========================= -->
+    <section id="race" class="view" aria-labelledby="race-title">
+      <div class="container">
+        <div class="view__head view__head--race">
+          <div>
+            <p class="eyebrow">Race 8 · woensdag 14 mei · Klasse A</p>
+            <h1 id="race-title" class="view__title">Race-avond</h1>
+          </div>
+          <div class="racepager" aria-label="Race navigatie">
+            <button class="racepager__btn" type="button" aria-label="Vorige race">‹</button>
+            <span class="racepager__label">Race <strong>8</strong> / 26</span>
+            <button class="racepager__btn is-disabled" type="button" aria-label="Volgende race" disabled>›</button>
+          </div>
+        </div>
+
+        <div class="racegrid">
+          <div class="racegrid__main">
+            <div class="card">
+              <header class="card__head">
+                <h2 class="card__title">Uitslag</h2>
+                <span class="card__meta">18 ronden · 42:18 winnaar · 14 finishers</span>
+              </header>
+              <table class="table table--race">
+                <thead>
+                  <tr>
+                    <th scope="col" class="num">Pos.</th>
+                    <th scope="col" class="num">Nr.</th>
+                    <th scope="col">Renner</th>
+                    <th scope="col" class="num">Ronden</th>
+                    <th scope="col" class="num">Tijd</th>
+                    <th scope="col" class="num">Punten</th>
+                  </tr>
+                </thead>
+                <tbody id="race-body"><!-- rendered by prototype.js --></tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="racegrid__side">
+            <!--
+              "Invloed op de stand" card — design call flagged to Bram as cuttable.
+              Logic: the 2–3 riders with the biggest position shift in the season standing
+              this race. Pays off the <10s "did my position change?" question without
+              requiring the user to compare two screens.
+            -->
+            <div class="card card--movers">
+              <header class="card__head">
+                <h2 class="card__title">Invloed op de stand</h2>
+                <span class="card__meta">Grootste stijgers &amp; dalers na deze race</span>
+              </header>
+              <ul class="movers" id="movers-body"><!-- rendered by prototype.js --></ul>
+            </div>
+
+            <div class="card card--next">
+              <header class="card__head">
+                <h2 class="card__title">Volgende race</h2>
+              </header>
+              <div class="next">
+                <div class="next__date">
+                  <span class="next__day">Wo</span>
+                  <span class="next__num">21</span>
+                  <span class="next__mon">mei</span>
+                </div>
+                <div class="next__meta">
+                  <p class="next__name">Race 9 — Zomeravondcompetitie</p>
+                  <p class="next__loc">Sloterparkbaan · 19:30 inschrijven · 20:00 start</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= VIEW 3 — RIDER DETAIL ========================= -->
+    <!--
+      On desktop this renders as a modal-over-standings. On mobile it renders as a
+      full-height bottom sheet, matching the Figma wireframe. The same DOM is used —
+      CSS handles the surface change at the 720px breakpoint.
+    -->
+    <section id="rider" class="view" aria-labelledby="rider-title">
+      <div class="container">
+        <div class="modal-shell">
+          <div class="modal" role="dialog" aria-modal="false" aria-labelledby="rider-title">
+            <header class="modal__head">
+              <div class="ridercard">
+                <span class="ridercard__num">#47</span>
+                <div class="ridercard__id">
+                  <h1 id="rider-title" class="ridercard__name">Bram Veenhof</h1>
+                  <p class="ridercard__pos">4<sup>e</sup> in Klasse A · 154 pnt</p>
+                </div>
+              </div>
+              <button class="modal__close" type="button" aria-label="Sluiten" data-close-rider>×</button>
+            </header>
+
+            <div class="stats">
+              <div class="stat">
+                <span class="stat__label">Beste finish</span>
+                <span class="stat__value">2<sup>e</sup></span>
+                <span class="stat__meta">Race 8 · vanavond</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">Gem. punten</span>
+                <span class="stat__value">17,6</span>
+                <span class="stat__meta">over 7 starts</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">Starts</span>
+                <span class="stat__value">7 / 8</span>
+                <span class="stat__meta">1 DNS</span>
+              </div>
+              <div class="stat">
+                <span class="stat__label">Trend</span>
+                <span class="stat__value stat__value--up">↑ 3</span>
+                <span class="stat__meta">vs vorige race</span>
+              </div>
+            </div>
+
+            <section class="history">
+              <header class="history__head">
+                <h2 class="history__title">Race-historie</h2>
+                <span class="history__meta">Zomer 2026</span>
+              </header>
+              <table class="table table--history">
+                <thead>
+                  <tr>
+                    <th scope="col" class="num">Race</th>
+                    <th scope="col">Datum</th>
+                    <th scope="col" class="num">Positie</th>
+                    <th scope="col" class="num">Ronden</th>
+                    <th scope="col" class="num">Tijd</th>
+                    <th scope="col" class="num">Punten</th>
+                  </tr>
+                </thead>
+                <tbody id="rider-body"><!-- rendered by prototype.js --></tbody>
+              </table>
+            </section>
+
+            <footer class="modal__foot">
+              <button class="btn btn--ghost" type="button" data-close-rider>Terug naar klassement</button>
+              <button class="btn btn--primary" type="button" id="pin-toggle">
+                <span class="btn__icon" aria-hidden="true">★</span>
+                <span class="btn__label">Vastpinnen als mij</span>
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sitefoot">
+    <div class="container sitefoot__inner">
+      <div class="sitefoot__brand">
+        <img src="assets/logo-spartaan.png" alt="Rijswijkse Wielrenvereniging De Spartaan" width="180" height="45" />
+      </div>
+      <p>Wedstrijden &amp; tijden via <a href="https://sporthive.com" rel="noopener">Sporthive</a>. Punten en stand berekend volgens reglement Spartaan zomeravondcompetitie.</p>
+      <p class="sitefoot__build">Prototype · ontwerp v0.2 · 14 mei 2026</p>
+    </div>
+  </footer>
+
+  <script src="prototype.js" defer></script>
+</body>
+</html>
