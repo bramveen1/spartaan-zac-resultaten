@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>De Spartaan — Race-uitslagen & klassement</title>
   <meta name="description" content="Wekelijkse uitslagen en seizoenstand van de Spartaan zomeravondcompetitie." />
+  <link rel="icon" type="image/png" href="assets/icon-spartaan.png" />
+  <link rel="apple-touch-icon" href="assets/icon-spartaan.png" />
+  <meta name="theme-color" content="#0A2540" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
@@ -17,12 +20,14 @@
     not a framework, so the structure stays close to what ships. Real data wiring (Sporthive CSV
     parsing, points/standings computation) is out of scope for this PR — sample data is hardcoded
     in prototype.js to make the screens reviewable.
+
+    See mobile-preview.html for a side-by-side mobile review surface (390px iPhone frames).
   -->
 
   <header class="topbar">
     <div class="topbar__inner">
-      <a class="brand" href="#standings" aria-label="De Spartaan home">
-        <span class="brand__mark" aria-hidden="true">DS</span>
+      <a class="brand" href="#standings" aria-label="De Spartaan — naar het klassement">
+        <img class="brand__icon" src="assets/icon-spartaan.png" alt="" width="40" height="40" />
         <span class="brand__text">
           <span class="brand__name">De Spartaan</span>
           <span class="brand__tag">Race-uitslagen &amp; klassement</span>
@@ -37,6 +42,21 @@
         <button class="viewnav__tab" data-view="rider" type="button">Renner #47</button>
       </div>
     </nav>
+
+    <!--
+      Mobile-only sticky "Jouw positie" chip. Renders only when a rider is pinned
+      via localStorage. Tap → scrolls to the user's row in the standings table.
+      This is the mobile-specific pattern from the wireframes: keep the user's
+      answer to "where am I?" visible while they scroll the field.
+    -->
+    <div class="mepin is-hidden" id="mepin" role="status" aria-live="polite">
+      <button class="mepin__btn" type="button" id="mepin-jump">
+        <span class="mepin__label">Jouw positie</span>
+        <span class="mepin__pos" id="mepin-pos">—</span>
+        <span class="mepin__nrm" id="mepin-nrm">#—</span>
+        <span class="mepin__pts" id="mepin-pts">— pnt</span>
+      </button>
+    </div>
   </header>
 
   <main>
@@ -231,8 +251,11 @@
 
   <footer class="sitefoot">
     <div class="container sitefoot__inner">
+      <div class="sitefoot__brand">
+        <img src="assets/logo-spartaan.png" alt="Rijswijkse Wielrenvereniging De Spartaan" width="180" height="45" />
+      </div>
       <p>Wedstrijden &amp; tijden via <a href="https://sporthive.com" rel="noopener">Sporthive</a>. Punten en stand berekend volgens reglement Spartaan zomeravondcompetitie.</p>
-      <p class="sitefoot__build">Prototype · ontwerp v0.1 · 14 mei 2026</p>
+      <p class="sitefoot__build">Prototype · ontwerp v0.2 · 14 mei 2026</p>
     </div>
   </footer>
 

@@ -86,7 +86,7 @@ function renderStandings() {
     const deltaCls = row.lastPts >= 18 ? "delta--up" : row.lastPts >= 10 ? "delta--flat" : "delta--down";
     const deltaPrefix = row.lastPts >= 18 ? "+" : "";
     return `
-      <tr class="${isMe ? "is-me" : ""}" data-nr="${row.nr}">
+      <tr class="${isMe ? "is-me" : ""}" data-nr="${row.nr}" id="row-${row.nr}">
         <td class="num pos">${row.pos}</td>
         <td class="num nr">#${row.nr}</td>
         <td>${row.name}</td>
@@ -97,6 +97,20 @@ function renderStandings() {
       </tr>
     `;
   }).join("");
+}
+
+/* Mobile "Jouw positie" chip — renders only when a rider is pinned.
+   Tap → switches to standings view and scrolls to the user's row. */
+function renderMePin() {
+  const me = getMe();
+  const el = document.getElementById("mepin");
+  if (!el) return;
+  const row = STANDINGS_A.find(r => String(r.nr) === me);
+  if (!row) { el.classList.add("is-hidden"); return; }
+  el.classList.remove("is-hidden");
+  document.getElementById("mepin-pos").innerHTML = `${row.pos}<sup>e</sup>`;
+  document.getElementById("mepin-nrm").textContent = `#${row.nr}`;
+  document.getElementById("mepin-pts").textContent = `${row.pts} pnt`;
 }
 
 function renderRace() {
@@ -165,6 +179,7 @@ function renderAll() {
   renderStandings();
   renderRace();
   renderRider();
+  renderMePin();
 }
 
 /* ---------- VIEW SWITCHING ---------- */
@@ -198,23 +213,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Tap a row → open rider detail (only the "me" row navigates in prototype; in
-  // production every row will deep-link to that rider).
+  // Tap a row → open rider detail. In the prototype only #47 has full data wired,
+  // so tapping any other row currently still routes to #47's detail screen so the
+  // sheet is reviewable. In production every row will deep-link to that rider.
   document.getElementById("standings-body").addEventListener("click", (e) => {
     const tr = e.target.closest("tr[data-nr]");
     if (!tr) return;
-    if (tr.dataset.nr === "47") switchView("rider");
+    switchView("rider");
   });
   document.getElementById("race-body").addEventListener("click", (e) => {
     const tr = e.target.closest("tr[data-nr]");
     if (!tr) return;
-    if (tr.dataset.nr === "47") switchView("rider");
+    switchView("rider");
   });
 
   // Close rider detail → back to standings
   document.querySelectorAll("[data-close-rider]").forEach(btn => {
     btn.addEventListener("click", () => switchView("standings"));
   });
+
+  // Mobile "Jouw positie" chip → jump to your row in standings
+  const mepinJump = document.getElementById("mepin-jump");
+  if (mepinJump) {
+    mepinJump.addEventListener("click", () => {
+      switchView("standings");
+      const me = getMe();
+      const row = document.getElementById(`row-${me}`);
+      if (row) {
+        // Wait a frame so the standings view is visible before scrolling
+        requestAnimationFrame(() => {
+          row.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+    });
+  }
 
   // Pin toggle
   const pinBtn = document.getElementById("pin-toggle");
