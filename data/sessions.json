@@ -1,0 +1,13 @@
+{
+  "season": "Zomer 2026",
+  "racesTotal": 26,
+  "sessions": [
+    { "n": 1, "sessionId": 11869003, "date": "2026-03-31" },
+    { "n": 2, "sessionId": 11899083, "date": "2026-04-07" },
+    { "n": 3, "sessionId": 11933451, "date": "2026-04-14" },
+    { "n": 4, "sessionId": 11970948, "date": "2026-04-21" },
+    { "n": 5, "sessionId": 12007401, "date": "2026-04-28" },
+    { "n": 6, "sessionId": 12046701, "date": "2026-05-05" },
+    { "n": 7, "sessionId": 12086232, "date": "2026-05-12" }
+  ]
+}

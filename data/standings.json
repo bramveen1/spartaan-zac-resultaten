@@ -1,0 +1,332 @@
+{
+  "season": "Zomer 2026",
+  "racesCompleted": 1,
+  "racesTotal": 26,
+  "updatedAt": "2026-05-14T13:37:29.662Z",
+  "classes": {
+    "A": [
+      {
+        "pos": 1,
+        "nr": 26,
+        "name": "Daan Hogenelst",
+        "pts": 25,
+        "lastPts": 25,
+        "starts": 1,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 77,
+        "name": "Tijn Voerman",
+        "pts": 23,
+        "lastPts": 23,
+        "starts": 1,
+        "gap": 2,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 12,
+        "name": "David van Aalst",
+        "pts": 21,
+        "lastPts": 21,
+        "starts": 1,
+        "gap": 4,
+        "joint": false
+      },
+      {
+        "pos": 4,
+        "nr": 20,
+        "name": "Robin Schoew",
+        "pts": 19,
+        "lastPts": 19,
+        "starts": 1,
+        "gap": 6,
+        "joint": false
+      },
+      {
+        "pos": 5,
+        "nr": 16,
+        "name": "Peter Fils",
+        "pts": 17,
+        "lastPts": 17,
+        "starts": 1,
+        "gap": 8,
+        "joint": false
+      },
+      {
+        "pos": 6,
+        "nr": 14,
+        "name": "Tim Bennis",
+        "pts": 15,
+        "lastPts": 15,
+        "starts": 1,
+        "gap": 10,
+        "joint": false
+      },
+      {
+        "pos": 7,
+        "nr": 6,
+        "name": "Teun Berkhout",
+        "pts": 14,
+        "lastPts": 14,
+        "starts": 1,
+        "gap": 11,
+        "joint": false
+      },
+      {
+        "pos": 8,
+        "nr": 23,
+        "name": "Joost te Braake",
+        "pts": 13,
+        "lastPts": 13,
+        "starts": 1,
+        "gap": 12,
+        "joint": false
+      },
+      {
+        "pos": 9,
+        "nr": 11,
+        "name": "Niels van Vliet",
+        "pts": 12,
+        "lastPts": 12,
+        "starts": 1,
+        "gap": 13,
+        "joint": false
+      },
+      {
+        "pos": 10,
+        "nr": 21,
+        "name": "Erik de Niet",
+        "pts": 11,
+        "lastPts": 11,
+        "starts": 1,
+        "gap": 14,
+        "joint": false
+      },
+      {
+        "pos": 11,
+        "nr": 7,
+        "name": "Caiden Jeurissen",
+        "pts": 10,
+        "lastPts": 10,
+        "starts": 1,
+        "gap": 15,
+        "joint": false
+      },
+      {
+        "pos": 12,
+        "nr": 79,
+        "name": "Maurits Oskam",
+        "pts": 9,
+        "lastPts": 9,
+        "starts": 1,
+        "gap": 16,
+        "joint": false
+      },
+      {
+        "pos": 13,
+        "nr": 15,
+        "name": "Mathijs Bodde",
+        "pts": 8,
+        "lastPts": 8,
+        "starts": 1,
+        "gap": 17,
+        "joint": false
+      },
+      {
+        "pos": 14,
+        "nr": 35,
+        "name": "Ernst Fidom",
+        "pts": 7,
+        "lastPts": 7,
+        "starts": 1,
+        "gap": 18,
+        "joint": false
+      },
+      {
+        "pos": 15,
+        "nr": 24,
+        "name": "Joost Slingerland",
+        "pts": 6,
+        "lastPts": 6,
+        "starts": 1,
+        "gap": 19,
+        "joint": false
+      },
+      {
+        "pos": 16,
+        "nr": 28,
+        "name": "Jan Gudde",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 17,
+        "nr": 1,
+        "name": "Guido Smit",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 18,
+        "nr": 2,
+        "name": "Dennis van der Velden",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 19,
+        "nr": 76,
+        "name": "Erik van Trigt",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 20,
+        "nr": 10,
+        "name": "Hans Meerbeek",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 21,
+        "nr": 9,
+        "name": "Sander Huisson",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 22,
+        "nr": 5,
+        "name": "Rob uit de Bosch",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 23,
+        "nr": 27,
+        "name": "Jianhao Wu",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 24,
+        "nr": 78,
+        "name": "Kees van Prooijen",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 25,
+        "nr": 22,
+        "name": "Jaco de Hoog",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 26,
+        "nr": 4,
+        "name": "Marc Plönes",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 27,
+        "nr": 19,
+        "name": "Maxim Harteloh",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 28,
+        "nr": 29,
+        "name": "Richard Schouten",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      },
+      {
+        "pos": 29,
+        "nr": 17,
+        "name": "Juul Hubert",
+        "pts": 5,
+        "lastPts": 5,
+        "starts": 1,
+        "gap": 20,
+        "joint": false
+      }
+    ],
+    "B": [
+      {
+        "pos": 1,
+        "nr": 7,
+        "name": "Sijmen Kwakkel",
+        "pts": 25,
+        "lastPts": 25,
+        "starts": 1,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 2,
+        "name": "Oskar Loman",
+        "pts": 23,
+        "lastPts": 23,
+        "starts": 1,
+        "gap": 2,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 30,
+        "name": "Niels Levelt",
+        "pts": 21,
+        "lastPts": 21,
+        "starts": 1,
+        "gap": 4,
+        "joint": false
+      }
+    ]
+  }
+}
