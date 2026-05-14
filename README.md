@@ -2,40 +2,127 @@
 
 Uitslagen en standen van de Spartaan zomeravondcompetitie.
 
-## What's in this repo right now
+Live site: **https://bramveen1.github.io/spartaan-zac-resultaten/** (na inschakelen van GitHub Pages).
 
-This is the **first commit of the production codebase**, currently containing the design prototype (`index.html` + `styles.css` + `prototype.js`).
+## How the pipeline works
 
-- It is a single-page, three-view static site: **Klassement** (standings landing), **Race-avond** (race-night results), **Renner-detail** (rider detail).
-- It is responsive — desktop ≥ 720px, mobile-first below — and the same DOM serves both surfaces.
-- Sample data is hardcoded in `prototype.js` so the screens are reviewable. The real Sporthive CSV ingestion and points/standings computation are out of scope for the prototype.
+```
+Speedhive CSV ──► GitHub Action (cron, Node 20) ──writes──► data/*.json ──commits──► main
+                                                                                       │
+                                                                                       ▼
+                                                                                GitHub Pages
+                                                                                (vanilla HTML
+                                                                                 reads JSON)
+```
 
-This file is the visual source of truth: the colours, type, layout, spacing, and components defined here are the design system for the project. Tokens live at the top of `styles.css`.
+A scheduled (and manually triggerable) GitHub Action fetches each race's CSV
+from the Speedhive API, runs `scripts/build-standings.mjs` to compute points
+and class standings, and commits `data/standings.json` + `data/races.json` to
+`main` — but only when the content actually changes. GitHub Pages serves the
+static site straight from `main`; the frontend (`index.html` + `prototype.js`)
+loads the JSON at page load. No backend, no database.
 
-## How to preview
+## Repo layout
 
-**Local:** open `index.html` directly in a browser — no build, no server required.
+```
+data/
+  sessions.json       hand-curated list of race nights (one entry per race)
+  standings.json      computed — per-class season standings
+  races.json          computed — per-race results + movers
+  raw/                cached Speedhive CSVs (committed for offline replay)
+scripts/
+  build-standings.mjs pure scoring function (no I/O — unit-tested)
+  build-standings.test.mjs
+  fetch-and-build.mjs CLI: fetches CSVs, runs build, writes JSON
+  fixtures/           CSV fixtures for tests
+.github/workflows/
+  update-standings.yml cron + workflow_dispatch trigger
+index.html, prototype.js, styles.css, assets/  the public site
+```
 
-**Hosted preview:** once GitHub Pages is enabled on `main`, the site will be served at:
-`https://bramveen1.github.io/spartaan-zac-resultaten/`
+## Adding a new race after race night
+
+1. Open the new race's session page on Sporthive (e.g. `https://sporthive.com/sessions/12086232`).
+2. Copy the session ID from the URL.
+3. Edit [`data/sessions.json`](data/sessions.json) (via the GitHub web editor is fine) — append one entry:
+   ```json
+   { "n": 8, "sessionId": 12345678, "date": "2026-05-19" }
+   ```
+4. Commit to `main`. The next cron run (or a manual rerun, see below) picks it up.
+
+That's the entire human workflow per race. ~30 seconds.
+
+## Manually re-running the pipeline
+
+Actions → **Update standings** → **Run workflow**. Useful if you just added a
+session ID and don't want to wait for the next cron tick.
+
+## Scoring rules (from PRD)
+
+| Position | Points |   | Position | Points |
+|----------|--------|---|----------|--------|
+| 1 | 25 |   | 9  | 12 |
+| 2 | 23 |   | 10 | 11 |
+| 3 | 21 |   | 11 | 10 |
+| 4 | 19 |   | 12 |  9 |
+| 5 | 17 |   | 13 |  8 |
+| 6 | 15 |   | 14 |  7 |
+| 7 | 14 |   | 15 |  6 |
+| 8 | 13 |   | 16+|  5 |
+
+- Season total = simple sum across all races. No drop-worst-N.
+- Completed ≥1 lap (incl. DNF) counts and earns at least 5 points.
+- 0 laps / DNS = no result, 0 points.
+- Tiebreaker: head-to-head wins across the season. Still tied → joint position.
+- Rider identity = `(class, start number)`. A→B class switch starts a new identity.
+
+The Speedhive CSV mixes both classes (sorted by global total time); the build
+script splits by class and re-ranks each class from 1.
+
+## Local development
+
+The site uses `fetch('data/standings.json')`, so opening `index.html` over
+`file://` triggers CORS. Use any static server:
+
+```bash
+python3 -m http.server 8080
+# → http://localhost:8080
+```
+
+Run the tests:
+
+```bash
+node --test scripts/build-standings.test.mjs
+```
+
+Re-run the build offline against committed `data/raw/` CSVs:
+
+```bash
+node scripts/fetch-and-build.mjs --offline
+```
+
+Or live (hits Speedhive):
+
+```bash
+node scripts/fetch-and-build.mjs
+```
 
 ## Tap-to-pin
 
-Tapping the **Vastpinnen** button on the rider detail screen stores the rider's start number in `localStorage` under the key `despartaan.me`. Pinned rider is highlighted with a red rail across all three views. Default in the prototype is rider `#47`.
+Tapping a row in the standings opens that rider's detail view; tapping
+**Vastpinnen** stores `<class>:<startNumber>` in `localStorage` under the key
+`despartaan.me`. The pinned rider is highlighted across all three views and
+appears in the sticky "Jouw positie" chip on mobile.
 
-## Out of scope for the prototype
+## Out of scope
 
-Documented here so they aren't accidentally added during review:
-- Admin UI, login, accounts
-- Past-season archive
-- Push notifications
-- Cross-class combined standing
-- Live Sporthive ingestion (deliberately mocked)
-
-These are deferred by the PRD; raise with Dave before reopening.
+Per PRD: no admin UI, no auth, no past-season archive, no push notifications,
+no cross-class combined standing, no Sporthive auto-discovery. Raise with Dave
+before reopening any of these.
 
 ## Roles
 
-- **Lin** — design (this prototype, design tokens, component patterns)
-- **Sam** — build (replace sample data with real Sporthive ingestion, deploy)
-- **Dave** — PRD, scope, prioritisation
+- **Lin** — design (visual prototype, tokens, components on `main`)
+- **Sam** — build (data pipeline, deploy)
+- **Dave** — PRD, scope
+- **Bram** — owner, adds session IDs after each race
