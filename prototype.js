@@ -211,6 +211,15 @@ function renderRace() {
     const s = cls.stats;
     meta.textContent = `${s.laps ?? 0} ronden · ${s.winnerTime ?? "—"} winnaar · ${s.finishers ?? 0} finishers`;
   }
+  const sourceLink = document.getElementById("race-source-link");
+  if (sourceLink) {
+    if (race.sessionId) {
+      sourceLink.href = `https://sporthive.com/sessions/${race.sessionId}#byclass`;
+      sourceLink.hidden = false;
+    } else {
+      sourceLink.hidden = true;
+    }
+  }
 
   // Results table
   const body = document.getElementById("race-body");
