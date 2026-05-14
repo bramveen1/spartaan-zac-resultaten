@@ -134,18 +134,19 @@ export function buildStandings(racesByClass) {
     const riders = new Map();
     races.forEach((race, raceIdx) => {
       for (const r of race) {
-        const cur = riders.get(r.nr) ?? {
+        if (!r.name) continue; // skip nameless rows defensively
+        const cur = riders.get(r.name) ?? {
           nr: r.nr,
           name: r.name,
           pts: 0,
           starts: 0,
           results: [],
         };
-        cur.name = r.name;
+        cur.nr = r.nr; // latest start number for display (numbers can change mid-season)
         cur.pts += r.pts;
         cur.starts += 1;
         cur.results.push({ raceIdx, pos: r.pos, pts: r.pts });
-        riders.set(r.nr, cur);
+        riders.set(r.name, cur);
       }
     });
 
@@ -244,12 +245,12 @@ export function build(sessions) {
   const moversByRace = parsedRaces.map((race, i) => {
     const out = { A: [], B: [] };
     for (const cls of ["A", "B"]) {
-      const before = new Map(standingsBefore[i][cls].map((r) => [r.nr, r.pos]));
+      const before = new Map(standingsBefore[i][cls].map((r) => [r.name, r.pos]));
       const after = standingsAfter[i][cls];
       const shifts = after
         .map((r) => {
-          const from = before.get(r.nr);
-          const raceRow = race.classes[cls].find((x) => x.nr === r.nr);
+          const from = before.get(r.name);
+          const raceRow = race.classes[cls].find((x) => x.name === r.name);
           return {
             nr: r.nr,
             name: r.name,

@@ -74,7 +74,10 @@ session ID and don't want to wait for the next cron tick.
 - Completed ≥1 lap (incl. DNF) counts and earns at least 5 points.
 - 0 laps / DNS = no result, 0 points.
 - Tiebreaker: head-to-head wins across the season. Still tied → joint position.
-- Rider identity = `(class, start number)`. A→B class switch starts a new identity.
+- Rider identity = `(class, name)`. Start numbers turn out **not** to be unique
+  in real data — multiple riders can share a number across the season, and one
+  rider's number can change mid-season — so we key by name within a class. The
+  display `#nr` follows the rider's most recent race.
 
 The Speedhive CSV mixes both classes (sorted by global total time); the build
 script splits by class and re-ranks each class from 1.
