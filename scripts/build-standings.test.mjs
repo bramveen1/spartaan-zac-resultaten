@@ -178,6 +178,37 @@ test("buildStandings: class split — A and B are isolated even with same start 
   assert.notEqual(s.A[0], s.B[0]);
 });
 
+test("buildStandings: same start number, different names → separate riders", () => {
+  // Start numbers turn out NOT to be unique in real data — identity is by name.
+  const races = {
+    A: [
+      [
+        { pos: 1, nr: 7, name: "Alice", pts: 25 },
+        { pos: 2, nr: 7, name: "Bob", pts: 23 },
+      ],
+    ],
+    B: [],
+  };
+  const s = buildStandings(races);
+  assert.equal(s.A.length, 2, "two distinct riders despite shared start number");
+  assert.equal(s.A.find((r) => r.name === "Alice").pts, 25);
+  assert.equal(s.A.find((r) => r.name === "Bob").pts, 23);
+});
+
+test("buildStandings: same name across races aggregates, even if start number changes", () => {
+  const races = {
+    A: [
+      [{ pos: 1, nr: 7, name: "Alice", pts: 25 }],
+      [{ pos: 1, nr: 12, name: "Alice", pts: 25 }],
+    ],
+    B: [],
+  };
+  const s = buildStandings(races);
+  assert.equal(s.A.length, 1, "Alice is one rider");
+  assert.equal(s.A[0].pts, 50);
+  assert.equal(s.A[0].nr, 12, "display number follows latest race");
+});
+
 test("buildStandings: empty input → empty classes", () => {
   assert.deepEqual(buildStandings({ A: [], B: [] }), { A: [], B: [] });
   assert.deepEqual(buildStandings({}), { A: [], B: [] });

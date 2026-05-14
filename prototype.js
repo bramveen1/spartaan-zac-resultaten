@@ -38,26 +38,54 @@ function nlDateTime(iso) {
 }
 function ordNL(n) { return `${n}<sup>e</sup>`; }
 
+// Storage value: "<class>:<rider name>". Split on the FIRST colon so names
+// containing ":" don't get truncated.
 function classFromMe(me) {
   if (!me) return null;
-  const [cls] = me.split(":");
-  return cls;
+  const i = me.indexOf(":");
+  return i < 0 ? null : me.slice(0, i);
 }
-function nrFromMe(me) {
+function nameFromMe(me) {
   if (!me) return null;
-  const [, nr] = me.split(":");
-  return nr;
+  const i = me.indexOf(":");
+  return i < 0 ? null : me.slice(i + 1);
 }
 
 function getMe() {
   try { return localStorage.getItem(STORAGE_KEY) || null; }
   catch (_) { return null; }
 }
-function setMe(cls, nr) {
-  try { localStorage.setItem(STORAGE_KEY, `${cls}:${nr}`); } catch (_) {}
+function setMe(cls, name) {
+  try { localStorage.setItem(STORAGE_KEY, `${cls}:${name}`); } catch (_) {}
 }
 function clearMe() {
   try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
+// Older deploys stored "<class>:<startNumber>". If the second half is purely
+// numeric, try to resolve it via standings and re-store by name; else clear.
+function migrateMeFromNrToName() {
+  const me = getMe();
+  if (!me || !state.standings) return;
+  const cls = classFromMe(me);
+  const ident = nameFromMe(me);
+  if (!cls || !ident) return;
+  const isNumeric = /^\d+$/.test(ident);
+  if (!isNumeric) return;
+  const row = (state.standings.classes[cls] ?? []).find((r) => String(r.nr) === ident);
+  if (row) setMe(cls, row.name);
+  else clearMe();
+}
+
+// Minimal HTML escape — rider names are user-supplied via the CSV and end up
+// inside data attributes and cell text.
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+function idSafe(s) {
+  return String(s).replace(/[^a-zA-Z0-9]/g, "-");
 }
 
 /* ---------- STATE ---------- */
@@ -67,7 +95,7 @@ const state = {
   races: null,       // data/races.json
   cls: "A",          // currently selected class on the standings + race views
   raceIdx: 0,        // currently selected race index (0-based)
-  rider: null,       // { cls, nr } when rider detail is open
+  rider: null,       // { cls, name } when rider detail is open
 };
 
 /* ---------- DATA LOAD ---------- */
@@ -97,7 +125,10 @@ function renderHeaderMeta() {
   const riderTab = document.querySelector('.viewnav__tab[data-view="rider"]');
   if (riderTab) {
     const me = getMe();
-    riderTab.textContent = me ? `Renner #${nrFromMe(me)}` : "Renner";
+    const meName = nameFromMe(me);
+    const meCls = classFromMe(me);
+    const row = meName ? (state.standings?.classes[meCls] ?? []).find((r) => r.name === meName) : null;
+    riderTab.textContent = row ? `Renner #${row.nr}` : "Renner";
   }
 }
 
@@ -115,18 +146,18 @@ function renderStandings() {
   const rows = state.standings.classes[state.cls] ?? [];
   const me = getMe();
   const meCls = classFromMe(me);
-  const meNr = nrFromMe(me);
+  const meName = nameFromMe(me);
 
   body.innerHTML = rows.map((row) => {
-    const isMe = meCls === state.cls && String(row.nr) === meNr;
+    const isMe = meCls === state.cls && row.name === meName;
     const deltaCls = row.lastPts >= 21 ? "delta--up" : row.lastPts >= 10 ? "delta--flat" : "delta--down";
     const deltaPrefix = row.lastPts > 0 ? "+" : "";
     const posLabel = row.joint ? `${row.pos}<sup>jt</sup>` : row.pos;
     return `
-      <tr class="${isMe ? "is-me" : ""}" data-nr="${row.nr}" data-class="${state.cls}" id="row-${state.cls}-${row.nr}">
+      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(row.name)}" data-class="${state.cls}" id="row-${state.cls}-${idSafe(row.name)}">
         <td class="num pos">${posLabel}</td>
         <td class="num nr">#${row.nr}</td>
-        <td>${row.name}</td>
+        <td>${esc(row.name)}</td>
         <td class="num pts">${row.pts}</td>
         <td class="num desktop-only ${deltaCls}">${deltaPrefix}${row.lastPts}</td>
         <td class="num desktop-only">${row.gap === 0 ? "—" : row.gap}</td>
@@ -140,10 +171,10 @@ function renderMePin() {
   const el = document.getElementById("mepin");
   if (!el || !state.standings) return;
   const me = getMe();
-  const meCls = classFromMe(me);
-  const meNr = nrFromMe(me);
   if (!me) { el.classList.add("is-hidden"); return; }
-  const row = (state.standings.classes[meCls] ?? []).find((r) => String(r.nr) === meNr);
+  const meCls = classFromMe(me);
+  const meName = nameFromMe(me);
+  const row = (state.standings.classes[meCls] ?? []).find((r) => r.name === meName);
   if (!row) { el.classList.add("is-hidden"); return; }
   el.classList.remove("is-hidden");
   document.getElementById("mepin-pos").innerHTML = ordNL(row.pos);
@@ -185,15 +216,15 @@ function renderRace() {
   const body = document.getElementById("race-body");
   const me = getMe();
   const meCls = classFromMe(me);
-  const meNr = nrFromMe(me);
+  const meName = nameFromMe(me);
   body.innerHTML = (cls.results ?? []).map((r) => {
-    const isMe = meCls === state.cls && String(r.nr) === meNr;
+    const isMe = meCls === state.cls && r.name === meName;
     const timeDisplay = /\d+\s+laps?/.test(r.diff) ? `+${r.diff.replace(/\s+laps?/, (m) => m.includes("laps") ? " ronden" : " ronde")}` : r.time;
     return `
-      <tr class="${isMe ? "is-me" : ""}" data-nr="${r.nr}" data-class="${state.cls}">
+      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(r.name)}" data-class="${state.cls}">
         <td class="num pos">${r.pos}</td>
         <td class="num nr">#${r.nr}</td>
-        <td>${r.name}</td>
+        <td>${esc(r.name)}</td>
         <td class="num">${r.laps}</td>
         <td class="num">${timeDisplay}</td>
         <td class="num pts">${r.pts}</td>
@@ -211,12 +242,12 @@ function renderRace() {
       moversEl.innerHTML = movers.map((m) => {
         const dir = m.shift > 0 ? "up" : "down";
         const arrow = m.shift > 0 ? "↑" : "↓";
-        const isMe = meCls === state.cls && String(m.nr) === meNr;
+        const isMe = meCls === state.cls && m.name === meName;
         return `
-          <li class="mover ${isMe ? "is-me" : ""}" data-nr="${m.nr}" data-class="${state.cls}">
+          <li class="mover ${isMe ? "is-me" : ""}" data-name="${esc(m.name)}" data-class="${state.cls}">
             <span class="mover__arrow mover__arrow--${dir}">${arrow}</span>
             <div class="mover__id">
-              <div class="mover__name">${m.name}</div>
+              <div class="mover__name">${esc(m.name)}</div>
               <div class="mover__nrm">#${m.nr} · ${m.from}<sup>e</sup> → ${m.to}<sup>e</sup></div>
             </div>
             <div class="mover__shift">${m.shift > 0 ? "+" : ""}${m.shift} <small>plekken</small></div>
@@ -255,15 +286,15 @@ function renderRace() {
 
 function renderRider() {
   if (!state.rider || !state.races || !state.standings) return;
-  const { cls, nr } = state.rider;
-  const standing = (state.standings.classes[cls] ?? []).find((r) => String(r.nr) === String(nr));
+  const { cls, name } = state.rider;
+  const standing = (state.standings.classes[cls] ?? []).find((r) => r.name === name);
 
   // Title block
   const numEl = document.querySelector(".ridercard__num");
   const nameEl = document.querySelector(".ridercard__name");
   const posEl = document.querySelector(".ridercard__pos");
-  if (numEl) numEl.textContent = `#${nr}`;
-  if (nameEl) nameEl.textContent = standing?.name ?? "Onbekend";
+  if (numEl) numEl.textContent = standing ? `#${standing.nr}` : "#—";
+  if (nameEl) nameEl.textContent = name;
   if (posEl) posEl.innerHTML = standing
     ? `${ordNL(standing.pos)} in Klasse ${cls} · ${standing.pts} pnt`
     : `Geen klassement in Klasse ${cls}`;
@@ -271,7 +302,7 @@ function renderRider() {
   // History rows
   const races = state.races.races;
   const history = races.map((race) => {
-    const result = (race.classes[cls]?.results ?? []).find((r) => String(r.nr) === String(nr));
+    const result = (race.classes[cls]?.results ?? []).find((r) => r.name === name);
     return { race, result };
   });
 
@@ -340,7 +371,7 @@ function renderRider() {
   const btn = document.getElementById("pin-toggle");
   if (btn) {
     const me = getMe();
-    const isPinned = classFromMe(me) === cls && nrFromMe(me) === String(nr);
+    const isPinned = classFromMe(me) === cls && nameFromMe(me) === name;
     btn.classList.toggle("is-pinned", isPinned);
     btn.querySelector(".btn__label").textContent = isPinned ? "Vastgepind als mij" : "Vastpinnen als mij";
   }
@@ -363,8 +394,9 @@ function switchView(name) {
   window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 }
 
-function openRider(cls, nr) {
-  state.rider = { cls, nr: String(nr) };
+function openRider(cls, name) {
+  if (!name) return;
+  state.rider = { cls, name: String(name) };
   renderRider();
   switchView("rider");
 }
@@ -380,6 +412,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (body) body.innerHTML = `<tr><td colspan="7" style="padding:24px;text-align:center">Kon de standen niet laden. Probeer later opnieuw.</td></tr>`;
     return;
   }
+  migrateMeFromNrToName();
   renderAll();
 
   // Tab nav
@@ -388,11 +421,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const view = tab.dataset.view;
       if (view === "rider") {
         const me = getMe();
-        if (me) openRider(classFromMe(me), nrFromMe(me));
+        if (me) openRider(classFromMe(me), nameFromMe(me));
         else {
           // Default to the leader of the current class so the view is reachable.
           const leader = state.standings?.classes[state.cls]?.[0];
-          if (leader) openRider(state.cls, leader.nr);
+          if (leader) openRider(state.cls, leader.name);
         }
       } else {
         switchView(view);
@@ -419,19 +452,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Tap row → rider detail
   document.getElementById("standings-body").addEventListener("click", (e) => {
-    const tr = e.target.closest("tr[data-nr]");
+    const tr = e.target.closest("tr[data-name]");
     if (!tr) return;
-    openRider(tr.dataset.class, tr.dataset.nr);
+    openRider(tr.dataset.class, tr.dataset.name);
   });
   document.getElementById("race-body").addEventListener("click", (e) => {
-    const tr = e.target.closest("tr[data-nr]");
+    const tr = e.target.closest("tr[data-name]");
     if (!tr) return;
-    openRider(tr.dataset.class, tr.dataset.nr);
+    openRider(tr.dataset.class, tr.dataset.name);
   });
   document.getElementById("movers-body")?.addEventListener("click", (e) => {
-    const li = e.target.closest("li[data-nr]");
+    const li = e.target.closest("li[data-name]");
     if (!li) return;
-    openRider(li.dataset.class, li.dataset.nr);
+    openRider(li.dataset.class, li.dataset.name);
   });
 
   // Close rider detail
@@ -447,7 +480,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     state.cls = classFromMe(me);
     renderClassToggle();
     renderStandings();
-    const row = document.getElementById(`row-${state.cls}-${nrFromMe(me)}`);
+    const row = document.getElementById(`row-${state.cls}-${idSafe(nameFromMe(me))}`);
     if (row) requestAnimationFrame(() => row.scrollIntoView({ behavior: "smooth", block: "center" }));
   });
 
@@ -455,9 +488,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("pin-toggle")?.addEventListener("click", () => {
     if (!state.rider) return;
     const me = getMe();
-    const isPinned = classFromMe(me) === state.rider.cls && nrFromMe(me) === state.rider.nr;
+    const isPinned = classFromMe(me) === state.rider.cls && nameFromMe(me) === state.rider.name;
     if (isPinned) clearMe();
-    else setMe(state.rider.cls, state.rider.nr);
+    else setMe(state.rider.cls, state.rider.name);
     renderAll();
   });
 });

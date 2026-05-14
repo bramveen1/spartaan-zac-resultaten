@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-14T13:45:32.058Z",
+  "updatedAt": "2026-05-14T14:23:07.422Z",
   "races": [
     {
       "n": 1,
@@ -1283,28 +1283,28 @@
       "movers": {
         "A": [
           {
+            "nr": 35,
+            "name": "Ernst Fidom",
+            "from": 14,
+            "to": 31,
+            "shift": -17,
+            "pts": 0
+          },
+          {
             "nr": 24,
             "name": "Joost Slingerland",
             "from": 15,
-            "to": 31,
-            "shift": -16,
+            "to": 32,
+            "shift": -17,
             "pts": 0
           },
           {
             "nr": 1,
             "name": "Guido Smit",
             "from": 17,
-            "to": 33,
-            "shift": -16,
+            "to": 34,
+            "shift": -17,
             "pts": 0
-          },
-          {
-            "nr": 27,
-            "name": "Jianhao Wu",
-            "from": 23,
-            "to": 8,
-            "shift": 15,
-            "pts": 13
           }
         ],
         "B": [
@@ -2047,28 +2047,28 @@
       "movers": {
         "A": [
           {
-            "nr": 37,
-            "name": "Julian Kerklaan",
-            "from": 21,
-            "to": 7,
-            "shift": 14,
-            "pts": 21
-          },
-          {
             "nr": 7,
             "name": "Caiden Jeurissen",
-            "from": 21,
-            "to": 34,
-            "shift": -13,
+            "from": 20,
+            "to": 35,
+            "shift": -15,
             "pts": 0
           },
           {
             "nr": 28,
             "name": "Jan Gudde",
-            "from": 23,
-            "to": 36,
-            "shift": -13,
+            "from": 22,
+            "to": 37,
+            "shift": -15,
             "pts": 0
+          },
+          {
+            "nr": 37,
+            "name": "Julian Kerklaan",
+            "from": 20,
+            "to": 7,
+            "shift": 13,
+            "pts": 21
           }
         ],
         "B": [
@@ -2730,28 +2730,28 @@
       "movers": {
         "A": [
           {
-            "nr": 51,
-            "name": "Maurits Oskam",
-            "from": 56,
-            "to": 11,
-            "shift": 45,
-            "pts": 23
-          },
-          {
             "nr": 25,
             "name": "Ernst Fidom",
-            "from": 48,
-            "to": 22,
-            "shift": 26,
+            "from": 31,
+            "to": 12,
+            "shift": 19,
             "pts": 15
           },
           {
             "nr": 41,
             "name": "Bob van den Berg",
-            "from": 34,
+            "from": 35,
             "to": 18,
-            "shift": 16,
+            "shift": 17,
             "pts": 12
+          },
+          {
+            "nr": 84,
+            "name": "Micky Alberts",
+            "from": 47,
+            "to": 30,
+            "shift": 17,
+            "pts": 11
           }
         ],
         "B": [
@@ -2767,16 +2767,16 @@
             "nr": 43,
             "name": "André Mook",
             "from": 48,
-            "to": 27,
-            "shift": 21,
+            "to": 26,
+            "shift": 22,
             "pts": 10
           },
           {
             "nr": 23,
             "name": "Marc Semmeling",
             "from": 64,
-            "to": 46,
-            "shift": 18,
+            "to": 47,
+            "shift": 17,
             "pts": 5
           }
         ]
@@ -3253,29 +3253,37 @@
           {
             "nr": 19,
             "name": "Maxim Harteloh",
-            "from": 45,
-            "to": 11,
-            "shift": 34,
+            "from": 44,
+            "to": 13,
+            "shift": 31,
             "pts": 25
           },
           {
             "nr": 18,
             "name": "Robbert Schaap",
-            "from": 47,
-            "to": 16,
-            "shift": 31,
+            "from": 46,
+            "to": 17,
+            "shift": 29,
             "pts": 19
           },
           {
             "nr": 7,
             "name": "Caiden Jeurissen",
-            "from": 43,
-            "to": 13,
-            "shift": 30,
+            "from": 42,
+            "to": 15,
+            "shift": 27,
             "pts": 21
           }
         ],
         "B": [
+          {
+            "nr": 60,
+            "name": "Ricardo Jansen",
+            "from": 55,
+            "to": 28,
+            "shift": 27,
+            "pts": 10
+          },
           {
             "nr": 84,
             "name": "Robin Hendriks",
@@ -3285,19 +3293,11 @@
             "pts": 8
           },
           {
-            "nr": 57,
-            "name": "Djurre Aleman",
-            "from": 55,
-            "to": 40,
-            "shift": 15,
-            "pts": 7
-          },
-          {
             "nr": 43,
             "name": "André Mook",
-            "from": 27,
+            "from": 26,
             "to": 13,
-            "shift": 14,
+            "shift": 13,
             "pts": 13
           }
         ]
@@ -4143,9 +4143,9 @@
           {
             "nr": 40,
             "name": "Kees Pameijer",
-            "from": 35,
+            "from": 34,
             "to": 19,
-            "shift": 16,
+            "shift": 15,
             "pts": 11
           },
           {
@@ -4159,35 +4159,35 @@
           {
             "nr": 14,
             "name": "Tim Bennis",
-            "from": 15,
+            "from": 16,
             "to": 5,
-            "shift": 10,
+            "shift": 11,
             "pts": 25
           }
         ],
         "B": [
           {
-            "nr": 114,
-            "name": "Brendan Berendse",
-            "from": 61,
-            "to": 12,
-            "shift": 49,
-            "pts": 25
-          },
-          {
-            "nr": 60,
-            "name": "Ricardo Jansen",
-            "from": 56,
-            "to": 38,
+            "nr": 117,
+            "name": "Olen Olsthoorn",
+            "from": 36,
+            "to": 18,
             "shift": 18,
-            "pts": 9
+            "pts": 13
           },
           {
             "nr": 44,
             "name": "Ard Koeleman",
-            "from": 67,
+            "from": 66,
             "to": 49,
-            "shift": 18,
+            "shift": 17,
+            "pts": 5
+          },
+          {
+            "nr": 53,
+            "name": "Floor Sigmond",
+            "from": 68,
+            "to": 54,
+            "shift": 14,
             "pts": 5
           }
         ]
@@ -4700,24 +4700,24 @@
           {
             "nr": 44,
             "name": "Don de Leeuw",
-            "from": 39,
-            "to": 24,
-            "shift": 15,
+            "from": 38,
+            "to": 25,
+            "shift": 13,
             "pts": 8
           },
           {
             "nr": 5,
             "name": "Rob uit de Bosch",
-            "from": 37,
-            "to": 23,
-            "shift": 14,
+            "from": 36,
+            "to": 24,
+            "shift": 12,
             "pts": 11
           },
           {
             "nr": 43,
             "name": "Ronald Geleynse",
-            "from": 51,
-            "to": 40,
+            "from": 50,
+            "to": 39,
             "shift": 11,
             "pts": 10
           }
@@ -4726,26 +4726,26 @@
           {
             "nr": 59,
             "name": "Qiyan Wang",
-            "from": 79,
-            "to": 21,
-            "shift": 58,
+            "from": 78,
+            "to": 19,
+            "shift": 59,
             "pts": 25
           },
           {
             "nr": 133,
             "name": "Johan Struijk",
-            "from": 70,
-            "to": 47,
-            "shift": 23,
+            "from": 71,
+            "to": 45,
+            "shift": 26,
             "pts": 9
           },
           {
-            "nr": 17,
-            "name": "Olen Olsthoorn",
-            "from": 33,
-            "to": 18,
-            "shift": 15,
-            "pts": 15
+            "nr": 49,
+            "name": "Tim van der Eijk",
+            "from": 46,
+            "to": 27,
+            "shift": 19,
+            "pts": 12
           }
         ]
       }
