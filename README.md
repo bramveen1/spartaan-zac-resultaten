@@ -2,7 +2,7 @@
 
 Uitslagen en standen van de Spartaan zomeravondcompetitie.
 
-Live site: **https://bramveen1.github.io/spartaan-zac-resultaten/** (na inschakelen van GitHub Pages).
+Live site: **https://spartaan-zac.nl** (na inschakelen van GitHub Pages).
 
 ## How the pipeline works
 
@@ -123,7 +123,7 @@ Per PRD: no admin UI, no auth, no past-season archive, no push notifications,
 no cross-class combined standing, no Sporthive auto-discovery. Raise with Dave
 before reopening any of these.
 
-## Roles
+## Roles from ai-dev-team
 
 - **Lin** — design (visual prototype, tokens, components on `main`)
 - **Sam** — build (data pipeline, deploy)
