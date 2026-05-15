@@ -2,7 +2,7 @@
 
 Uitslagen en standen van de Spartaan zomeravondcompetitie.
 
-Live site: **https://spartaan-zac.nl** (na inschakelen van GitHub Pages).
+Live site: **https://spartaan-zac.nl** 
 
 ## How the pipeline works
 
