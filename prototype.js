@@ -155,17 +155,9 @@ function renderHeaderMeta() {
 }
 
 function renderClassToggle() {
-  // Standings toggle has 4 options (incl. WA/WB) — match exact state.cls.
-  document.querySelectorAll("#standings .classtoggle__opt").forEach((opt) => {
+  // Both views now have 4 options (A, B, WA, WB) — exact match on state.cls.
+  document.querySelectorAll(".classtoggle__opt").forEach((opt) => {
     const active = opt.dataset.class === state.cls;
-    opt.classList.toggle("is-active", active);
-    opt.setAttribute("aria-selected", String(active));
-  });
-  // Race-avond toggle only has A/B — match the underlying class so the right
-  // tab stays highlighted when the user is on a Vrouwen tab.
-  const eff = effectiveCls(state.cls);
-  document.querySelectorAll("#race .classtoggle__opt").forEach((opt) => {
-    const active = opt.dataset.class === eff;
     opt.classList.toggle("is-active", active);
     opt.setAttribute("aria-selected", String(active));
   });
@@ -176,11 +168,11 @@ function applyWomenVisibility() {
   document.querySelectorAll(".classtoggle__opt--women").forEach((b) => {
     b.hidden = !visible;
   });
-  document.querySelectorAll("#standings .classtoggle").forEach((tg) => {
+  document.querySelectorAll(".classtoggle").forEach((tg) => {
     tg.classList.toggle("classtoggle--with-women", visible);
   });
   // If the flag turns off mid-session (or the user clears sessionStorage),
-  // fall back to the underlying class so the standings table stays valid.
+  // fall back to the underlying class so the views stay valid.
   if (!visible && isWomenCls(state.cls)) {
     state.cls = effectiveCls(state.cls);
   }
@@ -237,14 +229,14 @@ function renderRace() {
   if (!state.races) return;
   const race = state.races.races[state.raceIdx];
   if (!race) return;
-  // Race-avond shows the underlying class even when the user is on a Vrouwen
-  // tab — per-race results are not split by gender in v1.
-  const raceCls = effectiveCls(state.cls);
+  const women = isWomenCls(state.cls);
+  const raceCls = effectiveCls(state.cls); // "A" or "B" — used for click-through + label
+  const classLabel = women ? `Vrouwen ${raceCls}` : `Klasse ${raceCls}`;
 
   // Eyebrow + title meta
   const eyebrow = document.querySelector("#race .eyebrow");
   if (eyebrow) {
-    eyebrow.textContent = `Race ${race.n} · ${nlDayFull(race.date)} ${nlDate(race.date)} · Klasse ${raceCls}`;
+    eyebrow.textContent = `Race ${race.n} · ${nlDayFull(race.date)} ${nlDate(race.date)} · ${classLabel}`;
   }
   const pagerLabel = document.querySelector("#race .racepager__label");
   if (pagerLabel) {
@@ -258,8 +250,11 @@ function renderRace() {
   if (next) next.classList.toggle("is-disabled", state.raceIdx >= total - 1);
   if (next) next.disabled = state.raceIdx >= total - 1;
 
-  // Card meta (laps / winner time / finishers)
-  const cls = race.classes[raceCls] ?? { results: [], stats: {} };
+  // Card meta (laps / winner time / finishers). Women's tab reads from the
+  // per-race women's subset; fall back to empty if the JSON pre-dates it.
+  const cls = women
+    ? (race.womenClasses?.[raceCls] ?? { results: [], stats: {} })
+    : (race.classes[raceCls] ?? { results: [], stats: {} });
   const meta = document.querySelector("#race .card .card__meta");
   if (meta) {
     const s = cls.stats;
@@ -295,10 +290,11 @@ function renderRace() {
     `;
   }).join("");
 
-  // Movers
+  // Movers — separate dataset for the women's GC shifts.
   const moversEl = document.getElementById("movers-body");
   if (moversEl) {
-    const movers = (race.movers && race.movers[raceCls]) ?? [];
+    const moversSource = women ? race.womenMovers : race.movers;
+    const movers = (moversSource && moversSource[raceCls]) ?? [];
     if (!movers.length) {
       moversEl.innerHTML = `<li class="mover mover--empty">Geen verschuivingen om te tonen.</li>`;
     } else {

@@ -327,6 +327,65 @@ test("build: women roster produces re-ranked women's GC with 25/23 points at top
   assert.equal(out.standings.womenClasses.A[1].pts, 23, "second woman = 23 pts");
 });
 
+test("build: emits per-race womenClasses with re-ranked stats", async () => {
+  const csv = await fixture("session-11869003.csv");
+  const out = build(
+    [{ n: 1, sessionId: 11869003, date: "2026-03-31", label: "Race 1", csv }],
+    { roster: { women: { A: [77, 12], B: [] } } },
+  );
+  const race = out.races[0];
+  assert.ok(race.womenClasses, "race entry has womenClasses");
+  assert.equal(race.womenClasses.A.results.length, 2);
+  assert.equal(race.womenClasses.A.results[0].pos, 1);
+  assert.equal(race.womenClasses.A.results[0].pts, 25);
+  assert.equal(race.womenClasses.A.results[1].pos, 2);
+  assert.equal(race.womenClasses.A.results[1].pts, 23);
+  assert.equal(race.womenClasses.A.stats.finishers, 2);
+  assert.equal(race.womenClasses.B.results.length, 0);
+});
+
+test("build: emits womenMovers computed from the women-only standings", () => {
+  // Race 1: Alice 1st (25), Bob 2nd (23), Carol 3rd (21).
+  // Race 2: Bob 1st (25), Carol 2nd (23), Alice 3rd (21).
+  // Cumulative women's GC after race 2:
+  //   Bob   23+25 = 48 → 1st (was 2nd)
+  //   Alice 25+21 = 46 → 2nd (was 1st)
+  //   Carol 21+23 = 44 → 3rd (was 3rd)
+  // → Bob +1, Alice −1, Carol unchanged.
+  const mkCSV = (...rows) =>
+    "Pos,Start Number,Competitor,Class,Total Time,Diff,Laps,Best Lap,Best Lap No.,Best Speed\n" +
+    rows.join("\n") + "\n";
+  const sessions = [
+    {
+      n: 1, sessionId: 1, date: "2026-01-01", label: "R1",
+      csv: mkCSV(
+        "1,10,Alice,110001 | ZAC A (01/01) - 19:30:00,1:0:0.000,0.000,30,1:00,1,40",
+        "2,30,Bob,110001 | ZAC A (01/01) - 19:30:00,1:0:1.000,1.000,30,1:00,1,40",
+        "3,50,Carol,110001 | ZAC A (01/01) - 19:30:00,1:0:2.000,2.000,30,1:00,1,40",
+      ),
+    },
+    {
+      n: 2, sessionId: 2, date: "2026-01-08", label: "R2",
+      csv: mkCSV(
+        "1,30,Bob,110002 | ZAC A (08/01) - 19:30:00,1:0:0.000,0.000,30,1:00,1,40",
+        "2,50,Carol,110002 | ZAC A (08/01) - 19:30:00,1:0:1.000,1.000,30,1:00,1,40",
+        "3,10,Alice,110002 | ZAC A (08/01) - 19:30:00,1:0:2.000,2.000,30,1:00,1,40",
+        "4,99,Outsider,110002 | ZAC A (08/01) - 19:30:00,1:0:3.000,3.000,30,1:00,1,40",
+      ),
+    },
+  ];
+  const out = build(sessions, { roster: { women: { A: [10, 30, 50], B: [] } } });
+  assert.ok(out.races[1].womenMovers, "race 2 has womenMovers");
+  const movers = out.races[1].womenMovers.A;
+  assert.equal(movers.length, 2, "Bob and Alice shifted; Carol unchanged");
+  const bob = movers.find((m) => m.name === "Bob");
+  const alice = movers.find((m) => m.name === "Alice");
+  assert.equal(bob.from, 2); assert.equal(bob.to, 1); assert.equal(bob.shift, 1);
+  assert.equal(alice.from, 1); assert.equal(alice.to, 2); assert.equal(alice.shift, -1);
+  // Outsider isn't in the roster → never appears in women's movers.
+  assert.ok(!movers.some((m) => m.name === "Outsider"));
+});
+
 test("build: women's H2H tiebreaker resolves on the subset", () => {
   // Two riders end on identical points (25+23 each), but Alice beat Bob
   // both times → Alice 1st, Bob 2nd within the women's subset.
