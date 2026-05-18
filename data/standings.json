@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 7,
   "racesTotal": 26,
-  "updatedAt": "2026-05-14T14:23:07.422Z",
+  "updatedAt": "2026-05-18T08:53:34.179Z",
   "classes": {
     "A": [
       {
@@ -1608,5 +1608,9 @@
         "joint": false
       }
     ]
+  },
+  "womenClasses": {
+    "A": [],
+    "B": []
   }
 }
