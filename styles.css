@@ -247,6 +247,10 @@ sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
 .classtoggle.classtoggle--with-women {
   max-width: 520px;
 }
+.riderviewtoggle {
+  margin: var(--s-4) var(--s-5) 0;
+  max-width: 260px;
+}
 .classtoggle__opt {
   flex: 1;
   background: transparent;
