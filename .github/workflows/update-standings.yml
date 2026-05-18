@@ -21,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # PAT that inherits a Repository admin's bypass on the main-branch
+          # ruleset, so the cron's auto-commit can push directly to main.
+          # actions/checkout persists this in the local git credential helper,
+          # so the later `git push` uses it automatically.
+          token: ${{ secrets.STANDINGS_PUSH_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
