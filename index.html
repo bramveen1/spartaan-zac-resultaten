@@ -117,6 +117,8 @@
         <div class="classtoggle" role="tablist" aria-label="Klasse">
           <button class="classtoggle__opt is-active" role="tab" aria-selected="true" data-class="A" type="button">Klasse A</button>
           <button class="classtoggle__opt" role="tab" aria-selected="false" data-class="B" type="button">Klasse B</button>
+          <button class="classtoggle__opt classtoggle__opt--women" role="tab" aria-selected="false" data-class="WA" type="button" hidden>Vrouwen A</button>
+          <button class="classtoggle__opt classtoggle__opt--women" role="tab" aria-selected="false" data-class="WB" type="button" hidden>Vrouwen B</button>
         </div>
 
         <div class="racegrid">
@@ -199,6 +201,17 @@
               </div>
               <button class="modal__close" type="button" aria-label="Sluiten" data-close-rider>×</button>
             </header>
+
+            <!--
+              Klassement-keuze voor vrouwen: alleen zichtbaar als de geopende
+              renner op de Women's GC-roster staat én de Women's GC zichtbaar
+              is. Standaard "Overall"; "Vrouwen" toont haar geschiedenis en
+              stats binnen de vrouwen-subset.
+            -->
+            <div class="classtoggle riderviewtoggle" role="tablist" aria-label="Klassement" id="rider-view-toggle" hidden>
+              <button class="classtoggle__opt is-active" role="tab" aria-selected="true" data-rider-view="overall" type="button">Overall</button>
+              <button class="classtoggle__opt" role="tab" aria-selected="false" data-rider-view="women" type="button">Vrouwen</button>
+            </div>
 
             <div class="stats">
               <div class="stat">

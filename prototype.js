@@ -95,9 +95,11 @@ const state = {
   standings: null,   // data/standings.json
   races: null,       // data/races.json
   siteConfig: null,  // data/site_config.json (features flags)
+  womenRoster: null, // data/roster/women.json (per-class start numbers)
   cls: "A",          // currently selected class on the standings view: "A" | "B" | "WA" | "WB"
   raceIdx: 0,        // currently selected race index (0-based)
   rider: null,       // { cls, name } when rider detail is open
+  riderView: "overall", // "overall" | "women" — toggled from inside the rider modal
 };
 
 // "WA" / "WB" → "A" / "B"; passthrough for non-women classes. Women's tabs
@@ -115,20 +117,33 @@ function isWomenVisible() {
   catch (_) { return false; }
 }
 
+// Does the rider with start number `nr` in class `cls` appear on the
+// women's roster? Used to gate the Overall/Vrouwen toggle in rider detail.
+function isWomanRider(cls, nr) {
+  const list = state.womenRoster?.women?.[cls];
+  if (!Array.isArray(list)) return false;
+  return list.map(Number).includes(Number(nr));
+}
+
 /* ---------- DATA LOAD ---------- */
 
 async function loadData() {
-  const [standings, races, siteConfig] = await Promise.all([
+  const [standings, races, siteConfig, womenRoster] = await Promise.all([
     fetch("data/standings.json", { cache: "no-store" }).then((r) => r.json()),
     fetch("data/races.json", { cache: "no-store" }).then((r) => r.json()),
     // site_config is optional — missing or invalid → no feature flags
     fetch("data/site_config.json", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : { features: {} }))
       .catch(() => ({ features: {} })),
+    // Roster is optional — missing → no woman ever flagged in rider detail
+    fetch("data/roster/women.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : { women: { A: [], B: [] } }))
+      .catch(() => ({ women: { A: [], B: [] } })),
   ]);
   state.standings = standings;
   state.races = races;
   state.siteConfig = siteConfig;
+  state.womenRoster = womenRoster;
   // Default to latest race; default class follows the pinned rider, else A.
   state.raceIdx = Math.max(0, (races.races?.length ?? 1) - 1);
   const me = getMe();
@@ -155,17 +170,9 @@ function renderHeaderMeta() {
 }
 
 function renderClassToggle() {
-  // Standings toggle has 4 options (incl. WA/WB) — match exact state.cls.
-  document.querySelectorAll("#standings .classtoggle__opt").forEach((opt) => {
+  // Both views now have 4 options (A, B, WA, WB) — exact match on state.cls.
+  document.querySelectorAll(".classtoggle__opt").forEach((opt) => {
     const active = opt.dataset.class === state.cls;
-    opt.classList.toggle("is-active", active);
-    opt.setAttribute("aria-selected", String(active));
-  });
-  // Race-avond toggle only has A/B — match the underlying class so the right
-  // tab stays highlighted when the user is on a Vrouwen tab.
-  const eff = effectiveCls(state.cls);
-  document.querySelectorAll("#race .classtoggle__opt").forEach((opt) => {
-    const active = opt.dataset.class === eff;
     opt.classList.toggle("is-active", active);
     opt.setAttribute("aria-selected", String(active));
   });
@@ -176,13 +183,15 @@ function applyWomenVisibility() {
   document.querySelectorAll(".classtoggle__opt--women").forEach((b) => {
     b.hidden = !visible;
   });
-  document.querySelectorAll("#standings .classtoggle").forEach((tg) => {
+  document.querySelectorAll(".classtoggle").forEach((tg) => {
     tg.classList.toggle("classtoggle--with-women", visible);
   });
   // If the flag turns off mid-session (or the user clears sessionStorage),
-  // fall back to the underlying class so the standings table stays valid.
-  if (!visible && isWomenCls(state.cls)) {
-    state.cls = effectiveCls(state.cls);
+  // fall back to the underlying class so the views stay valid, and snap the
+  // rider modal back to the overall view.
+  if (!visible) {
+    if (isWomenCls(state.cls)) state.cls = effectiveCls(state.cls);
+    if (state.riderView === "women") state.riderView = "overall";
   }
 }
 
@@ -237,14 +246,14 @@ function renderRace() {
   if (!state.races) return;
   const race = state.races.races[state.raceIdx];
   if (!race) return;
-  // Race-avond shows the underlying class even when the user is on a Vrouwen
-  // tab — per-race results are not split by gender in v1.
-  const raceCls = effectiveCls(state.cls);
+  const women = isWomenCls(state.cls);
+  const raceCls = effectiveCls(state.cls); // "A" or "B" — used for click-through + label
+  const classLabel = women ? `Vrouwen ${raceCls}` : `Klasse ${raceCls}`;
 
   // Eyebrow + title meta
   const eyebrow = document.querySelector("#race .eyebrow");
   if (eyebrow) {
-    eyebrow.textContent = `Race ${race.n} · ${nlDayFull(race.date)} ${nlDate(race.date)} · Klasse ${raceCls}`;
+    eyebrow.textContent = `Race ${race.n} · ${nlDayFull(race.date)} ${nlDate(race.date)} · ${classLabel}`;
   }
   const pagerLabel = document.querySelector("#race .racepager__label");
   if (pagerLabel) {
@@ -258,8 +267,11 @@ function renderRace() {
   if (next) next.classList.toggle("is-disabled", state.raceIdx >= total - 1);
   if (next) next.disabled = state.raceIdx >= total - 1;
 
-  // Card meta (laps / winner time / finishers)
-  const cls = race.classes[raceCls] ?? { results: [], stats: {} };
+  // Card meta (laps / winner time / finishers). Women's tab reads from the
+  // per-race women's subset; fall back to empty if the JSON pre-dates it.
+  const cls = women
+    ? (race.womenClasses?.[raceCls] ?? { results: [], stats: {} })
+    : (race.classes[raceCls] ?? { results: [], stats: {} });
   const meta = document.querySelector("#race .card .card__meta");
   if (meta) {
     const s = cls.stats;
@@ -295,10 +307,11 @@ function renderRace() {
     `;
   }).join("");
 
-  // Movers
+  // Movers — separate dataset for the women's GC shifts.
   const moversEl = document.getElementById("movers-body");
   if (moversEl) {
-    const movers = (race.movers && race.movers[raceCls]) ?? [];
+    const moversSource = women ? race.womenMovers : race.movers;
+    const movers = (moversSource && moversSource[raceCls]) ?? [];
     if (!movers.length) {
       moversEl.innerHTML = `<li class="mover mover--empty">Geen verschuivingen om te tonen.</li>`;
     } else {
@@ -350,22 +363,55 @@ function renderRace() {
 function renderRider() {
   if (!state.rider || !state.races || !state.standings) return;
   const { cls, name } = state.rider;
-  const standing = (state.standings.classes[cls] ?? []).find((r) => r.name === name);
+  // Find the rider's overall standing first — we need her start number to
+  // check the roster, and the overall row is the fallback if the women's
+  // standing doesn't have her (e.g. she's on the roster but never raced).
+  const overallStanding = (state.standings.classes[cls] ?? []).find((r) => r.name === name);
+  const riderNr = overallStanding?.nr ?? null;
+
+  // Determine whether the Overall/Vrouwen toggle is applicable.
+  const womenToggleVisible =
+    isWomenVisible() &&
+    riderNr != null &&
+    isWomanRider(cls, riderNr);
+  const women = womenToggleVisible && state.riderView === "women";
+
+  // Show/hide the toggle and reflect the active option.
+  const toggleEl = document.getElementById("rider-view-toggle");
+  if (toggleEl) {
+    toggleEl.hidden = !womenToggleVisible;
+    toggleEl.querySelectorAll(".classtoggle__opt").forEach((opt) => {
+      const active = (opt.dataset.riderView === "women") === women;
+      opt.classList.toggle("is-active", active);
+      opt.setAttribute("aria-selected", String(active));
+    });
+  }
+
+  // Pick the standing + history source based on the active view.
+  const standing = women
+    ? (state.standings.womenClasses?.[cls] ?? []).find((r) => r.name === name)
+    : overallStanding;
+  const classLabel = women ? `Vrouwen ${cls}` : `Klasse ${cls}`;
 
   // Title block
   const numEl = document.querySelector(".ridercard__num");
   const nameEl = document.querySelector(".ridercard__name");
   const posEl = document.querySelector(".ridercard__pos");
-  if (numEl) numEl.textContent = standing ? `#${standing.nr}` : "#—";
+  // Number is always displayed from the overall row (women's subset shares it).
+  if (numEl) numEl.textContent = overallStanding ? `#${overallStanding.nr}` : "#—";
   if (nameEl) nameEl.textContent = name;
   if (posEl) posEl.innerHTML = standing
-    ? `${ordNL(standing.pos)} in Klasse ${cls} · ${standing.pts} pnt`
-    : `Geen klassement in Klasse ${cls}`;
+    ? `${ordNL(standing.pos)} in ${classLabel} · ${standing.pts} pnt`
+    : `Geen klassement in ${classLabel}`;
 
-  // History rows
+  // History rows — source flips with the view. The race's stored laps/time/
+  // diff are identical; only pos and pts change in the women's subset.
   const races = state.races.races;
   const history = races.map((race) => {
-    const result = (race.classes[cls]?.results ?? []).find((r) => r.name === name);
+    const source = women
+      ? (race.womenClasses?.[cls]?.results ?? [])
+      : (race.classes[cls]?.results ?? []);
+    const result = source.find((r) => r.name === name);
     return { race, result };
   });
 
@@ -398,7 +444,7 @@ function renderRider() {
     `;
   }).reverse().join("");
 
-  // Stats
+  // Stats — recomputed from the active history.
   const completed = history.filter((h) => h.result);
   const bestFinish = completed.reduce((b, h) => !b || h.result.pos < b.result.pos ? h : b, null);
   const avgPts = completed.length ? (completed.reduce((s, h) => s + h.result.pts, 0) / completed.length) : 0;
@@ -425,12 +471,12 @@ function renderRider() {
       <div class="stat">
         <span class="stat__label">Punten totaal</span>
         <span class="stat__value">${standing?.pts ?? 0}</span>
-        <span class="stat__meta">Klasse ${cls}</span>
+        <span class="stat__meta">${classLabel}</span>
       </div>
     `;
   }
 
-  // Pin button reflects current state
+  // Pin button reflects current state (pin keys by underlying class only).
   const btn = document.getElementById("pin-toggle");
   if (btn) {
     const me = getMe();
@@ -461,6 +507,7 @@ function switchView(name) {
 function openRider(cls, name) {
   if (!name) return;
   state.rider = { cls, name: String(name) };
+  state.riderView = "overall"; // fresh open always starts on Overall
   renderRider();
   switchView("rider");
 }
@@ -558,6 +605,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderStandings();
     const row = document.getElementById(`row-${state.cls}-${idSafe(nameFromMe(me))}`);
     if (row) requestAnimationFrame(() => row.scrollIntoView({ behavior: "smooth", block: "center" }));
+  });
+
+  // Overall ↔ Vrouwen toggle inside the rider modal
+  document.getElementById("rider-view-toggle")?.addEventListener("click", (e) => {
+    const opt = e.target.closest("[data-rider-view]");
+    if (!opt) return;
+    state.riderView = opt.dataset.riderView === "women" ? "women" : "overall";
+    renderRider();
   });
 
   // Pin toggle

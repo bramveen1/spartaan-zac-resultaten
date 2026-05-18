@@ -229,6 +229,45 @@ function statsFor(results) {
   };
 }
 
+// Top-3 standings shifts per race per class. `racesByClass` and
+// `parsedRaceClasses` both index by race; the former is for buildStandings
+// (cumulative), the latter is the per-race rows used to look up race points.
+function computeMovers(racesByClass, parsedRaceClasses) {
+  const standingsAfter = parsedRaceClasses.map((_, i) =>
+    buildStandings({
+      A: racesByClass.A.slice(0, i + 1),
+      B: racesByClass.B.slice(0, i + 1),
+    })
+  );
+  const standingsBefore = parsedRaceClasses.map((_, i) =>
+    i === 0 ? { A: [], B: [] } : standingsAfter[i - 1]
+  );
+  return parsedRaceClasses.map((raceClasses, i) => {
+    const out = { A: [], B: [] };
+    for (const cls of ["A", "B"]) {
+      const before = new Map(standingsBefore[i][cls].map((r) => [r.name, r.pos]));
+      const after = standingsAfter[i][cls];
+      const shifts = after
+        .map((r) => {
+          const from = before.get(r.name);
+          const raceRow = raceClasses[cls].find((x) => x.name === r.name);
+          return {
+            nr: r.nr,
+            name: r.name,
+            from: from ?? null,
+            to: r.pos,
+            shift: from != null ? from - r.pos : null,
+            pts: raceRow?.pts ?? 0,
+          };
+        })
+        .filter((s) => s.shift !== null && s.shift !== 0);
+      shifts.sort((a, b) => Math.abs(b.shift) - Math.abs(a.shift));
+      out[cls] = shifts.slice(0, 3);
+    }
+    return out;
+  });
+}
+
 // Top-level builder used by both the fetcher and the tests.
 // `sessions`: [{ n, sessionId, date, label, csv }] — csv is the raw CSV text.
 // `options.roster.women`: optional { A: [...], B: [...] } of start numbers
@@ -252,49 +291,17 @@ export function build(sessions, options = {}) {
     A: parsedRaces.map((r) => r.classes.A),
     B: parsedRaces.map((r) => r.classes.B),
   };
-  const standings = buildStandings(racesByClass);
-  const womenStandings = buildStandings({
+  const womenRacesByClass = {
     A: parsedRaces.map((r) => r.womenClasses.A),
     B: parsedRaces.map((r) => r.womenClasses.B),
-  });
+  };
+  const standings = buildStandings(racesByClass);
+  const womenStandings = buildStandings(womenRacesByClass);
 
   // Movers per race: position shift in season standing caused by that race.
   // O(R²) total; trivially fast for ≤26 races, keeps the math obvious.
-  const standingsAfter = parsedRaces.map((_, i) =>
-    buildStandings({
-      A: racesByClass.A.slice(0, i + 1),
-      B: racesByClass.B.slice(0, i + 1),
-    })
-  );
-  const standingsBefore = parsedRaces.map((_, i) =>
-    i === 0
-      ? { A: [], B: [] }
-      : standingsAfter[i - 1]
-  );
-  const moversByRace = parsedRaces.map((race, i) => {
-    const out = { A: [], B: [] };
-    for (const cls of ["A", "B"]) {
-      const before = new Map(standingsBefore[i][cls].map((r) => [r.name, r.pos]));
-      const after = standingsAfter[i][cls];
-      const shifts = after
-        .map((r) => {
-          const from = before.get(r.name);
-          const raceRow = race.classes[cls].find((x) => x.name === r.name);
-          return {
-            nr: r.nr,
-            name: r.name,
-            from: from ?? null,
-            to: r.pos,
-            shift: from != null ? from - r.pos : null,
-            pts: raceRow?.pts ?? 0,
-          };
-        })
-        .filter((s) => s.shift !== null && s.shift !== 0);
-      shifts.sort((a, b) => Math.abs(b.shift) - Math.abs(a.shift));
-      out[cls] = shifts.slice(0, 3);
-    }
-    return out;
-  });
+  const moversByRace = computeMovers(racesByClass, parsedRaces.map((r) => r.classes));
+  const womenMoversByRace = computeMovers(womenRacesByClass, parsedRaces.map((r) => r.womenClasses));
 
   const racesOut = parsedRaces.map((r, i) => ({
     n: r.n,
@@ -305,7 +312,12 @@ export function build(sessions, options = {}) {
       A: { results: r.classes.A, stats: statsFor(r.classes.A) },
       B: { results: r.classes.B, stats: statsFor(r.classes.B) },
     },
+    womenClasses: {
+      A: { results: r.womenClasses.A, stats: statsFor(r.womenClasses.A) },
+      B: { results: r.womenClasses.B, stats: statsFor(r.womenClasses.B) },
+    },
     movers: moversByRace[i],
+    womenMovers: womenMoversByRace[i],
   }));
 
   return {
