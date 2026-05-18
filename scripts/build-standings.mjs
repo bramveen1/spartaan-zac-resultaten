@@ -111,13 +111,15 @@ export function parseRaceCSV(csvText) {
 }
 
 // Filter a parseRaceCSV result down to riders whose start number is on the
-// roster, then re-rank positions 1..N within the filtered field and re-apply
-// pointsFor. Identity in the roster is by start number — the women's GC has
-// no independent name list (v1 tradeoff, see issue #8).
-export function filterAndReRank(byClass, rosterNrs) {
-  const allowed = new Set((rosterNrs ?? []).map((n) => Number(n)));
+// roster for that class, then re-rank positions 1..N within the filtered
+// field and re-apply pointsFor. Start numbers overlap across classes
+// (#17 in A and #17 in B can be different riders — confirmed in the 2026
+// season), so the roster is per-class. Identity within a class is by start
+// number — the women's GC has no independent name list (v1 tradeoff, #8).
+export function filterAndReRank(byClass, rosterByClass) {
   const out = { A: [], B: [] };
   for (const cls of ["A", "B"]) {
+    const allowed = new Set((rosterByClass?.[cls] ?? []).map((n) => Number(n)));
     const filtered = (byClass[cls] ?? []).filter((r) => allowed.has(r.nr));
     out[cls] = filtered.map((r, i) => ({
       ...r,
@@ -229,9 +231,11 @@ function statsFor(results) {
 
 // Top-level builder used by both the fetcher and the tests.
 // `sessions`: [{ n, sessionId, date, label, csv }] — csv is the raw CSV text.
-// `options.roster.women`: optional array of start numbers for the women's GC.
+// `options.roster.women`: optional { A: [...], B: [...] } of start numbers
+//   per class for the women's GC. Per-class because start numbers overlap
+//   across classes.
 export function build(sessions, options = {}) {
-  const womenRoster = options?.roster?.women ?? [];
+  const womenRoster = options?.roster?.women ?? { A: [], B: [] };
   const parsedRaces = sessions.map((s) => {
     const classes = parseRaceCSV(s.csv);
     return {
