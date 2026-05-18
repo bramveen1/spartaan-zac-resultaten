@@ -25,6 +25,7 @@ const SESSIONS_PATH = join(ROOT, "data/sessions.json");
 const STANDINGS_PATH = join(ROOT, "data/standings.json");
 const RACES_PATH = join(ROOT, "data/races.json");
 const RAW_DIR = join(ROOT, "data/raw");
+const WOMEN_ROSTER_PATH = join(ROOT, "data/roster/women.json");
 
 const CSV_URL = (id) =>
   `https://eventresults-api.speedhive.com/api/v0.2.3/eventresults/sessions/${id}/csv`;
@@ -90,7 +91,14 @@ async function main() {
     }
   }
 
-  const { standings, races } = build(sessions);
+  let roster = { women: [] };
+  try {
+    roster = JSON.parse(await readFile(WOMEN_ROSTER_PATH, "utf8"));
+  } catch (_) {
+    // Roster file is optional — empty roster yields empty womenClasses.
+  }
+
+  const { standings, races } = build(sessions, { roster });
   const updatedAt = new Date().toISOString();
 
   const standingsDoc = {
@@ -99,6 +107,7 @@ async function main() {
     racesTotal: meta.racesTotal ?? 26,
     updatedAt,
     classes: standings.classes,
+    womenClasses: standings.womenClasses,
   };
   const racesDoc = { updatedAt, races };
 

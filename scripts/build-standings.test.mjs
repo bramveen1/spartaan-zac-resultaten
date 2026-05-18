@@ -10,6 +10,7 @@ import {
   parseCSV,
   classOf,
   parseRaceCSV,
+  filterAndReRank,
   buildStandings,
   build,
 } from "./build-standings.mjs";
@@ -241,4 +242,111 @@ test("build: end-to-end with the real fixture", async () => {
   assert.equal(out.races[0].classes.A.stats.finishers, 29);
   // Race 1 has no "before" → movers should be empty
   assert.deepEqual(out.races[0].movers, { A: [], B: [] });
+});
+
+test("filterAndReRank: keeps only roster nrs and re-ranks 1..N", () => {
+  const byClass = {
+    A: [
+      { pos: 1, nr: 26, name: "Top", laps: 30, pts: 25 },
+      { pos: 2, nr: 77, name: "Mid", laps: 30, pts: 23 },
+      { pos: 3, nr: 12, name: "Bottom", laps: 30, pts: 21 },
+    ],
+    B: [
+      { pos: 1, nr: 5, name: "BTop", laps: 28, pts: 25 },
+      { pos: 2, nr: 9, name: "BNext", laps: 28, pts: 23 },
+    ],
+  };
+  const out = filterAndReRank(byClass, [12, 5, 999]);
+  assert.equal(out.A.length, 1);
+  assert.equal(out.A[0].name, "Bottom");
+  assert.equal(out.A[0].pos, 1, "re-ranked to 1");
+  assert.equal(out.A[0].pts, 25, "re-pointed for new position");
+  assert.equal(out.B.length, 1);
+  assert.equal(out.B[0].name, "BTop");
+  assert.equal(out.B[0].pos, 1);
+  assert.equal(out.B[0].pts, 25);
+});
+
+test("filterAndReRank: empty roster → empty classes", () => {
+  const byClass = {
+    A: [{ pos: 1, nr: 7, name: "X", pts: 25 }],
+    B: [{ pos: 1, nr: 8, name: "Y", pts: 25 }],
+  };
+  assert.deepEqual(filterAndReRank(byClass, []), { A: [], B: [] });
+  assert.deepEqual(filterAndReRank(byClass, null), { A: [], B: [] });
+});
+
+test("filterAndReRank: unknown roster nr is ignored silently", () => {
+  const byClass = {
+    A: [{ pos: 1, nr: 7, name: "X", pts: 25 }],
+    B: [],
+  };
+  const out = filterAndReRank(byClass, [999]);
+  assert.deepEqual(out, { A: [], B: [] });
+});
+
+test("build: roster doesn't affect overall classes (regression guard)", async () => {
+  const csv = await fixture("session-11869003.csv");
+  const sessions = [
+    { n: 1, sessionId: 11869003, date: "2026-03-31", label: "Race 1", csv },
+  ];
+  const noRoster = build(sessions);
+  const withRoster = build(sessions, { roster: { women: [26, 77] } });
+  assert.deepEqual(noRoster.standings.classes, withRoster.standings.classes);
+  // Per-race results in races.json are also untouched.
+  assert.deepEqual(
+    noRoster.races[0].classes,
+    withRoster.races[0].classes,
+  );
+});
+
+test("build: women roster produces re-ranked women's GC with 25/23 points at top", async () => {
+  const csv = await fixture("session-11869003.csv");
+  // From the fixture: position 16 in A is nr 70 (Hugo Klop), positions 17+
+  // are filler — we want a roster that picks a mid-pack rider in A and the
+  // class B leader so each class has at least one woman.
+  // Spot check from data/raw/11869003.csv: class A has nr 26 at p1, 77 at p2.
+  // Class B's leader is nr 27 (per the existing data). Use 77 + a couple
+  // others so the women's A field re-ranks 1..N.
+  const out = build(
+    [{ n: 1, sessionId: 11869003, date: "2026-03-31", label: "Race 1", csv }],
+    { roster: { women: [77, 12] } },
+  );
+  assert.ok(out.standings.womenClasses.A.length >= 2, "women A has ≥2 riders");
+  assert.equal(out.standings.womenClasses.A[0].pts, 25, "top woman = 25 pts");
+  assert.equal(out.standings.womenClasses.A[1].pts, 23, "second woman = 23 pts");
+});
+
+test("build: women's H2H tiebreaker resolves on the subset", () => {
+  // Two riders end on identical points (25+23 each), but Alice beat Bob
+  // both times → Alice 1st, Bob 2nd within the women's subset.
+  const mkCSV = (...rows) =>
+    "Pos,Start Number,Competitor,Class,Total Time,Diff,Laps,Best Lap,Best Lap No.,Best Speed\n" +
+    rows.join("\n") + "\n";
+  const sessions = [
+    {
+      n: 1, sessionId: 1, date: "2026-01-01", label: "R1",
+      csv: mkCSV(
+        "1,10,Alice,110001 | ZAC A (01/01) - 19:30:00,1:0:0.000,0.000,30,1:00,1,40",
+        "2,20,Charlie,110001 | ZAC A (01/01) - 19:30:00,1:0:1.000,1.000,30,1:00,1,40",
+        "3,30,Bob,110001 | ZAC A (01/01) - 19:30:00,1:0:2.000,2.000,30,1:00,1,40",
+      ),
+    },
+    {
+      n: 2, sessionId: 2, date: "2026-01-08", label: "R2",
+      csv: mkCSV(
+        "1,30,Bob,110002 | ZAC A (08/01) - 19:30:00,1:0:0.000,0.000,30,1:00,1,40",
+        "2,10,Alice,110002 | ZAC A (08/01) - 19:30:00,1:0:1.000,1.000,30,1:00,1,40",
+      ),
+    },
+  ];
+  const out = build(sessions, { roster: { women: [10, 30] } });
+  // Subset: only Alice (10) and Bob (30). Race 1: Alice 1st (25), Bob 2nd (23).
+  // Race 2: Bob 1st (25), Alice 2nd (23). Both = 48 pts. H2H tied → joint 1st.
+  const wA = out.standings.womenClasses.A;
+  assert.equal(wA.length, 2);
+  assert.equal(wA[0].pts, 48);
+  assert.equal(wA[1].pts, 48);
+  assert.equal(wA[0].joint, true);
+  assert.equal(wA[1].joint, true);
 });

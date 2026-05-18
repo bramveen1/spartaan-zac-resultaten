@@ -110,6 +110,24 @@ export function parseRaceCSV(csvText) {
   return byClass;
 }
 
+// Filter a parseRaceCSV result down to riders whose start number is on the
+// roster, then re-rank positions 1..N within the filtered field and re-apply
+// pointsFor. Identity in the roster is by start number — the women's GC has
+// no independent name list (v1 tradeoff, see issue #8).
+export function filterAndReRank(byClass, rosterNrs) {
+  const allowed = new Set((rosterNrs ?? []).map((n) => Number(n)));
+  const out = { A: [], B: [] };
+  for (const cls of ["A", "B"]) {
+    const filtered = (byClass[cls] ?? []).filter((r) => allowed.has(r.nr));
+    out[cls] = filtered.map((r, i) => ({
+      ...r,
+      pos: i + 1,
+      pts: pointsFor(i + 1),
+    }));
+  }
+  return out;
+}
+
 // Head-to-head over a list of per-race results for two riders.
 // Counts races both rode (both have a finish position).
 function headToHead(a, b) {
@@ -211,7 +229,9 @@ function statsFor(results) {
 
 // Top-level builder used by both the fetcher and the tests.
 // `sessions`: [{ n, sessionId, date, label, csv }] — csv is the raw CSV text.
-export function build(sessions) {
+// `options.roster.women`: optional array of start numbers for the women's GC.
+export function build(sessions, options = {}) {
+  const womenRoster = options?.roster?.women ?? [];
   const parsedRaces = sessions.map((s) => {
     const classes = parseRaceCSV(s.csv);
     return {
@@ -220,6 +240,7 @@ export function build(sessions) {
       date: s.date ?? null,
       label: s.label ?? `Race ${s.n}`,
       classes,
+      womenClasses: filterAndReRank(classes, womenRoster),
     };
   });
 
@@ -228,6 +249,10 @@ export function build(sessions) {
     B: parsedRaces.map((r) => r.classes.B),
   };
   const standings = buildStandings(racesByClass);
+  const womenStandings = buildStandings({
+    A: parsedRaces.map((r) => r.womenClasses.A),
+    B: parsedRaces.map((r) => r.womenClasses.B),
+  });
 
   // Movers per race: position shift in season standing caused by that race.
   // O(R²) total; trivially fast for ≤26 races, keeps the math obvious.
@@ -283,6 +308,7 @@ export function build(sessions) {
     standings: {
       racesCompleted: parsedRaces.length,
       classes: standings,
+      womenClasses: womenStandings,
     },
     races: racesOut,
   };
