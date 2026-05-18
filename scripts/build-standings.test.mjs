@@ -244,7 +244,7 @@ test("build: end-to-end with the real fixture", async () => {
   assert.deepEqual(out.races[0].movers, { A: [], B: [] });
 });
 
-test("filterAndReRank: keeps only roster nrs and re-ranks 1..N", () => {
+test("filterAndReRank: keeps only roster nrs per class and re-ranks 1..N", () => {
   const byClass = {
     A: [
       { pos: 1, nr: 26, name: "Top", laps: 30, pts: 25 },
@@ -256,7 +256,7 @@ test("filterAndReRank: keeps only roster nrs and re-ranks 1..N", () => {
       { pos: 2, nr: 9, name: "BNext", laps: 28, pts: 23 },
     ],
   };
-  const out = filterAndReRank(byClass, [12, 5, 999]);
+  const out = filterAndReRank(byClass, { A: [12, 999], B: [5] });
   assert.equal(out.A.length, 1);
   assert.equal(out.A[0].name, "Bottom");
   assert.equal(out.A[0].pos, 1, "re-ranked to 1");
@@ -267,13 +267,27 @@ test("filterAndReRank: keeps only roster nrs and re-ranks 1..N", () => {
   assert.equal(out.B[0].pts, 25);
 });
 
+test("filterAndReRank: per-class roster — same nr in A and B is independent", () => {
+  // #17 in A is male, #17 in B is female (real scenario): roster only lists
+  // 17 under B, so A's #17 must NOT be picked up.
+  const byClass = {
+    A: [{ pos: 1, nr: 17, name: "Male17", pts: 25 }],
+    B: [{ pos: 1, nr: 17, name: "Female17", pts: 25 }],
+  };
+  const out = filterAndReRank(byClass, { A: [], B: [17] });
+  assert.equal(out.A.length, 0, "A's #17 is excluded");
+  assert.equal(out.B.length, 1);
+  assert.equal(out.B[0].name, "Female17");
+});
+
 test("filterAndReRank: empty roster → empty classes", () => {
   const byClass = {
     A: [{ pos: 1, nr: 7, name: "X", pts: 25 }],
     B: [{ pos: 1, nr: 8, name: "Y", pts: 25 }],
   };
-  assert.deepEqual(filterAndReRank(byClass, []), { A: [], B: [] });
+  assert.deepEqual(filterAndReRank(byClass, { A: [], B: [] }), { A: [], B: [] });
   assert.deepEqual(filterAndReRank(byClass, null), { A: [], B: [] });
+  assert.deepEqual(filterAndReRank(byClass, {}), { A: [], B: [] });
 });
 
 test("filterAndReRank: unknown roster nr is ignored silently", () => {
@@ -281,7 +295,7 @@ test("filterAndReRank: unknown roster nr is ignored silently", () => {
     A: [{ pos: 1, nr: 7, name: "X", pts: 25 }],
     B: [],
   };
-  const out = filterAndReRank(byClass, [999]);
+  const out = filterAndReRank(byClass, { A: [999], B: [] });
   assert.deepEqual(out, { A: [], B: [] });
 });
 
@@ -291,7 +305,7 @@ test("build: roster doesn't affect overall classes (regression guard)", async ()
     { n: 1, sessionId: 11869003, date: "2026-03-31", label: "Race 1", csv },
   ];
   const noRoster = build(sessions);
-  const withRoster = build(sessions, { roster: { women: [26, 77] } });
+  const withRoster = build(sessions, { roster: { women: { A: [26, 77], B: [] } } });
   assert.deepEqual(noRoster.standings.classes, withRoster.standings.classes);
   // Per-race results in races.json are also untouched.
   assert.deepEqual(
@@ -302,15 +316,11 @@ test("build: roster doesn't affect overall classes (regression guard)", async ()
 
 test("build: women roster produces re-ranked women's GC with 25/23 points at top", async () => {
   const csv = await fixture("session-11869003.csv");
-  // From the fixture: position 16 in A is nr 70 (Hugo Klop), positions 17+
-  // are filler — we want a roster that picks a mid-pack rider in A and the
-  // class B leader so each class has at least one woman.
-  // Spot check from data/raw/11869003.csv: class A has nr 26 at p1, 77 at p2.
-  // Class B's leader is nr 27 (per the existing data). Use 77 + a couple
-  // others so the women's A field re-ranks 1..N.
+  // Pick two finishers from Class A so the re-ranked women's A field has
+  // a 1st (25 pts) and 2nd (23 pts). Class A nrs 77 and 12 both finished.
   const out = build(
     [{ n: 1, sessionId: 11869003, date: "2026-03-31", label: "Race 1", csv }],
-    { roster: { women: [77, 12] } },
+    { roster: { women: { A: [77, 12], B: [] } } },
   );
   assert.ok(out.standings.womenClasses.A.length >= 2, "women A has ≥2 riders");
   assert.equal(out.standings.womenClasses.A[0].pts, 25, "top woman = 25 pts");
@@ -340,7 +350,7 @@ test("build: women's H2H tiebreaker resolves on the subset", () => {
       ),
     },
   ];
-  const out = build(sessions, { roster: { women: [10, 30] } });
+  const out = build(sessions, { roster: { women: { A: [10, 30], B: [] } } });
   // Subset: only Alice (10) and Bob (30). Race 1: Alice 1st (25), Bob 2nd (23).
   // Race 2: Bob 1st (25), Alice 2nd (23). Both = 48 pts. H2H tied → joint 1st.
   const wA = out.standings.womenClasses.A;
