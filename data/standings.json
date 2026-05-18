@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 7,
   "racesTotal": 26,
-  "updatedAt": "2026-05-18T08:53:34.179Z",
+  "updatedAt": "2026-05-18T08:56:41.129Z",
   "classes": {
     "A": [
       {
@@ -1610,7 +1610,309 @@
     ]
   },
   "womenClasses": {
-    "A": [],
-    "B": []
+    "A": [
+      {
+        "pos": 1,
+        "nr": 17,
+        "name": "Juul Hubert",
+        "pts": 140,
+        "lastPts": 0,
+        "starts": 6,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 9,
+        "name": "Sander Huisson",
+        "pts": 69,
+        "lastPts": 0,
+        "starts": 3,
+        "gap": 71,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 48,
+        "name": "Linus Kloepfer",
+        "pts": 50,
+        "lastPts": 0,
+        "starts": 2,
+        "gap": 90,
+        "joint": false
+      },
+      {
+        "pos": 4,
+        "nr": 88,
+        "name": "John Zwinkels",
+        "pts": 42,
+        "lastPts": 0,
+        "starts": 2,
+        "gap": 98,
+        "joint": false
+      },
+      {
+        "pos": 5,
+        "nr": 38,
+        "name": "Bart Vonk",
+        "pts": 25,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 115,
+        "joint": false
+      },
+      {
+        "pos": 6,
+        "nr": 53,
+        "name": "Melvin Straathof",
+        "pts": 23,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 117,
+        "joint": false
+      },
+      {
+        "pos": 7,
+        "nr": 90,
+        "name": "Martijn Harteloh",
+        "pts": 21,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 119,
+        "joint": false
+      },
+      {
+        "pos": 8,
+        "nr": 52,
+        "name": "Rik Bisschop",
+        "pts": 19,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 121,
+        "joint": false
+      }
+    ],
+    "B": [
+      {
+        "pos": 1,
+        "nr": 17,
+        "name": "Melvin Straathof",
+        "pts": 84,
+        "lastPts": 0,
+        "starts": 4,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 9,
+        "name": "Milou van de Beek",
+        "pts": 82,
+        "lastPts": 0,
+        "starts": 4,
+        "gap": 2,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 46,
+        "name": "Saar Mooij",
+        "pts": 82,
+        "lastPts": 15,
+        "starts": 5,
+        "gap": 2,
+        "joint": false
+      },
+      {
+        "pos": 4,
+        "nr": 38,
+        "name": "Femke van Welie",
+        "pts": 71,
+        "lastPts": 0,
+        "starts": 3,
+        "gap": 13,
+        "joint": false
+      },
+      {
+        "pos": 5,
+        "nr": 48,
+        "name": "Nanky Fernandez Bonilla",
+        "pts": 60,
+        "lastPts": 23,
+        "starts": 3,
+        "gap": 24,
+        "joint": false
+      },
+      {
+        "pos": 6,
+        "nr": 52,
+        "name": "Nienke Bennis",
+        "pts": 41,
+        "lastPts": 14,
+        "starts": 3,
+        "gap": 43,
+        "joint": false
+      },
+      {
+        "pos": 7,
+        "nr": 109,
+        "name": "Sanne Brouwer",
+        "pts": 40,
+        "lastPts": 19,
+        "starts": 2,
+        "gap": 44,
+        "joint": false
+      },
+      {
+        "pos": 8,
+        "nr": 55,
+        "name": "Mette Stoel",
+        "pts": 34,
+        "lastPts": 0,
+        "starts": 2,
+        "gap": 50,
+        "joint": false
+      },
+      {
+        "pos": 9,
+        "nr": 88,
+        "name": "Mette Houwaard",
+        "pts": 34,
+        "lastPts": 0,
+        "starts": 2,
+        "gap": 50,
+        "joint": false
+      },
+      {
+        "pos": 10,
+        "nr": 31,
+        "name": "Dorien van Iwaarden",
+        "pts": 34,
+        "lastPts": 0,
+        "starts": 2,
+        "gap": 50,
+        "joint": false
+      },
+      {
+        "pos": 11,
+        "nr": 53,
+        "name": "Floor Sigmond",
+        "pts": 32,
+        "lastPts": 17,
+        "starts": 2,
+        "gap": 52,
+        "joint": false
+      },
+      {
+        "pos": 12,
+        "nr": 103,
+        "name": "Jitse van Esch",
+        "pts": 25,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 59,
+        "joint": true
+      },
+      {
+        "pos": 12,
+        "nr": 127,
+        "name": "Berdine Bakker",
+        "pts": 25,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 59,
+        "joint": true
+      },
+      {
+        "pos": 12,
+        "nr": 17,
+        "name": "Olen Olsthoorn",
+        "pts": 25,
+        "lastPts": 25,
+        "starts": 1,
+        "gap": 59,
+        "joint": true
+      },
+      {
+        "pos": 15,
+        "nr": 110,
+        "name": "Elise van Dijk",
+        "pts": 23,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 61,
+        "joint": false
+      },
+      {
+        "pos": 16,
+        "nr": 90,
+        "name": "Nicole van Sighem",
+        "pts": 21,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 63,
+        "joint": true
+      },
+      {
+        "pos": 16,
+        "nr": 63,
+        "name": "Izzy Kreuk",
+        "pts": 21,
+        "lastPts": 21,
+        "starts": 1,
+        "gap": 63,
+        "joint": true
+      },
+      {
+        "pos": 18,
+        "nr": 121,
+        "name": "Veraa Broeckaert",
+        "pts": 19,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 65,
+        "joint": false
+      },
+      {
+        "pos": 19,
+        "nr": 122,
+        "name": "Pip Ypenburg",
+        "pts": 17,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 67,
+        "joint": false
+      },
+      {
+        "pos": 20,
+        "nr": 120,
+        "name": "Ilse La Brijn",
+        "pts": 14,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 70,
+        "joint": false
+      },
+      {
+        "pos": 21,
+        "nr": 129,
+        "name": "Roos Heeger",
+        "pts": 13,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 71,
+        "joint": false
+      },
+      {
+        "pos": 22,
+        "nr": 125,
+        "name": "Kirsten Parren",
+        "pts": 12,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 72,
+        "joint": false
+      }
+    ]
   }
 }
