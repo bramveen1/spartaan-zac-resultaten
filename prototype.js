@@ -9,6 +9,7 @@
    ---------------------------------------------------------------------------- */
 
 const STORAGE_KEY = "despartaan.me";       // "<class>:<startNumber>", e.g. "A:47"
+const WOMEN_PREVIEW_KEY = "womenGcPreview"; // sessionStorage: "true" enables Women GC tabs
 
 const MAANDEN = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 const DAGEN_FULL = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag"];
@@ -93,20 +94,41 @@ function idSafe(s) {
 const state = {
   standings: null,   // data/standings.json
   races: null,       // data/races.json
-  cls: "A",          // currently selected class on the standings + race views
+  siteConfig: null,  // data/site_config.json (features flags)
+  cls: "A",          // currently selected class on the standings view: "A" | "B" | "WA" | "WB"
   raceIdx: 0,        // currently selected race index (0-based)
   rider: null,       // { cls, name } when rider detail is open
 };
 
+// "WA" / "WB" → "A" / "B"; passthrough for non-women classes. Women's tabs
+// re-use the underlying class for race-night, rider detail, and pin matching.
+function effectiveCls(cls) {
+  return cls === "WA" || cls === "WB" ? cls.slice(1) : cls;
+}
+function isWomenCls(cls) {
+  return cls === "WA" || cls === "WB";
+}
+
+function isWomenVisible() {
+  if (state.siteConfig?.features?.womenGc === true) return true;
+  try { return sessionStorage.getItem(WOMEN_PREVIEW_KEY) === "true"; }
+  catch (_) { return false; }
+}
+
 /* ---------- DATA LOAD ---------- */
 
 async function loadData() {
-  const [standings, races] = await Promise.all([
+  const [standings, races, siteConfig] = await Promise.all([
     fetch("data/standings.json", { cache: "no-store" }).then((r) => r.json()),
     fetch("data/races.json", { cache: "no-store" }).then((r) => r.json()),
+    // site_config is optional — missing or invalid → no feature flags
+    fetch("data/site_config.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : { features: {} }))
+      .catch(() => ({ features: {} })),
   ]);
   state.standings = standings;
   state.races = races;
+  state.siteConfig = siteConfig;
   // Default to latest race; default class follows the pinned rider, else A.
   state.raceIdx = Math.max(0, (races.races?.length ?? 1) - 1);
   const me = getMe();
@@ -133,28 +155,57 @@ function renderHeaderMeta() {
 }
 
 function renderClassToggle() {
-  document.querySelectorAll(".classtoggle__opt").forEach((opt) => {
+  // Standings toggle has 4 options (incl. WA/WB) — match exact state.cls.
+  document.querySelectorAll("#standings .classtoggle__opt").forEach((opt) => {
     const active = opt.dataset.class === state.cls;
+    opt.classList.toggle("is-active", active);
+    opt.setAttribute("aria-selected", String(active));
+  });
+  // Race-avond toggle only has A/B — match the underlying class so the right
+  // tab stays highlighted when the user is on a Vrouwen tab.
+  const eff = effectiveCls(state.cls);
+  document.querySelectorAll("#race .classtoggle__opt").forEach((opt) => {
+    const active = opt.dataset.class === eff;
     opt.classList.toggle("is-active", active);
     opt.setAttribute("aria-selected", String(active));
   });
 }
 
+function applyWomenVisibility() {
+  const visible = isWomenVisible();
+  document.querySelectorAll(".classtoggle__opt--women").forEach((b) => {
+    b.hidden = !visible;
+  });
+  document.querySelectorAll("#standings .classtoggle").forEach((tg) => {
+    tg.classList.toggle("classtoggle--with-women", visible);
+  });
+  // If the flag turns off mid-session (or the user clears sessionStorage),
+  // fall back to the underlying class so the standings table stays valid.
+  if (!visible && isWomenCls(state.cls)) {
+    state.cls = effectiveCls(state.cls);
+  }
+}
+
 function renderStandings() {
   const body = document.getElementById("standings-body");
   if (!body || !state.standings) return;
-  const rows = state.standings.classes[state.cls] ?? [];
+  const women = isWomenCls(state.cls);
+  const eff = effectiveCls(state.cls);
+  const rows = women
+    ? (state.standings.womenClasses?.[eff] ?? [])
+    : (state.standings.classes[eff] ?? []);
   const me = getMe();
   const meCls = classFromMe(me);
   const meName = nameFromMe(me);
 
   body.innerHTML = rows.map((row) => {
-    const isMe = meCls === state.cls && row.name === meName;
+    // Pin keys by the underlying class (a rider is in A or B, not "WA").
+    const isMe = meCls === eff && row.name === meName;
     const deltaCls = row.lastPts >= 21 ? "delta--up" : row.lastPts >= 10 ? "delta--flat" : "delta--down";
     const deltaPrefix = row.lastPts > 0 ? "+" : "";
     const posLabel = row.joint ? `${row.pos}<sup>jt</sup>` : row.pos;
     return `
-      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(row.name)}" data-class="${state.cls}" id="row-${state.cls}-${idSafe(row.name)}">
+      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(row.name)}" data-class="${eff}" id="row-${state.cls}-${idSafe(row.name)}">
         <td class="num pos">${posLabel}</td>
         <td class="num nr">#${row.nr}</td>
         <td>${esc(row.name)}</td>
@@ -186,11 +237,14 @@ function renderRace() {
   if (!state.races) return;
   const race = state.races.races[state.raceIdx];
   if (!race) return;
+  // Race-avond shows the underlying class even when the user is on a Vrouwen
+  // tab — per-race results are not split by gender in v1.
+  const raceCls = effectiveCls(state.cls);
 
   // Eyebrow + title meta
   const eyebrow = document.querySelector("#race .eyebrow");
   if (eyebrow) {
-    eyebrow.textContent = `Race ${race.n} · ${nlDayFull(race.date)} ${nlDate(race.date)} · Klasse ${state.cls}`;
+    eyebrow.textContent = `Race ${race.n} · ${nlDayFull(race.date)} ${nlDate(race.date)} · Klasse ${raceCls}`;
   }
   const pagerLabel = document.querySelector("#race .racepager__label");
   if (pagerLabel) {
@@ -205,7 +259,7 @@ function renderRace() {
   if (next) next.disabled = state.raceIdx >= total - 1;
 
   // Card meta (laps / winner time / finishers)
-  const cls = race.classes[state.cls] ?? { results: [], stats: {} };
+  const cls = race.classes[raceCls] ?? { results: [], stats: {} };
   const meta = document.querySelector("#race .card .card__meta");
   if (meta) {
     const s = cls.stats;
@@ -227,10 +281,10 @@ function renderRace() {
   const meCls = classFromMe(me);
   const meName = nameFromMe(me);
   body.innerHTML = (cls.results ?? []).map((r) => {
-    const isMe = meCls === state.cls && r.name === meName;
+    const isMe = meCls === raceCls && r.name === meName;
     const timeDisplay = /\d+\s+laps?/.test(r.diff) ? `+${r.diff.replace(/\s+laps?/, (m) => m.includes("laps") ? " ronden" : " ronde")}` : r.time;
     return `
-      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(r.name)}" data-class="${state.cls}">
+      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(r.name)}" data-class="${raceCls}">
         <td class="num pos">${r.pos}</td>
         <td class="num nr">#${r.nr}</td>
         <td>${esc(r.name)}</td>
@@ -244,16 +298,16 @@ function renderRace() {
   // Movers
   const moversEl = document.getElementById("movers-body");
   if (moversEl) {
-    const movers = (race.movers && race.movers[state.cls]) ?? [];
+    const movers = (race.movers && race.movers[raceCls]) ?? [];
     if (!movers.length) {
       moversEl.innerHTML = `<li class="mover mover--empty">Geen verschuivingen om te tonen.</li>`;
     } else {
       moversEl.innerHTML = movers.map((m) => {
         const dir = m.shift > 0 ? "up" : "down";
         const arrow = m.shift > 0 ? "↑" : "↓";
-        const isMe = meCls === state.cls && m.name === meName;
+        const isMe = meCls === raceCls && m.name === meName;
         return `
-          <li class="mover ${isMe ? "is-me" : ""}" data-name="${esc(m.name)}" data-class="${state.cls}">
+          <li class="mover ${isMe ? "is-me" : ""}" data-name="${esc(m.name)}" data-class="${raceCls}">
             <span class="mover__arrow mover__arrow--${dir}">${arrow}</span>
             <div class="mover__id">
               <div class="mover__name">${esc(m.name)}</div>
@@ -387,6 +441,7 @@ function renderRider() {
 }
 
 function renderAll() {
+  applyWomenVisibility();
   renderHeaderMeta();
   renderClassToggle();
   renderStandings();
@@ -413,6 +468,16 @@ function openRider(cls, name) {
 /* ---------- BOOT ---------- */
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Preview gate: ?preview=women flips sessionStorage so navigating the site
+  // (and refresh) keeps the Women GC tabs visible. A new tab from a clean URL
+  // drops the flag. Once site_config.features.womenGc is true, this is a no-op.
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("preview") === "women") {
+      sessionStorage.setItem(WOMEN_PREVIEW_KEY, "true");
+    }
+  } catch (_) { /* sessionStorage unavailable — fall back to flag-only */ }
+
   try {
     await loadData();
   } catch (e) {
@@ -433,8 +498,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (me) openRider(classFromMe(me), nameFromMe(me));
         else {
           // Default to the leader of the current class so the view is reachable.
-          const leader = state.standings?.classes[state.cls]?.[0];
-          if (leader) openRider(state.cls, leader.name);
+          // For Vrouwen tabs fall back to the underlying class's leader.
+          const eff = effectiveCls(state.cls);
+          const leader = state.standings?.classes[eff]?.[0];
+          if (leader) openRider(eff, leader.name);
         }
       } else {
         switchView(view);
@@ -486,7 +553,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     switchView("standings");
     const me = getMe();
     if (!me) return;
-    state.cls = classFromMe(me);
+    state.cls = classFromMe(me); // jumps to the overall A/B tab, not Vrouwen
     renderClassToggle();
     renderStandings();
     const row = document.getElementById(`row-${state.cls}-${idSafe(nameFromMe(me))}`);

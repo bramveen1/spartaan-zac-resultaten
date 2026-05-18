@@ -235,6 +235,7 @@ sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
 /* ---------- CLASS TOGGLE ---------- */
 .classtoggle {
   display: inline-flex;
+  flex-wrap: wrap;
   background: #fff;
   border: 1px solid var(--c-border);
   border-radius: var(--r-pill);
@@ -242,6 +243,9 @@ sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
   margin-bottom: var(--s-4);
   width: 100%;
   max-width: 360px;
+}
+.classtoggle.classtoggle--with-women {
+  max-width: 520px;
 }
 .classtoggle__opt {
   flex: 1;
@@ -252,6 +256,7 @@ sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
   font-weight: 600; font-size: 14px;
   color: var(--c-muted);
 }
+.classtoggle__opt[hidden] { display: none; }
 .classtoggle__opt.is-active {
   background: var(--c-navy);
   color: var(--c-on-navy);
