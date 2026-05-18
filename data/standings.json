@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 7,
   "racesTotal": 26,
-  "updatedAt": "2026-05-18T08:56:41.129Z",
+  "updatedAt": "2026-05-18T09:09:58.300Z",
   "classes": {
     "A": [
       {
@@ -1610,88 +1610,7 @@
     ]
   },
   "womenClasses": {
-    "A": [
-      {
-        "pos": 1,
-        "nr": 17,
-        "name": "Juul Hubert",
-        "pts": 140,
-        "lastPts": 0,
-        "starts": 6,
-        "gap": 0,
-        "joint": false
-      },
-      {
-        "pos": 2,
-        "nr": 9,
-        "name": "Sander Huisson",
-        "pts": 69,
-        "lastPts": 0,
-        "starts": 3,
-        "gap": 71,
-        "joint": false
-      },
-      {
-        "pos": 3,
-        "nr": 48,
-        "name": "Linus Kloepfer",
-        "pts": 50,
-        "lastPts": 0,
-        "starts": 2,
-        "gap": 90,
-        "joint": false
-      },
-      {
-        "pos": 4,
-        "nr": 88,
-        "name": "John Zwinkels",
-        "pts": 42,
-        "lastPts": 0,
-        "starts": 2,
-        "gap": 98,
-        "joint": false
-      },
-      {
-        "pos": 5,
-        "nr": 38,
-        "name": "Bart Vonk",
-        "pts": 25,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 115,
-        "joint": false
-      },
-      {
-        "pos": 6,
-        "nr": 53,
-        "name": "Melvin Straathof",
-        "pts": 23,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 117,
-        "joint": false
-      },
-      {
-        "pos": 7,
-        "nr": 90,
-        "name": "Martijn Harteloh",
-        "pts": 21,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 119,
-        "joint": false
-      },
-      {
-        "pos": 8,
-        "nr": 52,
-        "name": "Rik Bisschop",
-        "pts": 19,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 121,
-        "joint": false
-      }
-    ],
+    "A": [],
     "B": [
       {
         "pos": 1,
