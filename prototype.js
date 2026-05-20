@@ -39,6 +39,64 @@ function nlDateTime(iso) {
 }
 function ordNL(n) { return `${n}<sup>e</sup>`; }
 
+/* ---------- RACE-TIME FORMATTING ----------
+   Speedhive serves times as "H:M:S.mmm" without zero-padding (e.g.
+   "1:2:33.558" or "1:3:0.507") and a Diff column that's only meaningful
+   relative to the GLOBAL race leader. For a class that doesn't contain
+   that leader (e.g. class A in races where class B's leader is fastest
+   overall), the Diff field reads "4 laps" for every A rider — useless
+   for the in-class comparison the user actually wants. So we compute
+   intra-class gaps ourselves from the absolute times.
+   ------------------------------------------ */
+
+function parseTimeToSeconds(s) {
+  if (!s) return null;
+  const parts = s.split(":").map((p) => parseFloat(p));
+  if (parts.some(Number.isNaN)) return null;
+  return parts.reduce((acc, p) => acc * 60 + p, 0);
+}
+
+// Pad the integer side of a numeric segment to ≥2 digits.
+// "2" → "02"; "33.558" → "33.558" (already 2 digits); "0.507" → "00.507".
+function padTimePart(p) {
+  if (!p) return p;
+  const dot = p.indexOf(".");
+  const intLen = dot === -1 ? p.length : dot;
+  return intLen < 2 ? "0" + p : p;
+}
+
+// "1:2:33.558" → "1:02:33.558"; "1:3:0.507" → "1:03:00.507"
+function formatAbsTime(s) {
+  if (!s || !s.includes(":")) return s ?? "";
+  return s.split(":").map((p, i) => i === 0 ? p : padTimePart(p)).join(":");
+}
+
+// 0.088 → "0.088"; 7.334 → "7.334"; 92.5 → "1:32.500"
+function formatGap(seconds) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "";
+  if (seconds < 60) return seconds.toFixed(3);
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds - mins * 60;
+  return `${mins}:${padTimePart(secs.toFixed(3))}`;
+}
+
+// Returns the display string for the TIJD column of one race result row.
+//   - winner row → absolute time, normalized
+//   - same lap as winner → "+gap"
+//   - laps down → "+N ronde(n)"
+function formatRaceTime(result, winner) {
+  if (!result) return "";
+  if (!winner || result === winner) return formatAbsTime(result.time);
+  if (Number.isFinite(result.laps) && Number.isFinite(winner.laps) && result.laps < winner.laps) {
+    const down = winner.laps - result.laps;
+    return `+${down} ${down === 1 ? "ronde" : "ronden"}`;
+  }
+  const a = parseTimeToSeconds(result.time);
+  const b = parseTimeToSeconds(winner.time);
+  if (a == null || b == null) return formatAbsTime(result.time);
+  return `+${formatGap(a - b)}`;
+}
+
 // Storage value: "<class>:<rider name>". Split on the FIRST colon so names
 // containing ":" don't get truncated.
 function classFromMe(me) {
@@ -275,7 +333,8 @@ function renderRace() {
   const meta = document.querySelector("#race .card .card__meta");
   if (meta) {
     const s = cls.stats;
-    meta.textContent = `${s.laps ?? 0} ronden · ${s.winnerTime ?? "—"} winnaar · ${s.finishers ?? 0} finishers`;
+    const winnerTimeStr = s.winnerTime ? formatAbsTime(s.winnerTime) : "—";
+    meta.textContent = `${s.laps ?? 0} ronden · ${winnerTimeStr} winnaar · ${s.finishers ?? 0} finishers`;
   }
   const sourceLink = document.getElementById("race-source-link");
   if (sourceLink) {
@@ -292,9 +351,11 @@ function renderRace() {
   const me = getMe();
   const meCls = classFromMe(me);
   const meName = nameFromMe(me);
-  body.innerHTML = (cls.results ?? []).map((r) => {
+  const results = cls.results ?? [];
+  const raceWinner = results[0] ?? null;
+  body.innerHTML = results.map((r) => {
     const isMe = meCls === raceCls && r.name === meName;
-    const timeDisplay = /\d+\s+laps?/.test(r.diff) ? `+${r.diff.replace(/\s+laps?/, (m) => m.includes("laps") ? " ronden" : " ronde")}` : r.time;
+    const timeDisplay = formatRaceTime(r, raceWinner);
     return `
       <tr class="${isMe ? "is-me" : ""}" data-name="${esc(r.name)}" data-class="${raceCls}">
         <td class="num pos">${r.pos}</td>
@@ -412,11 +473,12 @@ function renderRider() {
       ? (race.womenClasses?.[cls]?.results ?? [])
       : (race.classes[cls]?.results ?? []);
     const result = source.find((r) => r.name === name);
-    return { race, result };
+    const winner = source[0] ?? null;
+    return { race, result, winner };
   });
 
   const body = document.getElementById("rider-body");
-  body.innerHTML = history.map(({ race, result }) => {
+  body.innerHTML = history.map(({ race, result, winner }) => {
     if (!result) {
       return `
         <tr class="is-dns">
@@ -429,9 +491,7 @@ function renderRider() {
         </tr>
       `;
     }
-    const timeDisplay = /\d+\s+laps?/.test(result.diff)
-      ? `+${result.diff.replace(/\s+laps?/, (m) => m.includes("laps") ? " ronden" : " ronde")}`
-      : result.time;
+    const timeDisplay = formatRaceTime(result, winner);
     return `
       <tr>
         <td class="num">${race.n}</td>
