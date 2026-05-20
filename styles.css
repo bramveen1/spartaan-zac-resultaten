@@ -244,6 +244,10 @@ sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
   width: 100%;
   max-width: 360px;
 }
+/* `display: inline-flex` above would otherwise win over the UA stylesheet's
+   [hidden] { display: none }, so the rider-view-toggle stays visible when
+   the Women's GC isn't active. Restore the hidden behavior explicitly. */
+.classtoggle[hidden] { display: none; }
 .classtoggle.classtoggle--with-women {
   max-width: 520px;
 }
