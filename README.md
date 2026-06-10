@@ -26,7 +26,11 @@ loads the JSON at page load. No backend, no database.
 
 ```
 data/
-  sessions.json       hand-curated list of race nights (one entry per race)
+  config/             maintainer-edited inputs (see data/config/README.md)
+    sessions.json     hand-curated list of race nights (one entry per race)
+    dsq.json          DSQ overrides applied before standings are computed
+    roster/
+      women.json      start numbers classified as women riders, by class
   standings.json      computed — per-class season standings
   races.json          computed — per-race results + movers
   raw/                cached Speedhive CSVs (committed for offline replay)
@@ -44,7 +48,7 @@ index.html, prototype.js, styles.css, assets/  the public site
 
 1. Open the new race's session page on Sporthive (e.g. `https://sporthive.com/sessions/12086232`).
 2. Copy the session ID from the URL.
-3. Edit [`data/sessions.json`](data/sessions.json) (via the GitHub web editor is fine) — append one entry:
+3. Edit [`data/config/sessions.json`](data/config/sessions.json) (via the GitHub web editor is fine) — append one entry:
    ```json
    { "n": 8, "sessionId": 12345678, "date": "2026-05-19" }
    ```
@@ -119,50 +123,11 @@ appears in the sticky "Jouw positie" chip on mobile.
 
 ## DSQ overrides
 
-Sometimes the raw Speedhive data contains an error — a rider who should be
-disqualified still appears with a finishing position. Rather than modifying the
-source (Sporthive is read-only truth), the repo carries a hand-curated override
-file that the build pipeline applies before computing standings, GC, movers and
-stats.
+See [`data/config/README.md`](data/config/README.md) for the full schema,
+worked example, and step-by-step instructions for applying and reversing a DSQ.
 
-**File:** [`data/dsq.json`](data/dsq.json)
-
-**Schema:**
-```json
-{
-  "version": 1,
-  "overrides": [
-    {
-      "sessionId": 12345678,
-      "class": "A",
-      "name": "Rider Name",
-      "nr": 42,
-      "reason": "Short description of the infraction",
-      "appliedAt": "2026-06-01T12:00:00Z",
-      "appliedBy": "admin"
-    }
-  ]
-}
-```
-
-Each entry matches exactly one rider (`sessionId` + `class` + `name`) in one
-race. The `nr` field is informational only (audit trail); identity is by name.
-
-**How to apply a DSQ:**
-1. Open [`data/dsq.json`](data/dsq.json) in the GitHub web editor.
-2. Add an entry to the `overrides` array with the fields above.
-3. Commit and push to `main`. The `push` trigger on `data/dsq.json` fires the
-   **Update standings** workflow automatically, which rebuilds and commits the
-   new `standings.json` and `races.json`.
-
-**How to reverse a DSQ:**
-1. Open [`data/dsq.json`](data/dsq.json) in the GitHub web editor.
-2. Delete the relevant entry from the `overrides` array.
-3. Commit and push to `main`. The workflow fires and restores the original result.
-
-**Audit log:** Git history on `data/dsq.json` is the full audit trail. The
-`appliedAt` and `appliedBy` fields inside each entry are for human readability
-only — the timestamps in git are authoritative.
+In short: edit [`data/config/dsq.json`](data/config/dsq.json), commit to
+`main`, and the **Update standings** workflow fires automatically.
 
 ## Out of scope
 
