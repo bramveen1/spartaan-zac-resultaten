@@ -10,5 +10,15 @@
     "appliedAt": "2026-06-01T12:00:00Z",
     "appliedBy": "admin"
   },
-  "overrides": []
+  "overrides": [
+    {
+      "sessionId": 12253330,
+      "class": "A",
+      "name": "Siem Woldesilassie",
+      "nr": 50,
+      "reason": "afsnijden zonder overleg met de Jury",
+      "appliedAt": "2026-06-10T12:00:00Z",
+      "appliedBy": "Bram"
+    }
+  ]
 }
