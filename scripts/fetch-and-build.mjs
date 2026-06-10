@@ -26,6 +26,7 @@ const STANDINGS_PATH = join(ROOT, "data/standings.json");
 const RACES_PATH = join(ROOT, "data/races.json");
 const RAW_DIR = join(ROOT, "data/raw");
 const WOMEN_ROSTER_PATH = join(ROOT, "data/roster/women.json");
+const DSQ_PATH = join(ROOT, "data/dsq.json");
 
 const CSV_URL = (id) =>
   `https://eventresults-api.speedhive.com/api/v0.2.3/eventresults/sessions/${id}/csv`;
@@ -98,7 +99,15 @@ async function main() {
     // Roster file is optional — empty roster yields empty womenClasses.
   }
 
-  const { standings, races } = build(sessions, { roster });
+  let dsq = [];
+  try {
+    const dsqDoc = JSON.parse(await readFile(DSQ_PATH, "utf8"));
+    dsq = dsqDoc.overrides ?? [];
+  } catch (_) {
+    // DSQ file is optional — no overrides means no DSQs applied.
+  }
+
+  const { standings, races } = build(sessions, { roster, dsq });
   const updatedAt = new Date().toISOString();
 
   const standingsDoc = {

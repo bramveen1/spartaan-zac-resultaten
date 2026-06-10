@@ -117,6 +117,53 @@ Tapping a row in the standings opens that rider's detail view; tapping
 `despartaan.me`. The pinned rider is highlighted across all three views and
 appears in the sticky "Jouw positie" chip on mobile.
 
+## DSQ overrides
+
+Sometimes the raw Speedhive data contains an error — a rider who should be
+disqualified still appears with a finishing position. Rather than modifying the
+source (Sporthive is read-only truth), the repo carries a hand-curated override
+file that the build pipeline applies before computing standings, GC, movers and
+stats.
+
+**File:** [`data/dsq.json`](data/dsq.json)
+
+**Schema:**
+```json
+{
+  "version": 1,
+  "overrides": [
+    {
+      "sessionId": 12345678,
+      "class": "A",
+      "name": "Rider Name",
+      "nr": 42,
+      "reason": "Short description of the infraction",
+      "appliedAt": "2026-06-01T12:00:00Z",
+      "appliedBy": "admin"
+    }
+  ]
+}
+```
+
+Each entry matches exactly one rider (`sessionId` + `class` + `name`) in one
+race. The `nr` field is informational only (audit trail); identity is by name.
+
+**How to apply a DSQ:**
+1. Open [`data/dsq.json`](data/dsq.json) in the GitHub web editor.
+2. Add an entry to the `overrides` array with the fields above.
+3. Commit and push to `main`. The `push` trigger on `data/dsq.json` fires the
+   **Update standings** workflow automatically, which rebuilds and commits the
+   new `standings.json` and `races.json`.
+
+**How to reverse a DSQ:**
+1. Open [`data/dsq.json`](data/dsq.json) in the GitHub web editor.
+2. Delete the relevant entry from the `overrides` array.
+3. Commit and push to `main`. The workflow fires and restores the original result.
+
+**Audit log:** Git history on `data/dsq.json` is the full audit trail. The
+`appliedAt` and `appliedBy` fields inside each entry are for human readability
+only — the timestamps in git are authoritative.
+
 ## Out of scope
 
 Per PRD: no admin UI, no auth, no past-season archive, no push notifications,

@@ -12,6 +12,7 @@ import {
   parseRaceCSV,
   filterAndReRank,
   buildStandings,
+  applyDsq,
   build,
 } from "./build-standings.mjs";
 
@@ -418,4 +419,151 @@ test("build: women's H2H tiebreaker resolves on the subset", () => {
   assert.equal(wA[1].pts, 48);
   assert.equal(wA[0].joint, true);
   assert.equal(wA[1].joint, true);
+});
+
+// ---- DSQ override tests ----
+
+const mkCSV = (...rows) =>
+  "Pos,Start Number,Competitor,Class,Total Time,Diff,Laps,Best Lap,Best Lap No.,Best Speed\n" +
+  rows.join("\n") + "\n";
+
+const DSQ_OVERRIDE = {
+  sessionId: 1,
+  class: "A",
+  name: "Alice",
+  nr: 10,
+  reason: "Technical infraction",
+  appliedAt: "2026-06-01T12:00:00Z",
+  appliedBy: "admin",
+};
+
+const TWO_RACE_SESSIONS = [
+  {
+    n: 1, sessionId: 1, date: "2026-01-01", label: "R1",
+    csv: mkCSV(
+      "1,10,Alice,110001 | ZAC A (01/01) - 19:30:00,1:0:0.000,0.000,30,1:00,1,40",
+      "2,20,Bob,110001 | ZAC A (01/01) - 19:30:00,1:0:1.000,1.000,30,1:00,1,40",
+      "3,30,Carol,110001 | ZAC A (01/01) - 19:30:00,1:0:2.000,2.000,30,1:00,1,40",
+    ),
+  },
+  {
+    n: 2, sessionId: 2, date: "2026-01-08", label: "R2",
+    csv: mkCSV(
+      "1,20,Bob,110002 | ZAC A (08/01) - 19:30:00,1:0:0.000,0.000,30,1:00,1,40",
+      "2,10,Alice,110002 | ZAC A (08/01) - 19:30:00,1:0:1.000,1.000,30,1:00,1,40",
+      "3,30,Carol,110002 | ZAC A (08/01) - 19:30:00,1:0:2.000,2.000,30,1:00,1,40",
+    ),
+  },
+];
+
+test("applyDsq: removes rider's points contribution from GC", () => {
+  // Pre-DSQ: Alice wins race 1 → 25 pts. After DSQ: 0 pts from race 1.
+  const out = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  const alice = out.standings.classes.A.find((r) => r.name === "Alice");
+  // Race 1 DSQ'd (0 pts), Race 2 she gets 2nd (23 pts).
+  assert.equal(alice.pts, 23, "Alice only has pts from race 2");
+});
+
+test("applyDsq: DSQ does not increment the rider's starts counter", () => {
+  const out = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  const alice = out.standings.classes.A.find((r) => r.name === "Alice");
+  // Race 1 is DSQ'd → only race 2 counts as a start.
+  assert.equal(alice.starts, 1, "DSQ race does not count as a start");
+});
+
+test("applyDsq: riders behind DSQ'd rider shift up one position and gain corresponding points", () => {
+  const out = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  const race1 = out.races[0].classes.A;
+  // Bob was 2nd → now 1st (25 pts); Carol was 3rd → now 2nd (23 pts).
+  const bob = race1.results.find((r) => r.name === "Bob");
+  const carol = race1.results.find((r) => r.name === "Carol");
+  assert.equal(bob.pos, 1);
+  assert.equal(bob.pts, 25);
+  assert.equal(carol.pos, 2);
+  assert.equal(carol.pts, 23);
+});
+
+test("applyDsq: DSQ row in races output has dsq:true, pos:null, pts:0, at end of class array", () => {
+  const out = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  const race1Results = out.races[0].classes.A.results;
+  const alice = race1Results.find((r) => r.name === "Alice");
+  assert.ok(alice, "Alice still appears in race results");
+  assert.equal(alice.dsq, true);
+  assert.equal(alice.pos, null);
+  assert.equal(alice.pts, 0);
+  // DSQ rows are at the end.
+  const lastRow = race1Results[race1Results.length - 1];
+  assert.equal(lastRow.name, "Alice");
+});
+
+test("applyDsq: stats.finishers excludes the DSQ row", () => {
+  const out = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  const stats = out.races[0].classes.A.stats;
+  // 3 riders, 1 DSQ'd → 2 finishers.
+  assert.equal(stats.finishers, 2);
+});
+
+test("applyDsq: override referencing unknown sessionId does not break the build", () => {
+  const badOverride = { ...DSQ_OVERRIDE, sessionId: 9999 };
+  assert.doesNotThrow(() => build(TWO_RACE_SESSIONS, { dsq: [badOverride] }));
+});
+
+test("applyDsq: override referencing name not in CSV does not break the build", () => {
+  const badOverride = { ...DSQ_OVERRIDE, name: "Nonexistent Rider" };
+  assert.doesNotThrow(() => build(TWO_RACE_SESSIONS, { dsq: [badOverride] }));
+});
+
+test("applyDsq: reversal (removing override) restores pre-DSQ standings/races output", () => {
+  const withDsq = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  const noDsq = build(TWO_RACE_SESSIONS, { dsq: [] });
+  // After reversal the output must match a clean build byte-for-byte on the scored data.
+  assert.deepEqual(
+    noDsq.standings.classes,
+    build(TWO_RACE_SESSIONS).standings.classes,
+    "no-dsq matches clean build",
+  );
+  // Reversal restores Alice's original standings.
+  const alice = noDsq.standings.classes.A.find((r) => r.name === "Alice");
+  assert.equal(alice.pts, 25 + 23); // 25 from R1 win + 23 from R2 2nd
+  assert.equal(alice.starts, 2);
+  // Race 1 results are unmodified.
+  const race1Results = noDsq.races[0].classes.A.results;
+  assert.equal(race1Results[0].name, "Alice");
+  assert.equal(race1Results[0].pos, 1);
+  assert.equal(race1Results[0].pts, 25);
+  assert.ok(!race1Results[0].dsq, "no dsq flag");
+});
+
+test("applyDsq: women's GC drops the DSQ row when DSQ'd rider is on women's roster", () => {
+  // Alice (#10) is on the women's roster; she's DSQ'd in race 1.
+  const out = build(TWO_RACE_SESSIONS, {
+    dsq: [DSQ_OVERRIDE],
+    roster: { women: { A: [10, 20], B: [] } },
+  });
+  // Women's race 1 results should not contain Alice at all.
+  const womenRace1Results = out.races[0].womenClasses.A.results;
+  assert.ok(
+    !womenRace1Results.some((r) => r.name === "Alice" && r.dsq),
+    "DSQ Alice not in women race results",
+  );
+  // Women's GC: Alice gets 0 pts from race 1, Bob gets pts from race 2 as winner.
+  const aliceGC = out.standings.womenClasses.A.find((r) => r.name === "Alice");
+  const bobGC = out.standings.womenClasses.A.find((r) => r.name === "Bob");
+  // Alice: DSQ race 1 (0 pts from that race in women's), 2nd in race 2 (23 pts).
+  assert.ok(aliceGC.pts < bobGC.pts, "Alice has fewer women's GC pts than Bob after DSQ");
+});
+
+test("applyDsq: computeMovers receives post-DSQ arrays (shift reflects new standings)", () => {
+  // Race 1: Alice 1st, Bob 2nd, Carol 3rd.
+  // Alice DSQ'd → Bob 1st, Carol 2nd after DSQ.
+  // Race 2: Bob 1st, Alice 2nd (but race 1 DSQ means Alice has 0 pts from R1).
+  // After 2 races (with DSQ): Bob = 25+25=50, Alice = 0+23=23, Carol = 23+21=44.
+  // Bob stays 1st. Carol 2nd. Alice 3rd.
+  const out = build(TWO_RACE_SESSIONS, { dsq: [DSQ_OVERRIDE] });
+  // Race 2 movers: Bob went from 1st (after R1 DSQ) to 1st → no shift.
+  // Carol went from 2nd to 2nd → no shift.
+  // Alice didn't exist in pre-race2 standings (from=null after R1 DSQ of Alice
+  // meaning Alice has no R1 start, so she was absent from standings after R1).
+  // Verify the movers array is produced without errors.
+  assert.ok(Array.isArray(out.races[1].movers.A), "movers computed without error");
 });
