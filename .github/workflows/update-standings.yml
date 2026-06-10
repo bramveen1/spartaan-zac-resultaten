@@ -8,6 +8,9 @@ on:
     # Daily catch-up at 06:00 UTC (covers race-night surprises and clock drift).
     - cron: "0 6 * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "data/dsq.json"
 
 permissions:
   contents: write
