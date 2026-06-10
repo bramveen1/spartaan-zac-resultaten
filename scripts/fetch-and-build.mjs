@@ -21,12 +21,12 @@ import { fileURLToPath } from "node:url";
 import { build } from "./build-standings.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
-const SESSIONS_PATH = join(ROOT, "data/sessions.json");
+const SESSIONS_PATH = join(ROOT, "data/config/sessions.json");
 const STANDINGS_PATH = join(ROOT, "data/standings.json");
 const RACES_PATH = join(ROOT, "data/races.json");
 const RAW_DIR = join(ROOT, "data/raw");
-const WOMEN_ROSTER_PATH = join(ROOT, "data/roster/women.json");
-const DSQ_PATH = join(ROOT, "data/dsq.json");
+const WOMEN_ROSTER_PATH = join(ROOT, "data/config/roster/women.json");
+const DSQ_PATH = join(ROOT, "data/config/dsq.json");
 
 const CSV_URL = (id) =>
   `https://eventresults-api.speedhive.com/api/v0.2.3/eventresults/sessions/${id}/csv`;
