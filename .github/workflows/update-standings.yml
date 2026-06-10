@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "data/dsq.json"
+      - "data/config/dsq.json"
 
 permissions:
   contents: write
