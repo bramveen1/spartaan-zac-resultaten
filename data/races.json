@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-09T20:27:53.713Z",
+  "updatedAt": "2026-06-10T11:05:02.294Z",
   "races": [
     {
       "n": 1,
@@ -6979,24 +6979,15 @@
             },
             {
               "pos": 15,
-              "nr": 50,
-              "name": "Siem Woldesilassie",
-              "laps": 36,
-              "time": "1:11:42.721",
-              "diff": "1 lap",
-              "pts": 6
-            },
-            {
-              "pos": 16,
               "nr": 1,
               "name": "Guido Smit",
               "laps": 36,
               "time": "1:11:43.679",
               "diff": "1 lap",
-              "pts": 5
+              "pts": 6
             },
             {
-              "pos": 17,
+              "pos": 16,
               "nr": 45,
               "name": "Alexander van den Berg van Saparoea",
               "laps": 36,
@@ -7005,19 +6996,30 @@
               "pts": 5
             },
             {
-              "pos": 18,
+              "pos": 17,
               "nr": 2,
               "name": "Dennis van der Velden",
               "laps": 32,
               "time": "1:10:30.970",
               "diff": "5 laps",
               "pts": 5
+            },
+            {
+              "pos": null,
+              "nr": 50,
+              "name": "Siem Woldesilassie",
+              "laps": 36,
+              "time": "1:11:42.721",
+              "diff": "1 lap",
+              "pts": 0,
+              "dsq": true,
+              "dsqReason": "afsnijden zonder overleg met de Jury"
             }
           ],
           "stats": {
             "winnerTime": "1:10:16.049",
             "laps": 37,
-            "finishers": 18
+            "finishers": 17
           }
         },
         "B": {

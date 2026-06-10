@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 11,
   "racesTotal": 26,
-  "updatedAt": "2026-06-09T20:27:53.713Z",
+  "updatedAt": "2026-06-10T11:05:02.294Z",
   "classes": {
     "A": [
       {
@@ -17,22 +17,22 @@
       },
       {
         "pos": 2,
-        "nr": 50,
-        "name": "Siem Woldesilassie",
-        "pts": 102,
-        "lastPts": 6,
-        "starts": 5,
-        "gap": 23,
-        "joint": false
-      },
-      {
-        "pos": 3,
         "nr": 48,
         "name": "Linus Kloepfer",
         "pts": 101,
         "lastPts": 0,
         "starts": 5,
         "gap": 24,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 50,
+        "name": "Siem Woldesilassie",
+        "pts": 96,
+        "lastPts": 0,
+        "starts": 4,
+        "gap": 29,
         "joint": false
       },
       {
@@ -297,22 +297,22 @@
       },
       {
         "pos": 30,
+        "nr": 1,
+        "name": "Guido Smit",
+        "pts": 40,
+        "lastPts": 6,
+        "starts": 7,
+        "gap": 85,
+        "joint": false
+      },
+      {
+        "pos": 31,
         "nr": 19,
         "name": "Maxim Harteloh",
         "pts": 40,
         "lastPts": 0,
         "starts": 4,
         "gap": 85,
-        "joint": false
-      },
-      {
-        "pos": 31,
-        "nr": 1,
-        "name": "Guido Smit",
-        "pts": 39,
-        "lastPts": 5,
-        "starts": 7,
-        "gap": 86,
         "joint": false
       },
       {
