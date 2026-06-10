@@ -110,6 +110,38 @@ export function parseRaceCSV(csvText) {
   return byClass;
 }
 
+// Apply DSQ overrides to one race's parsed class arrays.
+// Matching rows (by sessionId, class, name) are moved to the end of each
+// class array with pos:null, pts:0, dsq:true. Kept rows are re-ranked from 1
+// and their points recomputed. Overrides referencing unknown sessions or names
+// are skipped with a warning so the build never throws.
+export function applyDsq(byClass, sessionId, overrides) {
+  if (!overrides || !overrides.length) return byClass;
+  const out = { A: [...(byClass.A ?? [])], B: [...(byClass.B ?? [])] };
+  for (const cls of ["A", "B"]) {
+    const dsqEntries = overrides.filter(
+      (o) => o.sessionId === sessionId && o.class === cls,
+    );
+    if (!dsqEntries.length) continue;
+    const dsqNames = new Set(dsqEntries.map((o) => o.name));
+    const kept = out[cls].filter((r) => !dsqNames.has(r.name));
+    const removed = out[cls].filter((r) => dsqNames.has(r.name));
+    // Warn about override entries that matched no row (name not in the CSV).
+    for (const entry of dsqEntries) {
+      if (!removed.some((r) => r.name === entry.name)) {
+        console.warn(`applyDsq: name "${entry.name}" not found in session ${sessionId} class ${cls} — skipping`);
+      }
+    }
+    const reranked = kept.map((r, i) => ({ ...r, pos: i + 1, pts: pointsFor(i + 1) }));
+    const dsqRows = removed.map((r) => {
+      const entry = dsqEntries.find((o) => o.name === r.name);
+      return { ...r, pos: null, pts: 0, dsq: true, dsqReason: entry?.reason ?? "" };
+    });
+    out[cls] = [...reranked, ...dsqRows];
+  }
+  return out;
+}
+
 // Filter a parseRaceCSV result down to riders whose start number is on the
 // roster for that class, then re-rank positions 1..N within the filtered
 // field and re-apply pointsFor. Start numbers overlap across classes
@@ -120,7 +152,8 @@ export function filterAndReRank(byClass, rosterByClass) {
   const out = { A: [], B: [] };
   for (const cls of ["A", "B"]) {
     const allowed = new Set((rosterByClass?.[cls] ?? []).map((n) => Number(n)));
-    const filtered = (byClass[cls] ?? []).filter((r) => allowed.has(r.nr));
+    // DSQ rows are excluded from the women's GC — they have no valid position.
+    const filtered = (byClass[cls] ?? []).filter((r) => !r.dsq && allowed.has(r.nr));
     out[cls] = filtered.map((r, i) => ({
       ...r,
       pos: i + 1,
@@ -164,7 +197,9 @@ export function buildStandings(racesByClass) {
         };
         cur.nr = r.nr; // latest start number for display (numbers can change mid-season)
         cur.pts += r.pts;
-        cur.starts += 1;
+        // DSQ does not count as a start — the rider was removed from the race
+        // result for a rule infraction; the entry is an override audit trail (#18).
+        if (!r.dsq) cur.starts += 1;
         cur.results.push({ raceIdx, pos: r.pos, pts: r.pts });
         riders.set(r.name, cur);
       }
@@ -225,7 +260,7 @@ function statsFor(results) {
   return {
     winnerTime: winner.time,
     laps: winner.laps,
-    finishers: results.length,
+    finishers: results.filter((r) => !r.dsq).length,
   };
 }
 
@@ -275,8 +310,9 @@ function computeMovers(racesByClass, parsedRaceClasses) {
 //   across classes.
 export function build(sessions, options = {}) {
   const womenRoster = options?.roster?.women ?? { A: [], B: [] };
+  const dsqOverrides = options?.dsq ?? [];
   const parsedRaces = sessions.map((s) => {
-    const classes = parseRaceCSV(s.csv);
+    const classes = applyDsq(parseRaceCSV(s.csv), s.sessionId, dsqOverrides);
     return {
       n: s.n,
       sessionId: s.sessionId,

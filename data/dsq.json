@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "_example": {
+    "_comment": "Inert documentation only — the build reads `overrides`, not `_example`. Copy this shape into the `overrides` array to apply a DSQ. See README → 'DSQ overrides'.",
+    "sessionId": 12345678,
+    "class": "A",
+    "name": "Rider Name",
+    "nr": 42,
+    "reason": "Cut the course at lap 3",
+    "appliedAt": "2026-06-01T12:00:00Z",
+    "appliedBy": "admin"
+  },
+  "overrides": []
+}

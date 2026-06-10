@@ -356,14 +356,17 @@ function renderRace() {
   body.innerHTML = results.map((r) => {
     const isMe = meCls === raceCls && r.name === meName;
     const timeDisplay = formatRaceTime(r, raceWinner);
+    const posDisplay = r.dsq ? "DSQ" : r.pos;
+    const ptsDisplay = r.dsq ? 0 : r.pts;
+    const rowClass = [isMe ? "is-me" : "", r.dsq ? "is-dsq" : ""].filter(Boolean).join(" ");
     return `
-      <tr class="${isMe ? "is-me" : ""}" data-name="${esc(r.name)}" data-class="${raceCls}">
-        <td class="num pos">${r.pos}</td>
+      <tr class="${rowClass}" data-name="${esc(r.name)}" data-class="${raceCls}">
+        <td class="num pos">${posDisplay}</td>
         <td class="num nr">#${r.nr}</td>
         <td>${esc(r.name)}</td>
         <td class="num">${r.laps}</td>
         <td class="num">${timeDisplay}</td>
-        <td class="num pts">${r.pts}</td>
+        <td class="num pts">${ptsDisplay}</td>
       </tr>
     `;
   }).join("");
