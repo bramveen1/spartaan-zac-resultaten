@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 11,
   "racesTotal": 26,
-  "updatedAt": "2026-06-10T11:05:02.294Z",
+  "updatedAt": "2026-06-10T11:09:29.775Z",
   "classes": {
     "A": [
       {
@@ -1725,17 +1725,17 @@
         "lastPts": 0,
         "starts": 1,
         "gap": 217,
-        "joint": true
+        "joint": false
       },
       {
-        "pos": 96,
+        "pos": 97,
         "nr": 143,
         "name": "Milan de Vreede",
-        "pts": 5,
-        "lastPts": 5,
-        "starts": 1,
-        "gap": 217,
-        "joint": true
+        "pts": 0,
+        "lastPts": 0,
+        "starts": 0,
+        "gap": 222,
+        "joint": false
       }
     ]
   },

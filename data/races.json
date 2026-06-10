@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-10T11:05:02.294Z",
+  "updatedAt": "2026-06-10T11:09:29.775Z",
   "races": [
     {
       "n": 1,
@@ -7197,15 +7197,6 @@
             },
             {
               "pos": 20,
-              "nr": 143,
-              "name": "Milan de Vreede",
-              "laps": 30,
-              "time": "1:1:39.157",
-              "diff": "7 laps",
-              "pts": 5
-            },
-            {
-              "pos": 21,
               "nr": 3,
               "name": "Rombout Loman",
               "laps": 30,
@@ -7214,7 +7205,7 @@
               "pts": 5
             },
             {
-              "pos": 22,
+              "pos": 21,
               "nr": 51,
               "name": "Eric Weber",
               "laps": 30,
@@ -7223,7 +7214,7 @@
               "pts": 5
             },
             {
-              "pos": 23,
+              "pos": 22,
               "nr": 110,
               "name": "Elise van Dijk",
               "laps": 29,
@@ -7232,7 +7223,7 @@
               "pts": 5
             },
             {
-              "pos": 24,
+              "pos": 23,
               "nr": 58,
               "name": "Bart Vons",
               "laps": 29,
@@ -7241,7 +7232,7 @@
               "pts": 5
             },
             {
-              "pos": 25,
+              "pos": 24,
               "nr": 138,
               "name": "Stijn Weeber",
               "laps": 29,
@@ -7250,7 +7241,7 @@
               "pts": 5
             },
             {
-              "pos": 26,
+              "pos": 25,
               "nr": 6,
               "name": "Bram Berkhout",
               "laps": 22,
@@ -7259,19 +7250,30 @@
               "pts": 5
             },
             {
-              "pos": 27,
+              "pos": 26,
               "nr": 28,
               "name": "Bas Neuteboom",
               "laps": 11,
               "time": "23:16.066",
               "diff": "26 laps",
               "pts": 5
+            },
+            {
+              "pos": null,
+              "nr": 143,
+              "name": "Milan de Vreede",
+              "laps": 30,
+              "time": "1:1:39.157",
+              "diff": "7 laps",
+              "pts": 0,
+              "dsq": true,
+              "dsqReason": "Meerijden met A Peloton"
             }
           ],
           "stats": {
             "winnerTime": "1:0:53.506",
             "laps": 30,
-            "finishers": 27
+            "finishers": 26
           }
         }
       },
