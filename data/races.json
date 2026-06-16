@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T20:08:57.393Z",
+  "updatedAt": "2026-06-16T21:01:59.199Z",
   "races": [
     {
       "n": 1,
@@ -580,27 +580,36 @@
           "results": [
             {
               "pos": 1,
-              "nr": 9,
-              "name": "Milou van de Beek",
+              "nr": 29,
+              "name": "Sanne Kerklaan",
               "laps": 23,
-              "time": "47:27.063",
+              "time": "47:24.236",
               "diff": "11 laps",
               "pts": 25
             },
             {
               "pos": 2,
+              "nr": 9,
+              "name": "Milou van de Beek",
+              "laps": 23,
+              "time": "47:27.063",
+              "diff": "11 laps",
+              "pts": 23
+            },
+            {
+              "pos": 3,
               "nr": 31,
               "name": "Dorien van Iwaarden",
               "laps": 23,
               "time": "47:28.815",
               "diff": "11 laps",
-              "pts": 23
+              "pts": 21
             }
           ],
           "stats": {
-            "winnerTime": "47:27.063",
+            "winnerTime": "47:24.236",
             "laps": 23,
-            "finishers": 2
+            "finishers": 3
           }
         }
       },
@@ -1381,27 +1390,36 @@
             },
             {
               "pos": 4,
-              "nr": 88,
-              "name": "Mette Houwaard",
+              "nr": 29,
+              "name": "Sanne Kerklaan",
               "laps": 23,
-              "time": "1:8:26.002",
+              "time": "1:8:24.909",
               "diff": "8 laps",
               "pts": 19
             },
             {
               "pos": 5,
+              "nr": 88,
+              "name": "Mette Houwaard",
+              "laps": 23,
+              "time": "1:8:26.002",
+              "diff": "8 laps",
+              "pts": 17
+            },
+            {
+              "pos": 6,
               "nr": 46,
               "name": "Saar Mooij",
               "laps": 23,
               "time": "1:8:30.598",
               "diff": "8 laps",
-              "pts": 17
+              "pts": 15
             }
           ],
           "stats": {
             "winnerTime": "1:8:20.010",
             "laps": 23,
-            "finishers": 5
+            "finishers": 6
           }
         }
       },
@@ -1465,10 +1483,18 @@
           {
             "nr": 31,
             "name": "Dorien van Iwaarden",
-            "from": 2,
-            "to": 3,
-            "shift": -1,
+            "from": 3,
+            "to": 5,
+            "shift": -2,
             "pts": 0
+          },
+          {
+            "nr": 9,
+            "name": "Milou van de Beek",
+            "from": 2,
+            "to": 1,
+            "shift": 1,
+            "pts": 21
           }
         ]
       }
@@ -2343,26 +2369,26 @@
           {
             "nr": 103,
             "name": "Jitse van Esch",
-            "from": 2,
-            "to": 6,
+            "from": 3,
+            "to": 7,
             "shift": -4,
             "pts": 0
           },
           {
             "nr": 38,
             "name": "Femke van Welie",
-            "from": 3,
+            "from": 4,
             "to": 2,
-            "shift": 1,
+            "shift": 2,
             "pts": 25
           },
           {
-            "nr": 88,
-            "name": "Mette Houwaard",
-            "from": 5,
-            "to": 4,
-            "shift": 1,
-            "pts": 15
+            "nr": 29,
+            "name": "Sanne Kerklaan",
+            "from": 1,
+            "to": 3,
+            "shift": -2,
+            "pts": 0
           }
         ]
       }
@@ -3027,36 +3053,45 @@
             },
             {
               "pos": 2,
-              "nr": 9,
-              "name": "Milou van de Beek",
+              "nr": 29,
+              "name": "Sanne Kerklaan",
               "laps": 31,
-              "time": "1:1:36.751",
+              "time": "1:1:32.674",
               "diff": "6 laps",
               "pts": 23
             },
             {
               "pos": 3,
-              "nr": 52,
-              "name": "Nienke Bennis",
+              "nr": 9,
+              "name": "Milou van de Beek",
               "laps": 31,
-              "time": "1:1:37.307",
+              "time": "1:1:36.751",
               "diff": "6 laps",
               "pts": 21
             },
             {
               "pos": 4,
+              "nr": 52,
+              "name": "Nienke Bennis",
+              "laps": 31,
+              "time": "1:1:37.307",
+              "diff": "6 laps",
+              "pts": 19
+            },
+            {
+              "pos": 5,
               "nr": 55,
               "name": "Mette Stoel",
               "laps": 14,
               "time": "28:41.434",
               "diff": "23 laps",
-              "pts": 19
+              "pts": 17
             }
           ],
           "stats": {
             "winnerTime": "1:1:32.480",
             "laps": 31,
-            "finishers": 4
+            "finishers": 5
           }
         }
       },
@@ -3120,24 +3155,24 @@
           {
             "nr": 55,
             "name": "Mette Stoel",
-            "from": 9,
-            "to": 4,
+            "from": 10,
+            "to": 5,
             "shift": 5,
-            "pts": 19
+            "pts": 17
           },
           {
             "nr": 46,
             "name": "Saar Mooij",
-            "from": 5,
-            "to": 2,
+            "from": 6,
+            "to": 3,
             "shift": 3,
             "pts": 25
           },
           {
-            "nr": 31,
-            "name": "Dorien van Iwaarden",
-            "from": 3,
-            "to": 5,
+            "nr": 38,
+            "name": "Femke van Welie",
+            "from": 2,
+            "to": 4,
             "shift": -2,
             "pts": 0
           }
@@ -3630,11 +3665,21 @@
           }
         },
         "B": {
-          "results": [],
+          "results": [
+            {
+              "pos": 1,
+              "nr": 29,
+              "name": "Sanne Kerklaan",
+              "laps": 27,
+              "time": "56:39.954",
+              "diff": "9 laps",
+              "pts": 25
+            }
+          ],
           "stats": {
-            "winnerTime": null,
-            "laps": 0,
-            "finishers": 0
+            "winnerTime": "56:39.954",
+            "laps": 27,
+            "finishers": 1
           }
         }
       },
@@ -3694,7 +3739,24 @@
       },
       "womenMovers": {
         "A": [],
-        "B": []
+        "B": [
+          {
+            "nr": 29,
+            "name": "Sanne Kerklaan",
+            "from": 2,
+            "to": 1,
+            "shift": 1,
+            "pts": 25
+          },
+          {
+            "nr": 9,
+            "name": "Milou van de Beek",
+            "from": 1,
+            "to": 2,
+            "shift": -1,
+            "pts": 0
+          }
+        ]
       }
     },
     {
@@ -4618,45 +4680,54 @@
             },
             {
               "pos": 8,
-              "nr": 129,
-              "name": "Roos Heeger",
+              "nr": 29,
+              "name": "Sanne Kerklaan",
               "laps": 33,
-              "time": "1:7:27.875",
+              "time": "1:7:10.148",
               "diff": "11 laps",
               "pts": 13
             },
             {
               "pos": 9,
+              "nr": 129,
+              "name": "Roos Heeger",
+              "laps": 33,
+              "time": "1:7:27.875",
+              "diff": "11 laps",
+              "pts": 12
+            },
+            {
+              "pos": 10,
               "nr": 125,
               "name": "Kirsten Parren",
               "laps": 32,
               "time": "1:7:14.800",
               "diff": "12 laps",
-              "pts": 12
+              "pts": 11
             },
             {
-              "pos": 10,
+              "pos": 11,
               "nr": 46,
               "name": "Saar Mooij",
               "laps": 31,
               "time": "1:7:46.988",
               "diff": "13 laps",
-              "pts": 11
+              "pts": 10
             },
             {
-              "pos": 11,
+              "pos": 12,
               "nr": 52,
               "name": "Nienke Bennis",
               "laps": 29,
               "time": "1:7:46.960",
               "diff": "15 laps",
-              "pts": 10
+              "pts": 9
             }
           ],
           "stats": {
             "winnerTime": "1:6:59.809",
             "laps": 33,
-            "finishers": 11
+            "finishers": 12
           }
         }
       },
@@ -4720,24 +4791,24 @@
           {
             "nr": 52,
             "name": "Nienke Bennis",
-            "from": 9,
-            "to": 7,
-            "shift": 2,
-            "pts": 10
+            "from": 11,
+            "to": 8,
+            "shift": 3,
+            "pts": 9
           },
           {
             "nr": 110,
             "name": "Elise van Dijk",
-            "from": 8,
-            "to": 10,
+            "from": 9,
+            "to": 11,
             "shift": -2,
             "pts": 0
           },
           {
             "nr": 109,
             "name": "Sanne Brouwer",
-            "from": 9,
-            "to": 11,
+            "from": 10,
+            "to": 12,
             "shift": -2,
             "pts": 0
           }
@@ -5259,54 +5330,63 @@
           "results": [
             {
               "pos": 1,
-              "nr": 63,
-              "name": "Izzy Kreuk",
+              "nr": 29,
+              "name": "Sanne Kerklaan",
               "laps": 32,
-              "time": "1:3:11.046",
+              "time": "1:3:10.352",
               "diff": "7 laps",
               "pts": 25
             },
             {
               "pos": 2,
+              "nr": 63,
+              "name": "Izzy Kreuk",
+              "laps": 32,
+              "time": "1:3:11.046",
+              "diff": "7 laps",
+              "pts": 23
+            },
+            {
+              "pos": 3,
               "nr": 109,
               "name": "Sanne Brouwer",
               "laps": 23,
               "time": "45:7.205",
               "diff": "16 laps",
-              "pts": 23
+              "pts": 21
             },
             {
-              "pos": 3,
+              "pos": 4,
               "nr": 53,
               "name": "Floor Sigmond",
               "laps": 23,
               "time": "45:22.323",
               "diff": "16 laps",
-              "pts": 21
+              "pts": 19
             },
             {
-              "pos": 4,
+              "pos": 5,
               "nr": 46,
               "name": "Saar Mooij",
               "laps": 21,
               "time": "42:8.637",
               "diff": "18 laps",
-              "pts": 19
+              "pts": 17
             },
             {
-              "pos": 5,
+              "pos": 6,
               "nr": 52,
               "name": "Nienke Bennis",
               "laps": 18,
               "time": "39:41.515",
               "diff": "21 laps",
-              "pts": 17
+              "pts": 15
             }
           ],
           "stats": {
-            "winnerTime": "1:3:11.046",
+            "winnerTime": "1:3:10.352",
             "laps": 32,
-            "finishers": 5
+            "finishers": 6
           }
         }
       },
@@ -5370,26 +5450,26 @@
           {
             "nr": 53,
             "name": "Floor Sigmond",
-            "from": 15,
-            "to": 7,
+            "from": 16,
+            "to": 8,
             "shift": 8,
-            "pts": 21
+            "pts": 19
           },
           {
             "nr": 109,
             "name": "Sanne Brouwer",
-            "from": 11,
-            "to": 5,
+            "from": 12,
+            "to": 6,
             "shift": 6,
-            "pts": 23
+            "pts": 21
           },
           {
             "nr": 52,
             "name": "Nienke Bennis",
-            "from": 7,
-            "to": 4,
+            "from": 8,
+            "to": 5,
             "shift": 3,
-            "pts": 17
+            "pts": 15
           }
         ]
       }
@@ -6237,18 +6317,27 @@
           "results": [
             {
               "pos": 1,
+              "nr": 29,
+              "name": "Sanne Kerklaan",
+              "laps": 25,
+              "time": "50:21.692",
+              "diff": "8 laps",
+              "pts": 25
+            },
+            {
+              "pos": 2,
               "nr": 46,
               "name": "Saar Mooij",
               "laps": 24,
               "time": "50:21.751",
               "diff": "9 laps",
-              "pts": 25
+              "pts": 23
             }
           ],
           "stats": {
-            "winnerTime": "50:21.751",
-            "laps": 24,
-            "finishers": 1
+            "winnerTime": "50:21.692",
+            "laps": 25,
+            "finishers": 2
           }
         }
       },
@@ -6312,16 +6401,16 @@
           {
             "nr": 46,
             "name": "Saar Mooij",
-            "from": 2,
-            "to": 1,
+            "from": 3,
+            "to": 2,
             "shift": 1,
-            "pts": 25
+            "pts": 23
           },
           {
             "nr": 9,
             "name": "Milou van de Beek",
-            "from": 1,
-            "to": 2,
+            "from": 2,
+            "to": 3,
             "shift": -1,
             "pts": 0
           }
@@ -6735,27 +6824,36 @@
             },
             {
               "pos": 2,
+              "nr": 29,
+              "name": "Sanne Kerklaan",
+              "laps": 28,
+              "time": "1:0:57.541",
+              "diff": "7 laps",
+              "pts": 23
+            },
+            {
+              "pos": 3,
               "nr": 63,
               "name": "Izzy Kreuk",
               "laps": 27,
               "time": "59:8.688",
               "diff": "8 laps",
-              "pts": 23
+              "pts": 21
             },
             {
-              "pos": 3,
+              "pos": 4,
               "nr": 52,
               "name": "Nienke Bennis",
               "laps": 25,
               "time": "55:49.621",
               "diff": "10 laps",
-              "pts": 21
+              "pts": 19
             }
           ],
           "stats": {
             "winnerTime": "58:57.753",
             "laps": 29,
-            "finishers": 3
+            "finishers": 4
           }
         }
       },
@@ -6819,24 +6917,24 @@
           {
             "nr": 63,
             "name": "Izzy Kreuk",
-            "from": 10,
-            "to": 5,
-            "shift": 5,
-            "pts": 23
+            "from": 13,
+            "to": 6,
+            "shift": 7,
+            "pts": 21
           },
           {
             "nr": 38,
             "name": "Femke van Welie",
-            "from": 3,
-            "to": 2,
+            "from": 4,
+            "to": 3,
             "shift": 1,
             "pts": 25
           },
           {
             "nr": 9,
             "name": "Milou van de Beek",
-            "from": 2,
-            "to": 3,
+            "from": 3,
+            "to": 4,
             "shift": -1,
             "pts": 0
           }
@@ -7381,24 +7479,24 @@
         "A": [],
         "B": [
           {
+            "nr": 90,
+            "name": "Nicole van Sighem",
+            "from": 15,
+            "to": 6,
+            "shift": 9,
+            "pts": 23
+          },
+          {
             "nr": 110,
             "name": "Elise van Dijk",
-            "from": 13,
-            "to": 6,
+            "from": 14,
+            "to": 7,
             "shift": 7,
             "pts": 21
           },
           {
-            "nr": 90,
-            "name": "Nicole van Sighem",
-            "from": 14,
-            "to": 7,
-            "shift": 7,
-            "pts": 23
-          },
-          {
-            "nr": 55,
-            "name": "Mette Stoel",
+            "nr": 109,
+            "name": "Sanne Brouwer",
             "from": 7,
             "to": 9,
             "shift": -2,
@@ -8021,36 +8119,45 @@
           "results": [
             {
               "pos": 1,
+              "nr": 29,
+              "name": "Sanne Kerklaan",
+              "laps": 30,
+              "time": "58:9.742",
+              "diff": "7 laps",
+              "pts": 25
+            },
+            {
+              "pos": 2,
               "nr": 38,
               "name": "Femke van Welie",
               "laps": 29,
               "time": "57:15.044",
               "diff": "8 laps",
-              "pts": 25
+              "pts": 23
             },
             {
-              "pos": 2,
+              "pos": 3,
               "nr": 46,
               "name": "Saar Mooij",
               "laps": 29,
               "time": "58:19.552",
               "diff": "8 laps",
-              "pts": 23
+              "pts": 21
             },
             {
-              "pos": 3,
+              "pos": 4,
               "nr": 52,
               "name": "Nienke Bennis",
               "laps": 19,
               "time": "43:6.201",
               "diff": "18 laps",
-              "pts": 21
+              "pts": 19
             }
           ],
           "stats": {
-            "winnerTime": "57:15.044",
-            "laps": 29,
-            "finishers": 3
+            "winnerTime": "58:9.742",
+            "laps": 30,
+            "finishers": 4
           }
         }
       },
@@ -8110,24 +8217,7 @@
       },
       "womenMovers": {
         "A": [],
-        "B": [
-          {
-            "nr": 52,
-            "name": "Nienke Bennis",
-            "from": 4,
-            "to": 3,
-            "shift": 1,
-            "pts": 21
-          },
-          {
-            "nr": 9,
-            "name": "Milou van de Beek",
-            "from": 3,
-            "to": 4,
-            "shift": -1,
-            "pts": 0
-          }
-        ]
+        "B": []
       }
     }
   ]
