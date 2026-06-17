@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T21:01:59.199Z",
+  "updatedAt": "2026-06-17T07:41:53.700Z",
   "races": [
     {
       "n": 1,
@@ -1363,63 +1363,54 @@
           "results": [
             {
               "pos": 1,
-              "nr": 103,
-              "name": "Jitse van Esch",
-              "laps": 23,
-              "time": "1:8:20.010",
-              "diff": "8 laps",
-              "pts": 25
-            },
-            {
-              "pos": 2,
               "nr": 38,
               "name": "Femke van Welie",
               "laps": 23,
               "time": "1:8:21.447",
               "diff": "8 laps",
-              "pts": 23
+              "pts": 25
             },
             {
-              "pos": 3,
+              "pos": 2,
               "nr": 9,
               "name": "Milou van de Beek",
               "laps": 23,
               "time": "1:8:24.389",
               "diff": "8 laps",
-              "pts": 21
+              "pts": 23
             },
             {
-              "pos": 4,
+              "pos": 3,
               "nr": 29,
               "name": "Sanne Kerklaan",
               "laps": 23,
               "time": "1:8:24.909",
               "diff": "8 laps",
-              "pts": 19
+              "pts": 21
             },
             {
-              "pos": 5,
+              "pos": 4,
               "nr": 88,
               "name": "Mette Houwaard",
               "laps": 23,
               "time": "1:8:26.002",
               "diff": "8 laps",
-              "pts": 17
+              "pts": 19
             },
             {
-              "pos": 6,
+              "pos": 5,
               "nr": 46,
               "name": "Saar Mooij",
               "laps": 23,
               "time": "1:8:30.598",
               "diff": "8 laps",
-              "pts": 15
+              "pts": 17
             }
           ],
           "stats": {
-            "winnerTime": "1:8:20.010",
+            "winnerTime": "1:8:21.447",
             "laps": 23,
-            "finishers": 6
+            "finishers": 5
           }
         }
       },
@@ -1481,20 +1472,20 @@
         "A": [],
         "B": [
           {
-            "nr": 31,
-            "name": "Dorien van Iwaarden",
-            "from": 3,
-            "to": 5,
-            "shift": -2,
-            "pts": 0
-          },
-          {
             "nr": 9,
             "name": "Milou van de Beek",
             "from": 2,
             "to": 1,
             "shift": 1,
-            "pts": 21
+            "pts": 23
+          },
+          {
+            "nr": 31,
+            "name": "Dorien van Iwaarden",
+            "from": 3,
+            "to": 4,
+            "shift": -1,
+            "pts": 0
           }
         ]
       }
@@ -2367,28 +2358,28 @@
         "A": [],
         "B": [
           {
-            "nr": 103,
-            "name": "Jitse van Esch",
-            "from": 3,
-            "to": 7,
-            "shift": -4,
-            "pts": 0
-          },
-          {
-            "nr": 38,
-            "name": "Femke van Welie",
-            "from": 4,
-            "to": 2,
-            "shift": 2,
-            "pts": 25
-          },
-          {
             "nr": 29,
             "name": "Sanne Kerklaan",
             "from": 1,
             "to": 3,
             "shift": -2,
             "pts": 0
+          },
+          {
+            "nr": 38,
+            "name": "Femke van Welie",
+            "from": 3,
+            "to": 2,
+            "shift": 1,
+            "pts": 25
+          },
+          {
+            "nr": 88,
+            "name": "Mette Houwaard",
+            "from": 5,
+            "to": 4,
+            "shift": 1,
+            "pts": 15
           }
         ]
       }
@@ -3155,9 +3146,9 @@
           {
             "nr": 55,
             "name": "Mette Stoel",
-            "from": 10,
+            "from": 9,
             "to": 5,
-            "shift": 5,
+            "shift": 4,
             "pts": 17
           },
           {
@@ -4791,24 +4782,24 @@
           {
             "nr": 52,
             "name": "Nienke Bennis",
-            "from": 11,
+            "from": 10,
             "to": 8,
-            "shift": 3,
+            "shift": 2,
             "pts": 9
           },
           {
             "nr": 110,
             "name": "Elise van Dijk",
-            "from": 9,
-            "to": 11,
+            "from": 8,
+            "to": 10,
             "shift": -2,
             "pts": 0
           },
           {
             "nr": 109,
             "name": "Sanne Brouwer",
-            "from": 10,
-            "to": 12,
+            "from": 9,
+            "to": 11,
             "shift": -2,
             "pts": 0
           }
@@ -5450,17 +5441,17 @@
           {
             "nr": 53,
             "name": "Floor Sigmond",
-            "from": 16,
-            "to": 8,
-            "shift": 8,
+            "from": 15,
+            "to": 9,
+            "shift": 6,
             "pts": 19
           },
           {
             "nr": 109,
             "name": "Sanne Brouwer",
-            "from": 12,
+            "from": 11,
             "to": 6,
-            "shift": 6,
+            "shift": 5,
             "pts": 21
           },
           {
@@ -6917,9 +6908,9 @@
           {
             "nr": 63,
             "name": "Izzy Kreuk",
-            "from": 13,
+            "from": 12,
             "to": 6,
-            "shift": 7,
+            "shift": 6,
             "pts": 21
           },
           {
@@ -7481,17 +7472,17 @@
           {
             "nr": 90,
             "name": "Nicole van Sighem",
-            "from": 15,
+            "from": 14,
             "to": 6,
-            "shift": 9,
+            "shift": 8,
             "pts": 23
           },
           {
             "nr": 110,
             "name": "Elise van Dijk",
-            "from": 14,
+            "from": 13,
             "to": 7,
-            "shift": 7,
+            "shift": 6,
             "pts": 21
           },
           {
