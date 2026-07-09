@@ -10,6 +10,21 @@ Files in `data/` outside this folder (`standings.json`, `races.json`) are **gene
 
 Lists the race nights for the current season.
 
+**Auto-discovery:** new entries are normally appended automatically. Once a
+week (Tue 23:00 GMT+1, `scripts/discover-sessions.mjs` in the **Update
+standings** workflow) the pipeline checks Speedhive for that night's
+`ZomerAvondComp` event, resolves its race session, and appends it — no manual
+step needed in the common case. It fails closed: if the event's race session
+is ambiguous (e.g. a ZAC A/B split), unreachable, or its date doesn't land
+within a few weeks of the last known race, nothing is appended and a warning
+is left in the workflow run log instead.
+
+**Manual override:** you can still hand-edit this file at any time — open it
+in the GitHub web editor, append an entry to `sessions`, and commit to `main`
+(see worked example below). This is required whenever discovery skips a
+night (check the workflow run log for the warning) and remains the only way
+to fix a wrong `sessionId` after the fact.
+
 **Schema:**
 
 ```json
