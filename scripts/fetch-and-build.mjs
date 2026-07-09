@@ -33,22 +33,24 @@ const CSV_URL = (id) =>
 
 const offline = process.argv.includes("--offline");
 
-async function fetchCSV(sessionId) {
-  const res = await fetch(CSV_URL(sessionId), {
+async function fetchCSV(sessionId, fetchImpl) {
+  const res = await fetchImpl(CSV_URL(sessionId), {
     headers: { Accept: "text/csv,*/*" },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
   return res.text();
 }
 
-async function loadCSV(sessionId) {
-  const cachePath = join(RAW_DIR, `${sessionId}.csv`);
-  if (offline) {
+// rawDir/fetchImpl are injectable so tests can exercise this against a temp
+// cache dir and a stubbed fetch instead of the real data/raw dir and network.
+export async function loadCSV(sessionId, { offline: isOffline = offline, rawDir = RAW_DIR, fetchImpl = fetch } = {}) {
+  const cachePath = join(rawDir, `${sessionId}.csv`);
+  if (isOffline) {
     return readFile(cachePath, "utf8");
   }
   try {
-    const csv = await fetchCSV(sessionId);
-    await mkdir(RAW_DIR, { recursive: true });
+    const csv = await fetchCSV(sessionId, fetchImpl);
+    await mkdir(rawDir, { recursive: true });
     await writeFile(cachePath, csv, "utf8");
     return csv;
   } catch (e) {
@@ -60,7 +62,7 @@ async function loadCSV(sessionId) {
   }
 }
 
-async function writeJSONIfChanged(path, data, ignore = []) {
+export async function writeJSONIfChanged(path, data, ignore = []) {
   const next = JSON.stringify(data, null, 2) + "\n";
   let prev = null;
   try { prev = await readFile(path, "utf8"); } catch (_) {}
@@ -76,6 +78,24 @@ async function writeJSONIfChanged(path, data, ignore = []) {
   }
   await writeFile(path, next, "utf8");
   return true;
+}
+
+// Pure: turns fetched sessions + config into the two output docs. No I/O, so
+// it's unit-testable against fixture CSVs without touching the filesystem.
+export function buildDocs({ meta, sessions, roster, dsq, updatedAt }) {
+  const { standings, races } = build(sessions, { roster, dsq });
+
+  const standingsDoc = {
+    season: meta.season ?? "Zomer 2026",
+    racesCompleted: standings.racesCompleted,
+    racesTotal: meta.racesTotal ?? 26,
+    updatedAt,
+    classes: standings.classes,
+    womenClasses: standings.womenClasses,
+  };
+  const racesDoc = { updatedAt, races };
+
+  return { standingsDoc, racesDoc };
 }
 
 async function main() {
@@ -107,18 +127,8 @@ async function main() {
     // DSQ file is optional — no overrides means no DSQs applied.
   }
 
-  const { standings, races } = build(sessions, { roster, dsq });
   const updatedAt = new Date().toISOString();
-
-  const standingsDoc = {
-    season: meta.season ?? "Zomer 2026",
-    racesCompleted: standings.racesCompleted,
-    racesTotal: meta.racesTotal ?? 26,
-    updatedAt,
-    classes: standings.classes,
-    womenClasses: standings.womenClasses,
-  };
-  const racesDoc = { updatedAt, races };
+  const { standingsDoc, racesDoc } = buildDocs({ meta, sessions, roster, dsq, updatedAt });
 
   const sChanged = await writeJSONIfChanged(STANDINGS_PATH, standingsDoc, ["updatedAt"]);
   const rChanged = await writeJSONIfChanged(RACES_PATH, racesDoc, ["updatedAt"]);
@@ -126,7 +136,9 @@ async function main() {
   console.log(`races.json:     ${rChanged ? "updated" : "unchanged"}`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
