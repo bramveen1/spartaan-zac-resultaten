@@ -42,7 +42,7 @@ jobs:
           node-version: "20"
 
       - name: Run tests
-        run: node --test scripts/build-standings.test.mjs scripts/discover-sessions.test.mjs
+        run: node --test scripts/*.test.mjs
 
       - name: Discover new ZAC sessions
         # Only on the dedicated weekly discovery cron (or a manual run) — not
