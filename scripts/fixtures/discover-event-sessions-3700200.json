@@ -1,0 +1,10 @@
+{
+  "groups": [
+    {
+      "sessions": [
+        { "id": 12470001, "name": "ZAC A (14/07)", "type": "race", "startTime": "2026-07-14T19:30:00Z" },
+        { "id": 12470002, "name": "ZAC Qualy (14/07)", "type": "practice", "startTime": "2026-07-14T18:45:00Z" }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,12 @@ on:
     - cron: "0 18,19,20,21,22,23 * * 2"
     # Daily catch-up at 06:00 UTC (covers race-night surprises and clock drift).
     - cron: "0 6 * * *"
+    # Dedicated weekly session-discovery run: Tue 23:00 GMT+1 = 22:00 UTC.
+    # DST caveat: ZAC runs in summer (NL is CEST/GMT+2), so this is 00:00 Wed
+    # local in summer, not 23:00 the same evening; 23:00 summer-local would be
+    # "0 21 * * 2". Kept literal per GMT+1 as specified — either time lands
+    # after that night's Speedhive upload, so it doesn't affect discovery.
+    - cron: "0 22 * * 2"
   workflow_dispatch:
   push:
     paths:
@@ -36,7 +42,13 @@ jobs:
           node-version: "20"
 
       - name: Run tests
-        run: node --test scripts/build-standings.test.mjs
+        run: node --test scripts/build-standings.test.mjs scripts/discover-sessions.test.mjs
+
+      - name: Discover new ZAC sessions
+        # Only on the dedicated weekly discovery cron (or a manual run) — not
+        # on every hourly/daily standings poll.
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 22 * * 2'
+        run: node scripts/discover-sessions.mjs
 
       - name: Fetch CSVs and rebuild standings
         run: node scripts/fetch-and-build.mjs
@@ -45,7 +57,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/standings.json data/races.json data/raw
+          git add data/config/sessions.json data/standings.json data/races.json data/raw
           if git diff --cached --quiet; then
             echo "No data changes — skipping commit."
           else
