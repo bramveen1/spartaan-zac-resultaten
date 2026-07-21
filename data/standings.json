@@ -1,17 +1,17 @@
 {
   "season": "Zomer 2026",
-  "racesCompleted": 16,
+  "racesCompleted": 17,
   "racesTotal": 26,
-  "updatedAt": "2026-07-14T22:57:43.084Z",
+  "updatedAt": "2026-07-21T22:58:04.057Z",
   "classes": {
     "A": [
       {
         "pos": 1,
         "nr": 50,
         "name": "Siem Woldesilassie",
-        "pts": 184,
-        "lastPts": 10,
-        "starts": 9,
+        "pts": 207,
+        "lastPts": 23,
+        "starts": 10,
         "gap": 0,
         "joint": false
       },
@@ -20,9 +20,9 @@
         "nr": 23,
         "name": "Joost te Braake",
         "pts": 172,
-        "lastPts": 14,
+        "lastPts": 0,
         "starts": 13,
-        "gap": 12,
+        "gap": 35,
         "joint": false
       },
       {
@@ -32,7 +32,7 @@
         "pts": 155,
         "lastPts": 0,
         "starts": 8,
-        "gap": 29,
+        "gap": 52,
         "joint": false
       },
       {
@@ -40,39 +40,39 @@
         "nr": 48,
         "name": "Linus Kloepfer",
         "pts": 143,
-        "lastPts": 21,
+        "lastPts": 0,
         "starts": 7,
-        "gap": 41,
+        "gap": 64,
         "joint": false
       },
       {
         "pos": 5,
+        "nr": 40,
+        "name": "Kees Pameijer",
+        "pts": 136,
+        "lastPts": 19,
+        "starts": 10,
+        "gap": 71,
+        "joint": false
+      },
+      {
+        "pos": 6,
         "nr": 27,
         "name": "Jianhao Wu",
         "pts": 123,
         "lastPts": 0,
         "starts": 9,
-        "gap": 61,
-        "joint": false
-      },
-      {
-        "pos": 6,
-        "nr": 21,
-        "name": "Erik de Niet",
-        "pts": 122,
-        "lastPts": 19,
-        "starts": 13,
-        "gap": 62,
+        "gap": 84,
         "joint": false
       },
       {
         "pos": 7,
-        "nr": 40,
-        "name": "Kees Pameijer",
-        "pts": 117,
-        "lastPts": 11,
-        "starts": 9,
-        "gap": 67,
+        "nr": 21,
+        "name": "Erik de Niet",
+        "pts": 122,
+        "lastPts": 0,
+        "starts": 13,
+        "gap": 85,
         "joint": false
       },
       {
@@ -82,7 +82,7 @@
         "pts": 111,
         "lastPts": 0,
         "starts": 7,
-        "gap": 73,
+        "gap": 96,
         "joint": false
       },
       {
@@ -92,7 +92,7 @@
         "pts": 110,
         "lastPts": 0,
         "starts": 7,
-        "gap": 74,
+        "gap": 97,
         "joint": false
       },
       {
@@ -100,9 +100,9 @@
         "nr": 2,
         "name": "Dennis van der Velden",
         "pts": 109,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 13,
-        "gap": 75,
+        "gap": 98,
         "joint": false
       },
       {
@@ -110,9 +110,9 @@
         "nr": 11,
         "name": "Niels van Vliet",
         "pts": 104,
-        "lastPts": 17,
+        "lastPts": 0,
         "starts": 9,
-        "gap": 80,
+        "gap": 103,
         "joint": false
       },
       {
@@ -122,7 +122,7 @@
         "pts": 103,
         "lastPts": 0,
         "starts": 7,
-        "gap": 81,
+        "gap": 104,
         "joint": false
       },
       {
@@ -132,497 +132,497 @@
         "pts": 92,
         "lastPts": 0,
         "starts": 5,
-        "gap": 92,
+        "gap": 115,
         "joint": false
       },
       {
         "pos": 14,
-        "nr": 18,
-        "name": "Robbert Schaap",
-        "pts": 88,
-        "lastPts": 13,
-        "starts": 8,
-        "gap": 96,
+        "nr": 10,
+        "name": "Hans Meerbeek",
+        "pts": 90,
+        "lastPts": 11,
+        "starts": 11,
+        "gap": 117,
         "joint": false
       },
       {
         "pos": 15,
+        "nr": 18,
+        "name": "Robbert Schaap",
+        "pts": 88,
+        "lastPts": 0,
+        "starts": 8,
+        "gap": 119,
+        "joint": false
+      },
+      {
+        "pos": 16,
         "nr": 7,
         "name": "Caiden Jeurissen",
         "pts": 82,
         "lastPts": 0,
         "starts": 5,
-        "gap": 102,
-        "joint": false
-      },
-      {
-        "pos": 16,
-        "nr": 10,
-        "name": "Hans Meerbeek",
-        "pts": 79,
-        "lastPts": 0,
-        "starts": 10,
-        "gap": 105,
+        "gap": 125,
         "joint": false
       },
       {
         "pos": 17,
+        "nr": 1,
+        "name": "Guido Smit",
+        "pts": 80,
+        "lastPts": 5,
+        "starts": 12,
+        "gap": 127,
+        "joint": false
+      },
+      {
+        "pos": 18,
         "nr": 68,
         "name": "David van Aalst",
         "pts": 78,
         "lastPts": 0,
         "starts": 5,
-        "gap": 106,
+        "gap": 129,
         "joint": false
       },
       {
-        "pos": 18,
+        "pos": 19,
         "nr": 39,
         "name": "Roderick Loykens",
         "pts": 78,
         "lastPts": 0,
         "starts": 7,
-        "gap": 106,
+        "gap": 129,
         "joint": false
       },
       {
-        "pos": 19,
+        "pos": 20,
         "nr": 25,
         "name": "Ernst Fidom",
         "pts": 77,
         "lastPts": 0,
         "starts": 7,
-        "gap": 107,
+        "gap": 130,
         "joint": false
       },
       {
-        "pos": 20,
+        "pos": 21,
+        "nr": 44,
+        "name": "Don de Leeuw",
+        "pts": 76,
+        "lastPts": 5,
+        "starts": 12,
+        "gap": 131,
+        "joint": false
+      },
+      {
+        "pos": 22,
         "nr": 32,
         "name": "Martijn Coeveld",
         "pts": 75,
         "lastPts": 0,
         "starts": 10,
-        "gap": 109,
-        "joint": false
-      },
-      {
-        "pos": 21,
-        "nr": 1,
-        "name": "Guido Smit",
-        "pts": 75,
-        "lastPts": 7,
-        "starts": 11,
-        "gap": 109,
-        "joint": false
-      },
-      {
-        "pos": 22,
-        "nr": 17,
-        "name": "Juul Hubert",
-        "pts": 71,
-        "lastPts": 5,
-        "starts": 10,
-        "gap": 113,
+        "gap": 132,
         "joint": false
       },
       {
         "pos": 23,
-        "nr": 44,
-        "name": "Don de Leeuw",
+        "nr": 17,
+        "name": "Juul Hubert",
         "pts": 71,
-        "lastPts": 5,
-        "starts": 11,
-        "gap": 113,
+        "lastPts": 0,
+        "starts": 10,
+        "gap": 136,
         "joint": false
       },
       {
         "pos": 24,
-        "nr": 16,
-        "name": "Peter Fils",
-        "pts": 58,
-        "lastPts": 0,
-        "starts": 4,
-        "gap": 126,
+        "nr": 24,
+        "name": "Joost Slingerland",
+        "pts": 65,
+        "lastPts": 14,
+        "starts": 8,
+        "gap": 142,
         "joint": false
       },
       {
         "pos": 25,
         "nr": 29,
         "name": "Richard Schouten",
-        "pts": 57,
+        "pts": 62,
         "lastPts": 5,
-        "starts": 11,
-        "gap": 127,
+        "starts": 12,
+        "gap": 145,
         "joint": false
       },
       {
         "pos": 26,
         "nr": 43,
         "name": "Ronald Geleynse",
-        "pts": 54,
-        "lastPts": 8,
-        "starts": 8,
-        "gap": 130,
+        "pts": 59,
+        "lastPts": 5,
+        "starts": 9,
+        "gap": 148,
         "joint": false
       },
       {
         "pos": 27,
         "nr": 28,
         "name": "Jan Gudde",
-        "pts": 51,
-        "lastPts": 9,
-        "starts": 8,
-        "gap": 133,
+        "pts": 59,
+        "lastPts": 8,
+        "starts": 9,
+        "gap": 148,
         "joint": false
       },
       {
         "pos": 28,
-        "nr": 24,
-        "name": "Joost Slingerland",
-        "pts": 51,
-        "lastPts": 6,
-        "starts": 7,
-        "gap": 133,
+        "nr": 16,
+        "name": "Peter Fils",
+        "pts": 58,
+        "lastPts": 0,
+        "starts": 4,
+        "gap": 149,
         "joint": false
       },
       {
         "pos": 29,
+        "nr": 5,
+        "name": "Rob uit de Bosch",
+        "pts": 53,
+        "lastPts": 5,
+        "starts": 9,
+        "gap": 154,
+        "joint": false
+      },
+      {
+        "pos": 30,
         "nr": 26,
         "name": "Daan Hogenelst",
         "pts": 50,
         "lastPts": 0,
         "starts": 2,
-        "gap": 134,
+        "gap": 157,
         "joint": false
       },
       {
-        "pos": 30,
+        "pos": 31,
+        "nr": 52,
+        "name": "Rik Bisschop",
+        "pts": 50,
+        "lastPts": 5,
+        "starts": 8,
+        "gap": 157,
+        "joint": false
+      },
+      {
+        "pos": 32,
         "nr": 77,
         "name": "Tijn Voerman",
         "pts": 48,
         "lastPts": 0,
         "starts": 2,
-        "gap": 136,
+        "gap": 159,
         "joint": false
       },
       {
-        "pos": 31,
-        "nr": 5,
-        "name": "Rob uit de Bosch",
+        "pos": 33,
+        "nr": 76,
+        "name": "Erik van Trigt",
         "pts": 48,
-        "lastPts": 5,
-        "starts": 8,
-        "gap": 136,
+        "lastPts": 6,
+        "starts": 7,
+        "gap": 159,
         "joint": true
       },
       {
-        "pos": 31,
+        "pos": 33,
         "nr": 84,
         "name": "Micky Alberts",
         "pts": 48,
         "lastPts": 0,
         "starts": 4,
-        "gap": 136,
+        "gap": 159,
         "joint": true
       },
       {
-        "pos": 33,
-        "nr": 52,
-        "name": "Rik Bisschop",
-        "pts": 45,
-        "lastPts": 5,
-        "starts": 7,
-        "gap": 139,
+        "pos": 35,
+        "nr": 56,
+        "name": "Tom de Vreede",
+        "pts": 47,
+        "lastPts": 17,
+        "starts": 3,
+        "gap": 160,
         "joint": false
       },
       {
-        "pos": 34,
+        "pos": 36,
+        "nr": 51,
+        "name": "Maurits Oskam",
+        "pts": 47,
+        "lastPts": 5,
+        "starts": 5,
+        "gap": 160,
+        "joint": false
+      },
+      {
+        "pos": 37,
+        "nr": 107,
+        "name": "Jack Dorresteijn",
+        "pts": 46,
+        "lastPts": 25,
+        "starts": 2,
+        "gap": 161,
+        "joint": false
+      },
+      {
+        "pos": 38,
+        "nr": 45,
+        "name": "Alexander van den Berg van Saparoea",
+        "pts": 45,
+        "lastPts": 5,
+        "starts": 9,
+        "gap": 162,
+        "joint": false
+      },
+      {
+        "pos": 39,
+        "nr": 42,
+        "name": "Sam Lagerwij",
+        "pts": 44,
+        "lastPts": 12,
+        "starts": 4,
+        "gap": 163,
+        "joint": false
+      },
+      {
+        "pos": 40,
         "nr": 22,
         "name": "Jaco de Hoog",
         "pts": 44,
         "lastPts": 0,
         "starts": 8,
-        "gap": 140,
+        "gap": 163,
+        "joint": true
+      },
+      {
+        "pos": 40,
+        "nr": 114,
+        "name": "Leon Hofman",
+        "pts": 44,
+        "lastPts": 21,
+        "starts": 2,
+        "gap": 163,
+        "joint": true
+      },
+      {
+        "pos": 42,
+        "nr": 4,
+        "name": "Marc Plönes",
+        "pts": 44,
+        "lastPts": 5,
+        "starts": 8,
+        "gap": 163,
         "joint": false
       },
       {
-        "pos": 35,
-        "nr": 51,
-        "name": "Maurits Oskam",
-        "pts": 42,
-        "lastPts": 0,
-        "starts": 4,
-        "gap": 142,
-        "joint": true
-      },
-      {
-        "pos": 35,
-        "nr": 76,
-        "name": "Erik van Trigt",
-        "pts": 42,
-        "lastPts": 0,
-        "starts": 6,
-        "gap": 142,
-        "joint": true
-      },
-      {
-        "pos": 37,
+        "pos": 43,
         "nr": 3,
         "name": "Tim van der Velden",
         "pts": 41,
         "lastPts": 0,
         "starts": 3,
-        "gap": 143,
+        "gap": 166,
         "joint": false
       },
       {
-        "pos": 38,
+        "pos": 44,
         "nr": 19,
         "name": "Maxim Harteloh",
         "pts": 40,
         "lastPts": 0,
         "starts": 4,
-        "gap": 144,
+        "gap": 167,
         "joint": true
       },
       {
-        "pos": 38,
+        "pos": 44,
         "nr": 38,
         "name": "Bart Vonk",
         "pts": 40,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 4,
-        "gap": 144,
+        "gap": 167,
         "joint": true
       },
       {
-        "pos": 40,
-        "nr": 45,
-        "name": "Alexander van den Berg van Saparoea",
-        "pts": 40,
-        "lastPts": 0,
-        "starts": 8,
-        "gap": 144,
-        "joint": false
-      },
-      {
-        "pos": 41,
-        "nr": 4,
-        "name": "Marc Plönes",
-        "pts": 39,
-        "lastPts": 5,
-        "starts": 7,
-        "gap": 145,
-        "joint": false
-      },
-      {
-        "pos": 42,
+        "pos": 46,
         "nr": 115,
         "name": "Mike van Nunspeet",
         "pts": 38,
-        "lastPts": 25,
+        "lastPts": 0,
         "starts": 2,
-        "gap": 146,
+        "gap": 169,
         "joint": false
       },
       {
-        "pos": 43,
+        "pos": 47,
         "nr": 57,
         "name": "Teun Wissema",
         "pts": 38,
         "lastPts": 0,
         "starts": 3,
-        "gap": 146,
+        "gap": 169,
         "joint": false
       },
       {
-        "pos": 44,
+        "pos": 48,
         "nr": 8,
         "name": "Jasper Hupkes",
         "pts": 36,
         "lastPts": 0,
         "starts": 4,
-        "gap": 148,
+        "gap": 171,
         "joint": false
       },
       {
-        "pos": 45,
+        "pos": 49,
         "nr": 9,
         "name": "Sander Huisson",
         "pts": 35,
         "lastPts": 0,
         "starts": 6,
-        "gap": 149,
+        "gap": 172,
         "joint": false
       },
       {
-        "pos": 46,
-        "nr": 42,
-        "name": "Sam Lagerwij",
-        "pts": 32,
-        "lastPts": 0,
+        "pos": 50,
+        "nr": 58,
+        "name": "Johan Olsthoorn",
+        "pts": 33,
+        "lastPts": 10,
         "starts": 3,
-        "gap": 152,
+        "gap": 174,
         "joint": false
       },
       {
-        "pos": 47,
-        "nr": 56,
-        "name": "Tom de Vreede",
+        "pos": 51,
+        "nr": 100,
+        "name": "Arie Pieter van Etten",
         "pts": 30,
-        "lastPts": 5,
+        "lastPts": 13,
         "starts": 2,
-        "gap": 154,
+        "gap": 177,
         "joint": false
       },
       {
-        "pos": 48,
+        "pos": 52,
         "nr": 41,
         "name": "Bob van den Berg",
         "pts": 27,
         "lastPts": 0,
         "starts": 4,
-        "gap": 157,
+        "gap": 180,
         "joint": false
       },
       {
-        "pos": 49,
+        "pos": 53,
         "nr": 109,
         "name": "Stan van der Knaap",
         "pts": 26,
         "lastPts": 0,
         "starts": 2,
-        "gap": 158,
+        "gap": 181,
         "joint": false
       },
       {
-        "pos": 50,
+        "pos": 54,
         "nr": 118,
         "name": "Chris Heiberg",
         "pts": 25,
-        "lastPts": 15,
+        "lastPts": 0,
         "starts": 2,
-        "gap": 159,
+        "gap": 182,
         "joint": false
       },
       {
-        "pos": 51,
+        "pos": 55,
         "nr": 80,
         "name": "Finn Bouwer",
         "pts": 23,
         "lastPts": 0,
         "starts": 2,
-        "gap": 161,
+        "gap": 184,
         "joint": true
       },
       {
-        "pos": 51,
+        "pos": 55,
         "nr": 87,
         "name": "Lucas Van Dijk",
         "pts": 23,
         "lastPts": 0,
         "starts": 1,
-        "gap": 161,
+        "gap": 184,
         "joint": true
       },
       {
-        "pos": 51,
+        "pos": 55,
         "nr": 91,
         "name": "Sten Verzijl",
         "pts": 23,
         "lastPts": 0,
         "starts": 1,
-        "gap": 161,
+        "gap": 184,
         "joint": true
       },
       {
-        "pos": 51,
-        "nr": 58,
-        "name": "Johan Olsthoorn",
-        "pts": 23,
-        "lastPts": 0,
-        "starts": 2,
-        "gap": 161,
-        "joint": true
-      },
-      {
-        "pos": 51,
-        "nr": 114,
-        "name": "Leon Hofman",
-        "pts": 23,
-        "lastPts": 23,
-        "starts": 1,
-        "gap": 161,
-        "joint": true
-      },
-      {
-        "pos": 56,
+        "pos": 58,
         "nr": 104,
         "name": "Mike Alphenaar",
         "pts": 21,
         "lastPts": 0,
         "starts": 1,
-        "gap": 163,
-        "joint": true
+        "gap": 186,
+        "joint": false
       },
       {
-        "pos": 56,
-        "nr": 107,
-        "name": "Jack Dorresteijn",
-        "pts": 21,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 163,
-        "joint": true
-      },
-      {
-        "pos": 58,
+        "pos": 59,
         "nr": 35,
         "name": "Ralph van der Meer",
         "pts": 19,
         "lastPts": 0,
         "starts": 3,
-        "gap": 165,
+        "gap": 188,
         "joint": false
       },
       {
-        "pos": 59,
+        "pos": 60,
         "nr": 81,
         "name": "Daniël Weeder",
         "pts": 17,
         "lastPts": 0,
         "starts": 1,
-        "gap": 167,
+        "gap": 190,
         "joint": true
       },
       {
-        "pos": 59,
+        "pos": 60,
         "nr": 96,
         "name": "Wilfred Slieker",
         "pts": 17,
         "lastPts": 0,
         "starts": 1,
-        "gap": 167,
+        "gap": 190,
         "joint": true
       },
       {
-        "pos": 59,
+        "pos": 60,
         "nr": 114,
         "name": "Mees Bovelander",
         "pts": 17,
         "lastPts": 0,
         "starts": 1,
-        "gap": 167,
-        "joint": true
-      },
-      {
-        "pos": 59,
-        "nr": 100,
-        "name": "Arie Pieter van Etten",
-        "pts": 17,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 167,
+        "gap": 190,
         "joint": true
       },
       {
@@ -632,7 +632,7 @@
         "pts": 16,
         "lastPts": 0,
         "starts": 2,
-        "gap": 168,
+        "gap": 191,
         "joint": true
       },
       {
@@ -642,7 +642,7 @@
         "pts": 16,
         "lastPts": 0,
         "starts": 2,
-        "gap": 168,
+        "gap": 191,
         "joint": true
       },
       {
@@ -652,7 +652,7 @@
         "pts": 15,
         "lastPts": 0,
         "starts": 3,
-        "gap": 169,
+        "gap": 192,
         "joint": false
       },
       {
@@ -662,7 +662,7 @@
         "pts": 15,
         "lastPts": 0,
         "starts": 3,
-        "gap": 169,
+        "gap": 192,
         "joint": true
       },
       {
@@ -672,227 +672,257 @@
         "pts": 15,
         "lastPts": 0,
         "starts": 1,
-        "gap": 169,
+        "gap": 192,
         "joint": true
       },
       {
-        "pos": 68,
-        "nr": 99,
-        "name": "Tim Rootliep",
-        "pts": 12,
-        "lastPts": 12,
+        "pos": 66,
+        "nr": 126,
+        "name": "Mark Verbeek",
+        "pts": 15,
+        "lastPts": 15,
         "starts": 1,
-        "gap": 172,
-        "joint": false
+        "gap": 192,
+        "joint": true
       },
       {
         "pos": 69,
+        "nr": 53,
+        "name": "Melvin Straathof",
+        "pts": 15,
+        "lastPts": 5,
+        "starts": 3,
+        "gap": 192,
+        "joint": false
+      },
+      {
+        "pos": 70,
+        "nr": 99,
+        "name": "Tim Rootliep",
+        "pts": 12,
+        "lastPts": 0,
+        "starts": 1,
+        "gap": 195,
+        "joint": false
+      },
+      {
+        "pos": 71,
         "nr": 85,
         "name": "Splinter van 't Hoff",
         "pts": 11,
         "lastPts": 0,
         "starts": 1,
-        "gap": 173,
+        "gap": 196,
         "joint": false
       },
       {
-        "pos": 70,
+        "pos": 72,
         "nr": 33,
         "name": "Eibert van 't Hof",
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 174,
+        "gap": 197,
         "joint": false
       },
       {
-        "pos": 71,
+        "pos": 73,
         "nr": 36,
         "name": "Rikkie Dijkhuizen",
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 174,
+        "gap": 197,
         "joint": true
       },
       {
-        "pos": 71,
+        "pos": 73,
         "nr": 54,
         "name": "Teunis de Beer",
         "pts": 10,
         "lastPts": 0,
         "starts": 1,
-        "gap": 174,
+        "gap": 197,
         "joint": true
       },
       {
-        "pos": 73,
-        "nr": 53,
-        "name": "Melvin Straathof",
-        "pts": 10,
-        "lastPts": 5,
-        "starts": 2,
-        "gap": 174,
-        "joint": false
-      },
-      {
-        "pos": 74,
+        "pos": 75,
         "nr": 82,
         "name": "Kick Mijlhoff",
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 174,
+        "gap": 197,
         "joint": false
       },
       {
-        "pos": 75,
+        "pos": 76,
         "nr": 49,
         "name": "Max Etalle",
         "pts": 9,
         "lastPts": 0,
         "starts": 1,
-        "gap": 175,
+        "gap": 198,
         "joint": true
       },
       {
-        "pos": 75,
+        "pos": 76,
         "nr": 94,
         "name": "Henk Meliesie",
         "pts": 9,
         "lastPts": 0,
         "starts": 1,
-        "gap": 175,
+        "gap": 198,
         "joint": true
       },
       {
-        "pos": 77,
+        "pos": 76,
+        "nr": 122,
+        "name": "Bram Hillenaar",
+        "pts": 9,
+        "lastPts": 9,
+        "starts": 1,
+        "gap": 198,
+        "joint": true
+      },
+      {
+        "pos": 79,
         "nr": 93,
         "name": "Jelmer Venema",
         "pts": 7,
         "lastPts": 0,
         "starts": 1,
-        "gap": 177,
-        "joint": false
+        "gap": 200,
+        "joint": true
       },
       {
-        "pos": 78,
+        "pos": 79,
+        "nr": 125,
+        "name": "Jan-Willem Huising",
+        "pts": 7,
+        "lastPts": 7,
+        "starts": 1,
+        "gap": 200,
+        "joint": true
+      },
+      {
+        "pos": 81,
         "nr": 78,
         "name": "Kees van Prooijen",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 78,
+        "pos": 81,
         "nr": 89,
         "name": "Matthijs Bunnik",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 78,
+        "pos": 81,
         "nr": 97,
         "name": "Erwin van Dam",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 81,
+        "pos": 84,
         "nr": 90,
         "name": "Martijn Harteloh",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 81,
+        "pos": 84,
         "nr": 105,
         "name": "Kaja van der Brugghen",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 83,
+        "pos": 86,
         "nr": 103,
         "name": "Jules Weytingh",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 83,
+        "pos": 86,
         "nr": 112,
         "name": "Christiaan Meerbeek",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 85,
+        "pos": 88,
         "nr": 113,
         "name": "Jochem Middendorp",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 85,
+        "pos": 88,
         "nr": 31,
         "name": "Alwin Niewold",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 85,
+        "pos": 88,
         "nr": 999,
         "name": "Roan Kerklaan",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 88,
+        "pos": 91,
         "nr": 59,
         "name": "Milan de Vreede",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       },
       {
-        "pos": 88,
+        "pos": 91,
         "nr": 116,
         "name": "Huub Kappert",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 179,
+        "gap": 202,
         "joint": true
       }
     ],
@@ -902,29 +932,29 @@
         "nr": 8,
         "name": "Jan Kwakkel",
         "pts": 298,
-        "lastPts": 23,
+        "lastPts": 0,
         "starts": 14,
         "gap": 0,
         "joint": false
       },
       {
         "pos": 2,
-        "nr": 7,
-        "name": "Sijmen Kwakkel",
-        "pts": 249,
-        "lastPts": 17,
-        "starts": 13,
-        "gap": 49,
+        "nr": 2,
+        "name": "Oskar Loman",
+        "pts": 271,
+        "lastPts": 23,
+        "starts": 14,
+        "gap": 27,
         "joint": false
       },
       {
         "pos": 3,
-        "nr": 2,
-        "name": "Oskar Loman",
-        "pts": 248,
-        "lastPts": 15,
+        "nr": 7,
+        "name": "Sijmen Kwakkel",
+        "pts": 249,
+        "lastPts": 0,
         "starts": 13,
-        "gap": 50,
+        "gap": 49,
         "joint": false
       },
       {
@@ -932,7 +962,7 @@
         "nr": 4,
         "name": "Bram van der Velden",
         "pts": 224,
-        "lastPts": 25,
+        "lastPts": 0,
         "starts": 14,
         "gap": 74,
         "joint": false
@@ -942,59 +972,59 @@
         "nr": 45,
         "name": "Joost van Giesen",
         "pts": 194,
-        "lastPts": 9,
+        "lastPts": 0,
         "starts": 13,
         "gap": 104,
         "joint": false
       },
       {
         "pos": 6,
-        "nr": 17,
-        "name": "Olen Olsthoorn",
-        "pts": 176,
-        "lastPts": 11,
-        "starts": 11,
-        "gap": 122,
+        "nr": 24,
+        "name": "Ole Olsthoorn",
+        "pts": 193,
+        "lastPts": 21,
+        "starts": 14,
+        "gap": 105,
         "joint": false
       },
       {
         "pos": 7,
         "nr": 19,
         "name": "Tijme Aleman",
-        "pts": 174,
-        "lastPts": 14,
-        "starts": 13,
-        "gap": 124,
+        "pts": 189,
+        "lastPts": 15,
+        "starts": 14,
+        "gap": 109,
         "joint": false
       },
       {
         "pos": 8,
-        "nr": 24,
-        "name": "Ole Olsthoorn",
-        "pts": 172,
-        "lastPts": 21,
-        "starts": 13,
-        "gap": 126,
+        "nr": 107,
+        "name": "Ricardo Hillegers",
+        "pts": 178,
+        "lastPts": 25,
+        "starts": 11,
+        "gap": 120,
         "joint": false
       },
       {
         "pos": 9,
-        "nr": 107,
-        "name": "Ricardo Hillegers",
-        "pts": 153,
-        "lastPts": 19,
-        "starts": 10,
-        "gap": 145,
+        "nr": 17,
+        "name": "Olen Olsthoorn",
+        "pts": 176,
+        "lastPts": 0,
+        "starts": 11,
+        "gap": 122,
         "joint": false
       },
       {
         "pos": 10,
         "nr": 56,
         "name": "Raymond Olsthoorn",
-        "pts": 145,
-        "lastPts": 0,
-        "starts": 9,
-        "gap": 153,
+        "pts": 155,
+        "lastPts": 10,
+        "starts": 10,
+        "gap": 143,
         "joint": false
       },
       {
@@ -1002,7 +1032,7 @@
         "nr": 42,
         "name": "Leo Perera",
         "pts": 121,
-        "lastPts": 8,
+        "lastPts": 0,
         "starts": 12,
         "gap": 177,
         "joint": false
@@ -1042,7 +1072,7 @@
         "nr": 26,
         "name": "Erik Mooij",
         "pts": 77,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 12,
         "gap": 221,
         "joint": false
@@ -1052,13 +1082,23 @@
         "nr": 57,
         "name": "Djurre Aleman",
         "pts": 72,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 12,
         "gap": 226,
         "joint": false
       },
       {
         "pos": 17,
+        "nr": 51,
+        "name": "Eric Weber",
+        "pts": 70,
+        "lastPts": 14,
+        "starts": 8,
+        "gap": 228,
+        "joint": false
+      },
+      {
+        "pos": 18,
         "nr": 25,
         "name": "Johan Olsthoorn",
         "pts": 69,
@@ -1068,37 +1108,47 @@
         "joint": false
       },
       {
-        "pos": 18,
+        "pos": 19,
         "nr": 38,
         "name": "Femke van Welie",
         "pts": 69,
-        "lastPts": 13,
+        "lastPts": 0,
         "starts": 8,
         "gap": 229,
-        "joint": false
-      },
-      {
-        "pos": 19,
-        "nr": 34,
-        "name": "Bram Veenhof",
-        "pts": 68,
-        "lastPts": 5,
-        "starts": 11,
-        "gap": 230,
         "joint": false
       },
       {
         "pos": 20,
         "nr": 18,
         "name": "Ot Kuiper",
-        "pts": 64,
+        "pts": 69,
         "lastPts": 5,
-        "starts": 11,
-        "gap": 234,
+        "starts": 12,
+        "gap": 229,
         "joint": false
       },
       {
         "pos": 21,
+        "nr": 34,
+        "name": "Bram Veenhof",
+        "pts": 68,
+        "lastPts": 0,
+        "starts": 11,
+        "gap": 230,
+        "joint": false
+      },
+      {
+        "pos": 22,
+        "nr": 28,
+        "name": "Bas Neuteboom",
+        "pts": 65,
+        "lastPts": 5,
+        "starts": 11,
+        "gap": 233,
+        "joint": false
+      },
+      {
+        "pos": 23,
         "nr": 29,
         "name": "Sanne Kerklaan",
         "pts": 62,
@@ -1108,7 +1158,17 @@
         "joint": false
       },
       {
-        "pos": 22,
+        "pos": 24,
+        "nr": 23,
+        "name": "Marc Semmeling",
+        "pts": 62,
+        "lastPts": 5,
+        "starts": 12,
+        "gap": 236,
+        "joint": false
+      },
+      {
+        "pos": 25,
         "nr": 30,
         "name": "Niels Levelt",
         "pts": 61,
@@ -1118,37 +1178,27 @@
         "joint": false
       },
       {
-        "pos": 23,
-        "nr": 28,
-        "name": "Bas Neuteboom",
+        "pos": 26,
+        "nr": 43,
+        "name": "André Mook",
         "pts": 60,
         "lastPts": 5,
-        "starts": 10,
+        "starts": 8,
         "gap": 238,
         "joint": false
       },
       {
-        "pos": 24,
-        "nr": 23,
-        "name": "Marc Semmeling",
-        "pts": 57,
+        "pos": 27,
+        "nr": 46,
+        "name": "Saar Mooij",
+        "pts": 60,
         "lastPts": 5,
-        "starts": 11,
-        "gap": 241,
+        "starts": 12,
+        "gap": 238,
         "joint": false
       },
       {
-        "pos": 25,
-        "nr": 51,
-        "name": "Eric Weber",
-        "pts": 56,
-        "lastPts": 6,
-        "starts": 7,
-        "gap": 242,
-        "joint": false
-      },
-      {
-        "pos": 26,
+        "pos": 28,
         "nr": 133,
         "name": "Johan Struijk",
         "pts": 56,
@@ -1158,19 +1208,9 @@
         "joint": false
       },
       {
-        "pos": 27,
-        "nr": 43,
-        "name": "André Mook",
-        "pts": 55,
-        "lastPts": 5,
-        "starts": 7,
-        "gap": 243,
-        "joint": false
-      },
-      {
-        "pos": 28,
-        "nr": 46,
-        "name": "Saar Mooij",
+        "pos": 29,
+        "nr": 76,
+        "name": "Hans Kruithof",
         "pts": 55,
         "lastPts": 5,
         "starts": 11,
@@ -1178,19 +1218,19 @@
         "joint": false
       },
       {
-        "pos": 29,
+        "pos": 30,
         "nr": 138,
         "name": "Stijn Weeber",
         "pts": 51,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 8,
         "gap": 247,
         "joint": false
       },
       {
-        "pos": 30,
-        "nr": 76,
-        "name": "Hans Kruithof",
+        "pos": 31,
+        "nr": 52,
+        "name": "Nienke Bennis",
         "pts": 50,
         "lastPts": 5,
         "starts": 10,
@@ -1198,9 +1238,39 @@
         "joint": false
       },
       {
-        "pos": 31,
-        "nr": 52,
-        "name": "Nienke Bennis",
+        "pos": 32,
+        "nr": 146,
+        "name": "Marc Kramer",
+        "pts": 49,
+        "lastPts": 19,
+        "starts": 4,
+        "gap": 249,
+        "joint": false
+      },
+      {
+        "pos": 33,
+        "nr": 58,
+        "name": "Bart Vons",
+        "pts": 46,
+        "lastPts": 5,
+        "starts": 9,
+        "gap": 252,
+        "joint": false
+      },
+      {
+        "pos": 34,
+        "nr": 60,
+        "name": "Ricardo Jansen",
+        "pts": 45,
+        "lastPts": 17,
+        "starts": 4,
+        "gap": 253,
+        "joint": false
+      },
+      {
+        "pos": 35,
+        "nr": 21,
+        "name": "Arco Flikweert",
         "pts": 45,
         "lastPts": 5,
         "starts": 9,
@@ -1208,7 +1278,7 @@
         "joint": false
       },
       {
-        "pos": 32,
+        "pos": 36,
         "nr": 16,
         "name": "Lucas Geerlings",
         "pts": 44,
@@ -1218,47 +1288,57 @@
         "joint": false
       },
       {
-        "pos": 33,
-        "nr": 58,
-        "name": "Bart Vons",
+        "pos": 37,
+        "nr": 86,
+        "name": "Rob Vollebregt",
         "pts": 41,
-        "lastPts": 0,
+        "lastPts": 5,
         "starts": 8,
         "gap": 257,
         "joint": false
       },
       {
-        "pos": 34,
+        "pos": 38,
         "nr": 96,
         "name": "Luuk de Wijn",
         "pts": 40,
-        "lastPts": 10,
+        "lastPts": 0,
         "starts": 3,
         "gap": 258,
         "joint": false
       },
       {
-        "pos": 35,
-        "nr": 21,
-        "name": "Arco Flikweert",
+        "pos": 39,
+        "nr": 39,
+        "name": "René Ammerlaan",
         "pts": 40,
-        "lastPts": 0,
+        "lastPts": 5,
         "starts": 8,
         "gap": 258,
         "joint": false
       },
       {
-        "pos": 36,
-        "nr": 86,
-        "name": "Rob Vollebregt",
-        "pts": 36,
-        "lastPts": 5,
-        "starts": 7,
-        "gap": 262,
+        "pos": 40,
+        "nr": 84,
+        "name": "Robin Hendriks",
+        "pts": 38,
+        "lastPts": 8,
+        "starts": 6,
+        "gap": 260,
         "joint": false
       },
       {
-        "pos": 37,
+        "pos": 41,
+        "nr": 13,
+        "name": "Jeroen Wieringa",
+        "pts": 37,
+        "lastPts": 7,
+        "starts": 7,
+        "gap": 261,
+        "joint": false
+      },
+      {
+        "pos": 42,
         "nr": 22,
         "name": "Jesse Flikweert",
         "pts": 36,
@@ -1268,9 +1348,19 @@
         "joint": false
       },
       {
-        "pos": 38,
-        "nr": 39,
-        "name": "René Ammerlaan",
+        "pos": 43,
+        "nr": 110,
+        "name": "Elise van Dijk",
+        "pts": 35,
+        "lastPts": 11,
+        "starts": 4,
+        "gap": 263,
+        "joint": false
+      },
+      {
+        "pos": 44,
+        "nr": 63,
+        "name": "Izzy Kreuk",
         "pts": 35,
         "lastPts": 5,
         "starts": 7,
@@ -1278,17 +1368,37 @@
         "joint": false
       },
       {
-        "pos": 39,
+        "pos": 45,
+        "nr": 101,
+        "name": "John van Etten",
+        "pts": 35,
+        "lastPts": 5,
+        "starts": 7,
+        "gap": 263,
+        "joint": false
+      },
+      {
+        "pos": 46,
+        "nr": 40,
+        "name": "Bart van Leeuwen",
+        "pts": 35,
+        "lastPts": 5,
+        "starts": 7,
+        "gap": 263,
+        "joint": false
+      },
+      {
+        "pos": 47,
         "nr": 12,
         "name": "Constantijn Dekker",
         "pts": 33,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 4,
         "gap": 265,
         "joint": true
       },
       {
-        "pos": 39,
+        "pos": 47,
         "nr": 36,
         "name": "Paul van Sighem",
         "pts": 33,
@@ -1298,7 +1408,7 @@
         "joint": true
       },
       {
-        "pos": 41,
+        "pos": 49,
         "nr": 62,
         "name": "Harmen Land",
         "pts": 31,
@@ -1308,87 +1418,17 @@
         "joint": false
       },
       {
-        "pos": 42,
-        "nr": 146,
-        "name": "Marc Kramer",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 3,
-        "gap": 268,
-        "joint": false
-      },
-      {
-        "pos": 43,
+        "pos": 50,
         "nr": 111,
         "name": "Alexandros Sklavos",
         "pts": 30,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 6,
         "gap": 268,
         "joint": false
       },
       {
-        "pos": 44,
-        "nr": 84,
-        "name": "Robin Hendriks",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 5,
-        "gap": 268,
-        "joint": true
-      },
-      {
-        "pos": 44,
-        "nr": 53,
-        "name": "Floor Sigmond",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 6,
-        "gap": 268,
-        "joint": true
-      },
-      {
-        "pos": 44,
-        "nr": 101,
-        "name": "John van Etten",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 6,
-        "gap": 268,
-        "joint": true
-      },
-      {
-        "pos": 44,
-        "nr": 40,
-        "name": "Bart van Leeuwen",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 6,
-        "gap": 268,
-        "joint": true
-      },
-      {
-        "pos": 44,
-        "nr": 63,
-        "name": "Izzy Kreuk",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 6,
-        "gap": 268,
-        "joint": true
-      },
-      {
-        "pos": 49,
-        "nr": 13,
-        "name": "Jeroen Wieringa",
-        "pts": 30,
-        "lastPts": 5,
-        "starts": 6,
-        "gap": 268,
-        "joint": false
-      },
-      {
-        "pos": 50,
+        "pos": 51,
         "nr": 6,
         "name": "Bram Berkhout",
         "pts": 30,
@@ -1398,7 +1438,27 @@
         "joint": false
       },
       {
-        "pos": 51,
+        "pos": 52,
+        "nr": 53,
+        "name": "Floor Sigmond",
+        "pts": 30,
+        "lastPts": 0,
+        "starts": 6,
+        "gap": 268,
+        "joint": false
+      },
+      {
+        "pos": 53,
+        "nr": 119,
+        "name": "Marco Van Tol",
+        "pts": 29,
+        "lastPts": 5,
+        "starts": 5,
+        "gap": 269,
+        "joint": false
+      },
+      {
+        "pos": 54,
         "nr": 37,
         "name": "Rob van der Liende",
         "pts": 29,
@@ -1408,27 +1468,17 @@
         "joint": false
       },
       {
-        "pos": 52,
-        "nr": 60,
-        "name": "Ricardo Jansen",
-        "pts": 28,
-        "lastPts": 0,
-        "starts": 3,
-        "gap": 270,
-        "joint": false
-      },
-      {
-        "pos": 53,
+        "pos": 55,
         "nr": 103,
         "name": "Jitse van Esch",
         "pts": 26,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 3,
         "gap": 272,
         "joint": false
       },
       {
-        "pos": 54,
+        "pos": 56,
         "nr": 49,
         "name": "Tim van der Eijk",
         "pts": 25,
@@ -1438,7 +1488,7 @@
         "joint": false
       },
       {
-        "pos": 55,
+        "pos": 57,
         "nr": 5,
         "name": "Albert Berkhout",
         "pts": 25,
@@ -1448,9 +1498,19 @@
         "joint": true
       },
       {
-        "pos": 55,
+        "pos": 57,
         "nr": 27,
         "name": "Mark Veenstra",
+        "pts": 25,
+        "lastPts": 0,
+        "starts": 5,
+        "gap": 273,
+        "joint": true
+      },
+      {
+        "pos": 59,
+        "nr": 15,
+        "name": "Jeroen de Keijzer",
         "pts": 25,
         "lastPts": 5,
         "starts": 5,
@@ -1458,7 +1518,7 @@
         "joint": true
       },
       {
-        "pos": 55,
+        "pos": 59,
         "nr": 114,
         "name": "Brendan Berendse",
         "pts": 25,
@@ -1468,7 +1528,7 @@
         "joint": true
       },
       {
-        "pos": 58,
+        "pos": 61,
         "nr": 3,
         "name": "Rombout Loman",
         "pts": 25,
@@ -1478,7 +1538,7 @@
         "joint": true
       },
       {
-        "pos": 58,
+        "pos": 61,
         "nr": 85,
         "name": "Boaz Goijert",
         "pts": 25,
@@ -1488,37 +1548,17 @@
         "joint": true
       },
       {
-        "pos": 60,
-        "nr": 110,
-        "name": "Elise van Dijk",
-        "pts": 24,
-        "lastPts": 12,
-        "starts": 3,
-        "gap": 274,
-        "joint": true
-      },
-      {
-        "pos": 60,
+        "pos": 63,
         "nr": 117,
         "name": "Martijn van der Velden",
         "pts": 24,
         "lastPts": 0,
         "starts": 3,
         "gap": 274,
-        "joint": true
-      },
-      {
-        "pos": 62,
-        "nr": 119,
-        "name": "Marco Van Tol",
-        "pts": 24,
-        "lastPts": 0,
-        "starts": 4,
-        "gap": 274,
         "joint": false
       },
       {
-        "pos": 63,
+        "pos": 64,
         "nr": 33,
         "name": "Rik Bisschop",
         "pts": 23,
@@ -1528,7 +1568,7 @@
         "joint": true
       },
       {
-        "pos": 63,
+        "pos": 64,
         "nr": 123,
         "name": "Lars van Schie",
         "pts": 23,
@@ -1538,17 +1578,27 @@
         "joint": true
       },
       {
-        "pos": 65,
+        "pos": 66,
         "nr": 99,
         "name": "Aaron Oberink",
         "pts": 22,
         "lastPts": 0,
         "starts": 2,
         "gap": 276,
-        "joint": false
+        "joint": true
       },
       {
         "pos": 66,
+        "nr": 163,
+        "name": "Linda Kuiper",
+        "pts": 22,
+        "lastPts": 12,
+        "starts": 3,
+        "gap": 276,
+        "joint": true
+      },
+      {
+        "pos": 68,
         "nr": 148,
         "name": "Kees Jan Bongaertz",
         "pts": 21,
@@ -1558,7 +1608,7 @@
         "joint": false
       },
       {
-        "pos": 67,
+        "pos": 69,
         "nr": 44,
         "name": "Ard Koeleman",
         "pts": 20,
@@ -1568,7 +1618,7 @@
         "joint": false
       },
       {
-        "pos": 68,
+        "pos": 70,
         "nr": 9,
         "name": "Milou van de Beek",
         "pts": 20,
@@ -1578,21 +1628,11 @@
         "joint": false
       },
       {
-        "pos": 69,
+        "pos": 71,
         "nr": 17,
         "name": "Melvin Straathof",
         "pts": 20,
         "lastPts": 0,
-        "starts": 4,
-        "gap": 278,
-        "joint": true
-      },
-      {
-        "pos": 69,
-        "nr": 15,
-        "name": "Jeroen de Keijzer",
-        "pts": 20,
-        "lastPts": 5,
         "starts": 4,
         "gap": 278,
         "joint": true
@@ -1605,10 +1645,20 @@
         "lastPts": 0,
         "starts": 4,
         "gap": 278,
-        "joint": false
+        "joint": true
       },
       {
-        "pos": 72,
+        "pos": 71,
+        "nr": 161,
+        "name": "Jurgen van der Welle",
+        "pts": 20,
+        "lastPts": 13,
+        "starts": 2,
+        "gap": 278,
+        "joint": true
+      },
+      {
+        "pos": 74,
         "nr": 112,
         "name": "Jeroen Van den Berg",
         "pts": 15,
@@ -1618,7 +1668,7 @@
         "joint": false
       },
       {
-        "pos": 73,
+        "pos": 75,
         "nr": 88,
         "name": "Mette Houwaard",
         "pts": 15,
@@ -1628,7 +1678,7 @@
         "joint": true
       },
       {
-        "pos": 73,
+        "pos": 75,
         "nr": 47,
         "name": "Faniel Haile",
         "pts": 15,
@@ -1638,17 +1688,17 @@
         "joint": true
       },
       {
-        "pos": 73,
+        "pos": 75,
         "nr": 65,
         "name": "Louis Oudshoorn",
         "pts": 15,
-        "lastPts": 5,
+        "lastPts": 0,
         "starts": 3,
         "gap": 283,
         "joint": true
       },
       {
-        "pos": 76,
+        "pos": 78,
         "nr": 142,
         "name": "Billy Vreugdenhil",
         "pts": 14,
@@ -1658,7 +1708,7 @@
         "joint": false
       },
       {
-        "pos": 77,
+        "pos": 79,
         "nr": 109,
         "name": "Sanne Brouwer",
         "pts": 11,
@@ -1668,7 +1718,7 @@
         "joint": true
       },
       {
-        "pos": 77,
+        "pos": 79,
         "nr": 115,
         "name": "Jaco Bouwer",
         "pts": 11,
@@ -1679,6 +1729,16 @@
       },
       {
         "pos": 79,
+        "nr": 162,
+        "name": "Henk Scholte Albers",
+        "pts": 11,
+        "lastPts": 6,
+        "starts": 2,
+        "gap": 287,
+        "joint": true
+      },
+      {
+        "pos": 82,
         "nr": 32,
         "name": "Björn Christian Benschop",
         "pts": 10,
@@ -1688,7 +1748,7 @@
         "joint": false
       },
       {
-        "pos": 80,
+        "pos": 83,
         "nr": 31,
         "name": "Dorien van Iwaarden",
         "pts": 10,
@@ -1698,7 +1758,7 @@
         "joint": true
       },
       {
-        "pos": 80,
+        "pos": 83,
         "nr": 41,
         "name": "Mark van der Weide",
         "pts": 10,
@@ -1708,7 +1768,7 @@
         "joint": true
       },
       {
-        "pos": 80,
+        "pos": 83,
         "nr": 106,
         "name": "Bas van der Drift",
         "pts": 10,
@@ -1718,7 +1778,7 @@
         "joint": true
       },
       {
-        "pos": 83,
+        "pos": 86,
         "nr": 55,
         "name": "Mette Stoel",
         "pts": 10,
@@ -1728,7 +1788,7 @@
         "joint": true
       },
       {
-        "pos": 83,
+        "pos": 86,
         "nr": 90,
         "name": "Nicole van Sighem",
         "pts": 10,
@@ -1738,37 +1798,37 @@
         "joint": true
       },
       {
-        "pos": 83,
-        "nr": 163,
-        "name": "Linda Kuiper",
+        "pos": 88,
+        "nr": 61,
+        "name": "Rémy van Es",
         "pts": 10,
         "lastPts": 5,
         "starts": 2,
         "gap": 288,
-        "joint": true
+        "joint": false
       },
       {
-        "pos": 86,
+        "pos": 89,
+        "nr": 166,
+        "name": "Feline Solleveld",
+        "pts": 9,
+        "lastPts": 9,
+        "starts": 1,
+        "gap": 289,
+        "joint": false
+      },
+      {
+        "pos": 90,
         "nr": 127,
         "name": "Berdine Bakker",
         "pts": 7,
         "lastPts": 0,
         "starts": 1,
         "gap": 291,
-        "joint": true
+        "joint": false
       },
       {
-        "pos": 86,
-        "nr": 161,
-        "name": "Jurgen van der Welle",
-        "pts": 7,
-        "lastPts": 7,
-        "starts": 1,
-        "gap": 291,
-        "joint": true
-      },
-      {
-        "pos": 88,
+        "pos": 91,
         "nr": 102,
         "name": "Maren de Bruin",
         "pts": 5,
@@ -1778,7 +1838,7 @@
         "joint": true
       },
       {
-        "pos": 88,
+        "pos": 91,
         "nr": 82,
         "name": "Martijn Oosthoek",
         "pts": 5,
@@ -1788,7 +1848,7 @@
         "joint": true
       },
       {
-        "pos": 90,
+        "pos": 93,
         "nr": 77,
         "name": "Renske Fidder",
         "pts": 5,
@@ -1798,7 +1858,7 @@
         "joint": true
       },
       {
-        "pos": 90,
+        "pos": 93,
         "nr": 134,
         "name": "Roan Kerklaan",
         "pts": 5,
@@ -1808,7 +1868,7 @@
         "joint": true
       },
       {
-        "pos": 92,
+        "pos": 95,
         "nr": 126,
         "name": "Nienke Bosma",
         "pts": 5,
@@ -1818,7 +1878,7 @@
         "joint": false
       },
       {
-        "pos": 93,
+        "pos": 96,
         "nr": 128,
         "name": "Leon Rotmans",
         "pts": 5,
@@ -1828,7 +1888,7 @@
         "joint": false
       },
       {
-        "pos": 94,
+        "pos": 97,
         "nr": 121,
         "name": "Veraa Broeckaert",
         "pts": 5,
@@ -1838,7 +1898,7 @@
         "joint": false
       },
       {
-        "pos": 95,
+        "pos": 98,
         "nr": 130,
         "name": "Rhiannon Dolan",
         "pts": 5,
@@ -1848,7 +1908,7 @@
         "joint": false
       },
       {
-        "pos": 96,
+        "pos": 99,
         "nr": 122,
         "name": "Pip Ypenburg",
         "pts": 5,
@@ -1858,7 +1918,7 @@
         "joint": false
       },
       {
-        "pos": 97,
+        "pos": 100,
         "nr": 120,
         "name": "Ilse La Brijn",
         "pts": 5,
@@ -1868,7 +1928,7 @@
         "joint": false
       },
       {
-        "pos": 98,
+        "pos": 101,
         "nr": 129,
         "name": "Roos Heeger",
         "pts": 5,
@@ -1878,19 +1938,9 @@
         "joint": false
       },
       {
-        "pos": 99,
+        "pos": 102,
         "nr": 125,
         "name": "Kirsten Parren",
-        "pts": 5,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 293,
-        "joint": false
-      },
-      {
-        "pos": 100,
-        "nr": 61,
-        "name": "Rémy van Es",
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
@@ -1898,7 +1948,7 @@
         "joint": true
       },
       {
-        "pos": 100,
+        "pos": 102,
         "nr": 139,
         "name": "Linde Minnecré",
         "pts": 5,
@@ -1908,7 +1958,7 @@
         "joint": true
       },
       {
-        "pos": 100,
+        "pos": 102,
         "nr": 134,
         "name": "David van Aalst",
         "pts": 5,
@@ -1918,7 +1968,7 @@
         "joint": true
       },
       {
-        "pos": 100,
+        "pos": 102,
         "nr": 100,
         "name": "Jeroen van Vliet",
         "pts": 5,
@@ -1928,17 +1978,7 @@
         "joint": true
       },
       {
-        "pos": 100,
-        "nr": 66,
-        "name": "Henk Scholte Albers",
-        "pts": 5,
-        "lastPts": 0,
-        "starts": 1,
-        "gap": 293,
-        "joint": true
-      },
-      {
-        "pos": 105,
+        "pos": 102,
         "nr": 141,
         "name": "Iker Slotboom",
         "pts": 5,
@@ -1948,7 +1988,7 @@
         "joint": true
       },
       {
-        "pos": 105,
+        "pos": 102,
         "nr": 79,
         "name": "Vincent van Aalst",
         "pts": 5,
@@ -1958,7 +1998,7 @@
         "joint": true
       },
       {
-        "pos": 107,
+        "pos": 108,
         "nr": 51,
         "name": "Maurits Oskam",
         "pts": 5,
@@ -1968,7 +2008,7 @@
         "joint": false
       },
       {
-        "pos": 108,
+        "pos": 109,
         "nr": 143,
         "name": "Milan de Vreede",
         "pts": 0,
@@ -1986,7 +2026,7 @@
         "nr": 17,
         "name": "Juul Hubert",
         "pts": 250,
-        "lastPts": 25,
+        "lastPts": 0,
         "starts": 10,
         "gap": 0,
         "joint": false
@@ -2007,10 +2047,10 @@
         "pos": 2,
         "nr": 46,
         "name": "Saar Mooij",
-        "pts": 198,
-        "lastPts": 15,
-        "starts": 11,
-        "gap": 55,
+        "pts": 217,
+        "lastPts": 19,
+        "starts": 12,
+        "gap": 36,
         "joint": false
       },
       {
@@ -2018,7 +2058,7 @@
         "nr": 38,
         "name": "Femke van Welie",
         "pts": 196,
-        "lastPts": 25,
+        "lastPts": 0,
         "starts": 8,
         "gap": 57,
         "joint": false
@@ -2027,20 +2067,20 @@
         "pos": 4,
         "nr": 52,
         "name": "Nienke Bennis",
-        "pts": 136,
-        "lastPts": 17,
-        "starts": 8,
-        "gap": 117,
+        "pts": 157,
+        "lastPts": 21,
+        "starts": 9,
+        "gap": 96,
         "joint": false
       },
       {
         "pos": 5,
         "nr": 63,
         "name": "Izzy Kreuk",
-        "pts": 107,
-        "lastPts": 21,
-        "starts": 5,
-        "gap": 146,
+        "pts": 130,
+        "lastPts": 23,
+        "starts": 6,
+        "gap": 123,
         "joint": false
       },
       {
@@ -2048,29 +2088,29 @@
         "nr": 53,
         "name": "Floor Sigmond",
         "pts": 99,
-        "lastPts": 19,
+        "lastPts": 0,
         "starts": 5,
         "gap": 154,
         "joint": false
       },
       {
         "pos": 7,
+        "nr": 110,
+        "name": "Elise van Dijk",
+        "pts": 92,
+        "lastPts": 25,
+        "starts": 4,
+        "gap": 161,
+        "joint": false
+      },
+      {
+        "pos": 8,
         "nr": 9,
         "name": "Milou van de Beek",
         "pts": 84,
         "lastPts": 0,
         "starts": 4,
         "gap": 169,
-        "joint": false
-      },
-      {
-        "pos": 8,
-        "nr": 110,
-        "name": "Elise van Dijk",
-        "pts": 67,
-        "lastPts": 23,
-        "starts": 3,
-        "gap": 186,
         "joint": false
       },
       {
