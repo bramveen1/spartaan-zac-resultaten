@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T22:42:21.032Z",
+  "updatedAt": "2026-08-18T22:24:07.032Z",
   "races": [
     {
       "n": 1,
@@ -13204,6 +13204,584 @@
       "womenMovers": {
         "A": [],
         "B": []
+      }
+    },
+    {
+      "n": 21,
+      "sessionId": 12657300,
+      "date": "2026-08-18",
+      "label": "Race 21",
+      "classes": {
+        "A": {
+          "results": [
+            {
+              "pos": 1,
+              "nr": 120,
+              "name": "Jasper Kettenis",
+              "laps": 41,
+              "time": "1:15:31.960",
+              "diff": "0.000",
+              "pts": 25
+            },
+            {
+              "pos": 2,
+              "nr": 16,
+              "name": "Peter Fils",
+              "laps": 41,
+              "time": "1:15:32.577",
+              "diff": "0.617",
+              "pts": 23
+            },
+            {
+              "pos": 3,
+              "nr": 60,
+              "name": "Ties Kuiper",
+              "laps": 41,
+              "time": "1:15:33.049",
+              "diff": "1.089",
+              "pts": 21
+            },
+            {
+              "pos": 4,
+              "nr": 21,
+              "name": "Erik de Niet",
+              "laps": 41,
+              "time": "1:15:33.057",
+              "diff": "1.097",
+              "pts": 19
+            },
+            {
+              "pos": 5,
+              "nr": 23,
+              "name": "Joost te Braake",
+              "laps": 41,
+              "time": "1:15:33.343",
+              "diff": "1.383",
+              "pts": 17
+            },
+            {
+              "pos": 6,
+              "nr": 134,
+              "name": "Andreas de Wit",
+              "laps": 41,
+              "time": "1:15:34.064",
+              "diff": "2.104",
+              "pts": 15
+            },
+            {
+              "pos": 7,
+              "nr": 8,
+              "name": "Jasper Hupkes",
+              "laps": 41,
+              "time": "1:15:37.850",
+              "diff": "5.890",
+              "pts": 14
+            },
+            {
+              "pos": 8,
+              "nr": 50,
+              "name": "Siem Woldesilassie",
+              "laps": 41,
+              "time": "1:17:0.910",
+              "diff": "1:28.950",
+              "pts": 13
+            },
+            {
+              "pos": 9,
+              "nr": 27,
+              "name": "Jianhao Wu",
+              "laps": 41,
+              "time": "1:17:1.000",
+              "diff": "1:29.040",
+              "pts": 12
+            },
+            {
+              "pos": 10,
+              "nr": 133,
+              "name": "Boaz Zoutewelle",
+              "laps": 41,
+              "time": "1:17:1.435",
+              "diff": "1:29.475",
+              "pts": 11
+            },
+            {
+              "pos": 11,
+              "nr": 1,
+              "name": "Guido Smit",
+              "laps": 41,
+              "time": "1:17:1.581",
+              "diff": "1:29.621",
+              "pts": 10
+            },
+            {
+              "pos": 12,
+              "nr": 61,
+              "name": "Jan Kwakkel",
+              "laps": 41,
+              "time": "1:17:1.791",
+              "diff": "1:29.831",
+              "pts": 9
+            },
+            {
+              "pos": 13,
+              "nr": 24,
+              "name": "Joost Slingerland",
+              "laps": 41,
+              "time": "1:17:1.900",
+              "diff": "1:29.940",
+              "pts": 8
+            },
+            {
+              "pos": 14,
+              "nr": 43,
+              "name": "Ronald Geleynse",
+              "laps": 41,
+              "time": "1:17:2.107",
+              "diff": "1:30.147",
+              "pts": 7
+            },
+            {
+              "pos": 15,
+              "nr": 135,
+              "name": "Henk Meliesie",
+              "laps": 41,
+              "time": "1:17:2.277",
+              "diff": "1:30.317",
+              "pts": 6
+            },
+            {
+              "pos": 16,
+              "nr": 132,
+              "name": "Marc van der Kaa",
+              "laps": 41,
+              "time": "1:17:2.800",
+              "diff": "1:30.840",
+              "pts": 5
+            },
+            {
+              "pos": 17,
+              "nr": 45,
+              "name": "Alexander van den Berg van Saparoea",
+              "laps": 41,
+              "time": "1:17:3.063",
+              "diff": "1:31.103",
+              "pts": 5
+            },
+            {
+              "pos": 18,
+              "nr": 32,
+              "name": "Martijn Coeveld",
+              "laps": 41,
+              "time": "1:17:4.131",
+              "diff": "1:32.171",
+              "pts": 5
+            },
+            {
+              "pos": 19,
+              "nr": 4,
+              "name": "Marc Plönes",
+              "laps": 41,
+              "time": "1:17:4.511",
+              "diff": "1:32.551",
+              "pts": 5
+            },
+            {
+              "pos": 20,
+              "nr": 53,
+              "name": "Mark Veenstra",
+              "laps": 41,
+              "time": "1:17:5.897",
+              "diff": "1:33.937",
+              "pts": 5
+            },
+            {
+              "pos": 21,
+              "nr": 29,
+              "name": "Richard Schouten",
+              "laps": 41,
+              "time": "1:17:6.204",
+              "diff": "1:34.244",
+              "pts": 5
+            },
+            {
+              "pos": 22,
+              "nr": 44,
+              "name": "Don de Leeuw",
+              "laps": 27,
+              "time": "54:28.111",
+              "diff": "14 laps",
+              "pts": 5
+            }
+          ],
+          "stats": {
+            "winnerTime": "1:15:31.960",
+            "laps": 41,
+            "finishers": 22
+          }
+        },
+        "B": {
+          "results": [
+            {
+              "pos": 1,
+              "nr": 146,
+              "name": "Marc Kramer",
+              "laps": 31,
+              "time": "1:2:4.462",
+              "diff": "10 laps",
+              "pts": 25
+            },
+            {
+              "pos": 2,
+              "nr": 161,
+              "name": "Jurgen van der Welle",
+              "laps": 31,
+              "time": "1:2:4.507",
+              "diff": "10 laps",
+              "pts": 23
+            },
+            {
+              "pos": 3,
+              "nr": 7,
+              "name": "Sijmen Kwakkel",
+              "laps": 31,
+              "time": "1:2:4.655",
+              "diff": "10 laps",
+              "pts": 21
+            },
+            {
+              "pos": 4,
+              "nr": 38,
+              "name": "Femke van Welie",
+              "laps": 31,
+              "time": "1:2:4.791",
+              "diff": "10 laps",
+              "pts": 19
+            },
+            {
+              "pos": 5,
+              "nr": 45,
+              "name": "Joost van Giesen",
+              "laps": 31,
+              "time": "1:2:4.797",
+              "diff": "10 laps",
+              "pts": 17
+            },
+            {
+              "pos": 6,
+              "nr": 19,
+              "name": "Tijme Aleman",
+              "laps": 31,
+              "time": "1:2:4.850",
+              "diff": "10 laps",
+              "pts": 15
+            },
+            {
+              "pos": 7,
+              "nr": 2,
+              "name": "Oskar Loman",
+              "laps": 31,
+              "time": "1:2:4.893",
+              "diff": "10 laps",
+              "pts": 14
+            },
+            {
+              "pos": 8,
+              "nr": 4,
+              "name": "Bram van der Velden",
+              "laps": 31,
+              "time": "1:2:4.905",
+              "diff": "10 laps",
+              "pts": 13
+            },
+            {
+              "pos": 9,
+              "nr": 24,
+              "name": "Ole Olsthoorn",
+              "laps": 31,
+              "time": "1:2:5.899",
+              "diff": "10 laps",
+              "pts": 12
+            },
+            {
+              "pos": 10,
+              "nr": 42,
+              "name": "Leo Perera",
+              "laps": 31,
+              "time": "1:2:6.463",
+              "diff": "10 laps",
+              "pts": 11
+            },
+            {
+              "pos": 11,
+              "nr": 84,
+              "name": "Robin Hendriks",
+              "laps": 31,
+              "time": "1:2:6.798",
+              "diff": "10 laps",
+              "pts": 10
+            },
+            {
+              "pos": 12,
+              "nr": 109,
+              "name": "Sanne Brouwer",
+              "laps": 31,
+              "time": "1:2:7.399",
+              "diff": "10 laps",
+              "pts": 9
+            },
+            {
+              "pos": 13,
+              "nr": 15,
+              "name": "Jeroen de Keijzer",
+              "laps": 31,
+              "time": "1:2:7.893",
+              "diff": "10 laps",
+              "pts": 8
+            },
+            {
+              "pos": 14,
+              "nr": 28,
+              "name": "Bas Neuteboom",
+              "laps": 31,
+              "time": "1:2:8.424",
+              "diff": "10 laps",
+              "pts": 7
+            },
+            {
+              "pos": 15,
+              "nr": 107,
+              "name": "Ricardo Hillegers",
+              "laps": 30,
+              "time": "1:0:19.438",
+              "diff": "11 laps",
+              "pts": 6
+            },
+            {
+              "pos": 16,
+              "nr": 14,
+              "name": "Jurn Bezemer",
+              "laps": 30,
+              "time": "1:2:4.876",
+              "diff": "11 laps",
+              "pts": 5
+            },
+            {
+              "pos": 17,
+              "nr": 29,
+              "name": "Sanne Kerklaan",
+              "laps": 30,
+              "time": "1:2:8.346",
+              "diff": "11 laps",
+              "pts": 5
+            },
+            {
+              "pos": 18,
+              "nr": 61,
+              "name": "Rémy van Es",
+              "laps": 29,
+              "time": "1:2:11.603",
+              "diff": "12 laps",
+              "pts": 5
+            },
+            {
+              "pos": 19,
+              "nr": 65,
+              "name": "Louis Oudshoorn",
+              "laps": 28,
+              "time": "1:2:16.311",
+              "diff": "13 laps",
+              "pts": 5
+            },
+            {
+              "pos": 20,
+              "nr": 51,
+              "name": "Eric Weber",
+              "laps": 27,
+              "time": "1:2:5.775",
+              "diff": "14 laps",
+              "pts": 5
+            },
+            {
+              "pos": 21,
+              "nr": 180,
+              "name": "Sela Zeeman",
+              "laps": 20,
+              "time": "46:10.603",
+              "diff": "21 laps",
+              "pts": 5
+            },
+            {
+              "pos": 22,
+              "nr": 52,
+              "name": "Nienke Bennis",
+              "laps": 16,
+              "time": "39:7.326",
+              "diff": "25 laps",
+              "pts": 5
+            },
+            {
+              "pos": 23,
+              "nr": 46,
+              "name": "Saar Mooij",
+              "laps": 11,
+              "time": "28:42.030",
+              "diff": "30 laps",
+              "pts": 5
+            }
+          ],
+          "stats": {
+            "winnerTime": "1:2:4.462",
+            "laps": 31,
+            "finishers": 23
+          }
+        }
+      },
+      "womenClasses": {
+        "A": {
+          "results": [],
+          "stats": {
+            "winnerTime": null,
+            "laps": 0,
+            "finishers": 0
+          }
+        },
+        "B": {
+          "results": [
+            {
+              "pos": 1,
+              "nr": 38,
+              "name": "Femke van Welie",
+              "laps": 31,
+              "time": "1:2:4.791",
+              "diff": "10 laps",
+              "pts": 25
+            },
+            {
+              "pos": 2,
+              "nr": 109,
+              "name": "Sanne Brouwer",
+              "laps": 31,
+              "time": "1:2:7.399",
+              "diff": "10 laps",
+              "pts": 23
+            },
+            {
+              "pos": 3,
+              "nr": 29,
+              "name": "Sanne Kerklaan",
+              "laps": 30,
+              "time": "1:2:8.346",
+              "diff": "11 laps",
+              "pts": 21
+            },
+            {
+              "pos": 4,
+              "nr": 52,
+              "name": "Nienke Bennis",
+              "laps": 16,
+              "time": "39:7.326",
+              "diff": "25 laps",
+              "pts": 19
+            },
+            {
+              "pos": 5,
+              "nr": 46,
+              "name": "Saar Mooij",
+              "laps": 11,
+              "time": "28:42.030",
+              "diff": "30 laps",
+              "pts": 17
+            }
+          ],
+          "stats": {
+            "winnerTime": "1:2:4.791",
+            "laps": 31,
+            "finishers": 5
+          }
+        }
+      },
+      "movers": {
+        "A": [
+          {
+            "nr": 120,
+            "name": "Jasper Kettenis",
+            "from": 99,
+            "to": 51,
+            "shift": 48,
+            "pts": 25
+          },
+          {
+            "nr": 8,
+            "name": "Jasper Hupkes",
+            "from": 48,
+            "to": 35,
+            "shift": 13,
+            "pts": 14
+          },
+          {
+            "nr": 53,
+            "name": "Mark Veenstra",
+            "from": 96,
+            "to": 83,
+            "shift": 13,
+            "pts": 5
+          }
+        ],
+        "B": [
+          {
+            "nr": 180,
+            "name": "Sela Zeeman",
+            "from": 113,
+            "to": 92,
+            "shift": 21,
+            "pts": 5
+          },
+          {
+            "nr": 15,
+            "name": "Jeroen de Keijzer",
+            "from": 55,
+            "to": 44,
+            "shift": 11,
+            "pts": 8
+          },
+          {
+            "nr": 61,
+            "name": "Rémy van Es",
+            "from": 72,
+            "to": 62,
+            "shift": 10,
+            "pts": 5
+          }
+        ]
+      },
+      "womenMovers": {
+        "A": [],
+        "B": [
+          {
+            "nr": 109,
+            "name": "Sanne Brouwer",
+            "from": 11,
+            "to": 10,
+            "shift": 1,
+            "pts": 23
+          },
+          {
+            "nr": 90,
+            "name": "Nicole van Sighem",
+            "from": 10,
+            "to": 11,
+            "shift": -1,
+            "pts": 0
+          },
+          {
+            "nr": 122,
+            "name": "Pip Ypenburg",
+            "from": 11,
+            "to": 12,
+            "shift": -1,
+            "pts": 0
+          }
+        ]
       }
     }
   ]
