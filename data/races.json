@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-27T12:13:42.597Z",
+  "updatedAt": "2026-09-01T20:20:42.421Z",
   "races": [
     {
       "n": 1,
@@ -13441,119 +13441,119 @@
             },
             {
               "pos": 3,
-              "nr": 7,
-              "name": "Sijmen Kwakkel",
+              "nr": 107,
+              "name": "Ricardo Hillegers",
               "laps": 31,
-              "time": "1:2:4.655",
+              "time": "1:2:4.600",
               "diff": "10 laps",
               "pts": 21
             },
             {
               "pos": 4,
-              "nr": 38,
-              "name": "Femke van Welie",
+              "nr": 7,
+              "name": "Sijmen Kwakkel",
               "laps": 31,
-              "time": "1:2:4.791",
+              "time": "1:2:4.655",
               "diff": "10 laps",
               "pts": 19
             },
             {
               "pos": 5,
-              "nr": 45,
-              "name": "Joost van Giesen",
+              "nr": 38,
+              "name": "Femke van Welie",
               "laps": 31,
-              "time": "1:2:4.797",
+              "time": "1:2:4.791",
               "diff": "10 laps",
               "pts": 17
             },
             {
               "pos": 6,
-              "nr": 19,
-              "name": "Tijme Aleman",
+              "nr": 45,
+              "name": "Joost van Giesen",
               "laps": 31,
-              "time": "1:2:4.850",
+              "time": "1:2:4.797",
               "diff": "10 laps",
               "pts": 15
             },
             {
               "pos": 7,
-              "nr": 2,
-              "name": "Oskar Loman",
+              "nr": 19,
+              "name": "Tijme Aleman",
               "laps": 31,
-              "time": "1:2:4.893",
+              "time": "1:2:4.850",
               "diff": "10 laps",
               "pts": 14
             },
             {
               "pos": 8,
-              "nr": 4,
-              "name": "Bram van der Velden",
+              "nr": 2,
+              "name": "Oskar Loman",
               "laps": 31,
-              "time": "1:2:4.905",
+              "time": "1:2:4.893",
               "diff": "10 laps",
               "pts": 13
             },
             {
               "pos": 9,
-              "nr": 24,
-              "name": "Ole Olsthoorn",
+              "nr": 4,
+              "name": "Bram van der Velden",
               "laps": 31,
-              "time": "1:2:5.899",
+              "time": "1:2:4.905",
               "diff": "10 laps",
               "pts": 12
             },
             {
               "pos": 10,
-              "nr": 42,
-              "name": "Leo Perera",
+              "nr": 24,
+              "name": "Ole Olsthoorn",
               "laps": 31,
-              "time": "1:2:6.463",
+              "time": "1:2:5.899",
               "diff": "10 laps",
               "pts": 11
             },
             {
               "pos": 11,
-              "nr": 84,
-              "name": "Robin Hendriks",
+              "nr": 42,
+              "name": "Leo Perera",
               "laps": 31,
-              "time": "1:2:6.798",
+              "time": "1:2:6.463",
               "diff": "10 laps",
               "pts": 10
             },
             {
               "pos": 12,
-              "nr": 109,
-              "name": "Sanne Brouwer",
+              "nr": 84,
+              "name": "Robin Hendriks",
               "laps": 31,
-              "time": "1:2:7.399",
+              "time": "1:2:6.798",
               "diff": "10 laps",
               "pts": 9
             },
             {
               "pos": 13,
-              "nr": 15,
-              "name": "Jeroen de Keijzer",
+              "nr": 109,
+              "name": "Sanne Brouwer",
               "laps": 31,
-              "time": "1:2:7.893",
+              "time": "1:2:7.399",
               "diff": "10 laps",
               "pts": 8
             },
             {
               "pos": 14,
-              "nr": 28,
-              "name": "Bas Neuteboom",
+              "nr": 15,
+              "name": "Jeroen de Keijzer",
               "laps": 31,
-              "time": "1:2:8.424",
+              "time": "1:2:7.893",
               "diff": "10 laps",
               "pts": 7
             },
             {
               "pos": 15,
-              "nr": 107,
-              "name": "Ricardo Hillegers",
-              "laps": 30,
-              "time": "1:0:19.438",
-              "diff": "11 laps",
+              "nr": 28,
+              "name": "Bas Neuteboom",
+              "laps": 31,
+              "time": "1:2:8.424",
+              "diff": "10 laps",
               "pts": 6
             },
             {
@@ -13740,9 +13740,9 @@
             "nr": 15,
             "name": "Jeroen de Keijzer",
             "from": 55,
-            "to": 44,
-            "shift": 11,
-            "pts": 8
+            "to": 45,
+            "shift": 10,
+            "pts": 7
           },
           {
             "nr": 61,
@@ -14109,114 +14109,123 @@
             },
             {
               "pos": 4,
-              "nr": 45,
-              "name": "Joost van Giesen",
+              "nr": 107,
+              "name": "Ricardo Hillegers",
               "laps": 27,
-              "time": "53:48.694",
+              "time": "53:48.500",
               "diff": "8 laps",
               "pts": 19
             },
             {
               "pos": 5,
-              "nr": 161,
-              "name": "Jurgen van der Welle",
+              "nr": 45,
+              "name": "Joost van Giesen",
               "laps": 27,
-              "time": "53:48.852",
+              "time": "53:48.694",
               "diff": "8 laps",
               "pts": 17
             },
             {
               "pos": 6,
-              "nr": 59,
-              "name": "Qiyan Wang",
+              "nr": 161,
+              "name": "Jurgen van der Welle",
               "laps": 27,
-              "time": "53:48.863",
+              "time": "53:48.852",
               "diff": "8 laps",
               "pts": 15
             },
             {
               "pos": 7,
-              "nr": 37,
-              "name": "Rob van der Liende",
+              "nr": 59,
+              "name": "Qiyan Wang",
               "laps": 27,
-              "time": "53:48.927",
+              "time": "53:48.863",
               "diff": "8 laps",
               "pts": 14
             },
             {
               "pos": 8,
-              "nr": 144,
-              "name": "G. Rubio",
+              "nr": 37,
+              "name": "Rob van der Liende",
               "laps": 27,
-              "time": "53:49.062",
+              "time": "53:48.927",
               "diff": "8 laps",
               "pts": 13
             },
             {
               "pos": 9,
-              "nr": 42,
-              "name": "Leo Perera",
+              "nr": 144,
+              "name": "G. Rubio",
               "laps": 27,
-              "time": "53:49.086",
+              "time": "53:49.062",
               "diff": "8 laps",
               "pts": 12
             },
             {
               "pos": 10,
-              "nr": 19,
-              "name": "Tijme Aleman",
+              "nr": 42,
+              "name": "Leo Perera",
               "laps": 27,
-              "time": "53:49.212",
+              "time": "53:49.086",
               "diff": "8 laps",
               "pts": 11
             },
             {
               "pos": 11,
-              "nr": 84,
-              "name": "Robin Hendriks",
+              "nr": 19,
+              "name": "Tijme Aleman",
               "laps": 27,
-              "time": "53:49.223",
+              "time": "53:49.212",
               "diff": "8 laps",
               "pts": 10
             },
             {
               "pos": 12,
-              "nr": 17,
-              "name": "Olen Olsthoorn",
+              "nr": 84,
+              "name": "Robin Hendriks",
               "laps": 27,
-              "time": "53:49.275",
+              "time": "53:49.223",
               "diff": "8 laps",
               "pts": 9
             },
             {
               "pos": 13,
-              "nr": 14,
-              "name": "Jurn Bezemer",
+              "nr": 17,
+              "name": "Olen Olsthoorn",
               "laps": 27,
-              "time": "53:49.431",
+              "time": "53:49.275",
               "diff": "8 laps",
               "pts": 8
             },
             {
               "pos": 14,
-              "nr": 112,
-              "name": "Jeroen Van den Berg",
+              "nr": 14,
+              "name": "Jurn Bezemer",
               "laps": 27,
-              "time": "53:49.523",
+              "time": "53:49.431",
               "diff": "8 laps",
               "pts": 7
             },
             {
               "pos": 15,
-              "nr": 12,
-              "name": "Constantijn Dekker",
+              "nr": 112,
+              "name": "Jeroen Van den Berg",
               "laps": 27,
-              "time": "53:50.836",
+              "time": "53:49.523",
               "diff": "8 laps",
               "pts": 6
             },
             {
               "pos": 16,
+              "nr": 12,
+              "name": "Constantijn Dekker",
+              "laps": 27,
+              "time": "53:50.836",
+              "diff": "8 laps",
+              "pts": 5
+            },
+            {
+              "pos": 17,
               "nr": 146,
               "name": "Marc Kramer",
               "laps": 27,
@@ -14225,7 +14234,7 @@
               "pts": 5
             },
             {
-              "pos": 17,
+              "pos": 18,
               "nr": 28,
               "name": "Bas Neuteboom",
               "laps": 27,
@@ -14234,7 +14243,7 @@
               "pts": 5
             },
             {
-              "pos": 18,
+              "pos": 19,
               "nr": 119,
               "name": "Marco Van Tol",
               "laps": 27,
@@ -14243,7 +14252,7 @@
               "pts": 5
             },
             {
-              "pos": 19,
+              "pos": 20,
               "nr": 18,
               "name": "Ot Kuiper",
               "laps": 27,
@@ -14252,7 +14261,7 @@
               "pts": 5
             },
             {
-              "pos": 20,
+              "pos": 21,
               "nr": 21,
               "name": "Arco Flikweert",
               "laps": 27,
@@ -14261,7 +14270,7 @@
               "pts": 5
             },
             {
-              "pos": 21,
+              "pos": 22,
               "nr": 22,
               "name": "Jesse Flikweert",
               "laps": 27,
@@ -14270,7 +14279,7 @@
               "pts": 5
             },
             {
-              "pos": 22,
+              "pos": 23,
               "nr": 65,
               "name": "Louis Oudshoorn",
               "laps": 27,
@@ -14279,7 +14288,7 @@
               "pts": 5
             },
             {
-              "pos": 23,
+              "pos": 24,
               "nr": 40,
               "name": "Bart van Leeuwen",
               "laps": 27,
@@ -14288,7 +14297,7 @@
               "pts": 5
             },
             {
-              "pos": 24,
+              "pos": 25,
               "nr": 76,
               "name": "Hans Kruithof",
               "laps": 27,
@@ -14297,20 +14306,11 @@
               "pts": 5
             },
             {
-              "pos": 25,
+              "pos": 26,
               "nr": 51,
               "name": "Eric Weber",
               "laps": 26,
               "time": "52:4.609",
-              "diff": "9 laps",
-              "pts": 5
-            },
-            {
-              "pos": 26,
-              "nr": 107,
-              "name": "Ricardo Hillegers",
-              "laps": 26,
-              "time": "52:4.885",
               "diff": "9 laps",
               "pts": 5
             },
@@ -14448,15 +14448,7 @@
             "from": 54,
             "to": 40,
             "shift": 14,
-            "pts": 14
-          },
-          {
-            "nr": 112,
-            "name": "Jeroen Van den Berg",
-            "from": 79,
-            "to": 70,
-            "shift": 9,
-            "pts": 7
+            "pts": 13
           },
           {
             "nr": 22,
@@ -14465,6 +14457,14 @@
             "to": 44,
             "shift": 6,
             "pts": 5
+          },
+          {
+            "nr": 112,
+            "name": "Jeroen Van den Berg",
+            "from": 79,
+            "to": 73,
+            "shift": 6,
+            "pts": 6
           }
         ]
       },

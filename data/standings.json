@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 22,
   "racesTotal": 26,
-  "updatedAt": "2026-08-27T12:13:42.597Z",
+  "updatedAt": "2026-09-01T20:20:42.421Z",
   "classes": {
     "A": [
       {
@@ -1089,21 +1089,21 @@
     "B": [
       {
         "pos": 1,
-        "nr": 7,
-        "name": "Sijmen Kwakkel",
-        "pts": 320,
-        "lastPts": 25,
-        "starts": 16,
-        "gap": 0,
-        "joint": false
-      },
-      {
-        "pos": 2,
         "nr": 8,
         "name": "Jan Kwakkel",
         "pts": 319,
         "lastPts": 0,
         "starts": 15,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 7,
+        "name": "Sijmen Kwakkel",
+        "pts": 318,
+        "lastPts": 25,
+        "starts": 16,
         "gap": 1,
         "joint": false
       },
@@ -1111,7 +1111,7 @@
         "pos": 3,
         "nr": 2,
         "name": "Oskar Loman",
-        "pts": 308,
+        "pts": 307,
         "lastPts": 23,
         "starts": 16,
         "gap": 12,
@@ -1121,7 +1121,7 @@
         "pos": 4,
         "nr": 4,
         "name": "Bram van der Velden",
-        "pts": 294,
+        "pts": 293,
         "lastPts": 21,
         "starts": 18,
         "gap": 26,
@@ -1131,47 +1131,47 @@
         "pos": 5,
         "nr": 45,
         "name": "Joost van Giesen",
-        "pts": 279,
-        "lastPts": 19,
+        "pts": 275,
+        "lastPts": 17,
         "starts": 18,
-        "gap": 41,
+        "gap": 44,
         "joint": false
       },
       {
         "pos": 6,
         "nr": 17,
         "name": "Olen Olsthoorn",
-        "pts": 243,
-        "lastPts": 9,
+        "pts": 242,
+        "lastPts": 8,
         "starts": 15,
         "gap": 77,
         "joint": false
       },
       {
         "pos": 7,
-        "nr": 19,
-        "name": "Tijme Aleman",
-        "pts": 228,
-        "lastPts": 11,
-        "starts": 17,
-        "gap": 92,
+        "nr": 107,
+        "name": "Ricardo Hillegers",
+        "pts": 235,
+        "lastPts": 19,
+        "starts": 14,
+        "gap": 84,
         "joint": false
       },
       {
         "pos": 8,
-        "nr": 107,
-        "name": "Ricardo Hillegers",
-        "pts": 206,
-        "lastPts": 5,
-        "starts": 14,
-        "gap": 114,
+        "nr": 19,
+        "name": "Tijme Aleman",
+        "pts": 226,
+        "lastPts": 10,
+        "starts": 17,
+        "gap": 93,
         "joint": false
       },
       {
         "pos": 9,
         "nr": 24,
         "name": "Ole Olsthoorn",
-        "pts": 205,
+        "pts": 204,
         "lastPts": 0,
         "starts": 15,
         "gap": 115,
@@ -1184,7 +1184,7 @@
         "pts": 155,
         "lastPts": 0,
         "starts": 10,
-        "gap": 165,
+        "gap": 164,
         "joint": false
       },
       {
@@ -1194,27 +1194,27 @@
         "pts": 153,
         "lastPts": 0,
         "starts": 14,
-        "gap": 167,
+        "gap": 166,
         "joint": false
       },
       {
         "pos": 12,
         "nr": 42,
         "name": "Leo Perera",
-        "pts": 144,
-        "lastPts": 12,
+        "pts": 142,
+        "lastPts": 11,
         "starts": 14,
-        "gap": 176,
+        "gap": 177,
         "joint": false
       },
       {
         "pos": 13,
         "nr": 161,
         "name": "Jurgen van der Welle",
-        "pts": 120,
-        "lastPts": 17,
+        "pts": 118,
+        "lastPts": 15,
         "starts": 7,
-        "gap": 200,
+        "gap": 201,
         "joint": false
       },
       {
@@ -1224,7 +1224,7 @@
         "pts": 115,
         "lastPts": 5,
         "starts": 12,
-        "gap": 205,
+        "gap": 204,
         "joint": false
       },
       {
@@ -1234,25 +1234,25 @@
         "pts": 109,
         "lastPts": 5,
         "starts": 8,
-        "gap": 211,
+        "gap": 210,
         "joint": false
       },
       {
         "pos": 16,
         "nr": 38,
         "name": "Femke van Welie",
-        "pts": 107,
+        "pts": 105,
         "lastPts": 0,
         "starts": 10,
-        "gap": 213,
+        "gap": 214,
         "joint": false
       },
       {
         "pos": 17,
         "nr": 14,
         "name": "Jurn Bezemer",
-        "pts": 102,
-        "lastPts": 8,
+        "pts": 101,
+        "lastPts": 7,
         "starts": 11,
         "gap": 218,
         "joint": false
@@ -1261,7 +1261,7 @@
         "pos": 18,
         "nr": 28,
         "name": "Bas Neuteboom",
-        "pts": 97,
+        "pts": 96,
         "lastPts": 5,
         "starts": 15,
         "gap": 223,
@@ -1271,8 +1271,8 @@
         "pos": 19,
         "nr": 59,
         "name": "Qiyan Wang",
-        "pts": 93,
-        "lastPts": 15,
+        "pts": 92,
+        "lastPts": 14,
         "starts": 5,
         "gap": 227,
         "joint": false
@@ -1281,10 +1281,10 @@
         "pos": 20,
         "nr": 84,
         "name": "Robin Hendriks",
-        "pts": 86,
-        "lastPts": 10,
+        "pts": 84,
+        "lastPts": 9,
         "starts": 11,
-        "gap": 234,
+        "gap": 235,
         "joint": false
       },
       {
@@ -1294,7 +1294,7 @@
         "pts": 80,
         "lastPts": 0,
         "starts": 13,
-        "gap": 240,
+        "gap": 239,
         "joint": false
       },
       {
@@ -1304,7 +1304,7 @@
         "pts": 79,
         "lastPts": 5,
         "starts": 14,
-        "gap": 241,
+        "gap": 240,
         "joint": false
       },
       {
@@ -1314,7 +1314,7 @@
         "pts": 77,
         "lastPts": 0,
         "starts": 12,
-        "gap": 243,
+        "gap": 242,
         "joint": false
       },
       {
@@ -1324,7 +1324,7 @@
         "pts": 74,
         "lastPts": 5,
         "starts": 13,
-        "gap": 246,
+        "gap": 245,
         "joint": false
       },
       {
@@ -1334,7 +1334,7 @@
         "pts": 72,
         "lastPts": 0,
         "starts": 10,
-        "gap": 248,
+        "gap": 247,
         "joint": false
       },
       {
@@ -1344,7 +1344,7 @@
         "pts": 72,
         "lastPts": 5,
         "starts": 13,
-        "gap": 248,
+        "gap": 247,
         "joint": false
       },
       {
@@ -1354,7 +1354,7 @@
         "pts": 72,
         "lastPts": 0,
         "starts": 14,
-        "gap": 248,
+        "gap": 247,
         "joint": false
       },
       {
@@ -1364,7 +1364,7 @@
         "pts": 70,
         "lastPts": 0,
         "starts": 14,
-        "gap": 250,
+        "gap": 249,
         "joint": false
       },
       {
@@ -1374,7 +1374,7 @@
         "pts": 69,
         "lastPts": 0,
         "starts": 7,
-        "gap": 251,
+        "gap": 250,
         "joint": false
       },
       {
@@ -1384,7 +1384,7 @@
         "pts": 68,
         "lastPts": 0,
         "starts": 11,
-        "gap": 252,
+        "gap": 251,
         "joint": false
       },
       {
@@ -1394,7 +1394,7 @@
         "pts": 65,
         "lastPts": 0,
         "starts": 11,
-        "gap": 255,
+        "gap": 254,
         "joint": false
       },
       {
@@ -1404,7 +1404,7 @@
         "pts": 64,
         "lastPts": 0,
         "starts": 5,
-        "gap": 256,
+        "gap": 255,
         "joint": false
       },
       {
@@ -1414,7 +1414,7 @@
         "pts": 61,
         "lastPts": 0,
         "starts": 7,
-        "gap": 259,
+        "gap": 258,
         "joint": false
       },
       {
@@ -1424,7 +1424,7 @@
         "pts": 60,
         "lastPts": 0,
         "starts": 9,
-        "gap": 260,
+        "gap": 259,
         "joint": false
       },
       {
@@ -1434,7 +1434,7 @@
         "pts": 60,
         "lastPts": 5,
         "starts": 12,
-        "gap": 260,
+        "gap": 259,
         "joint": false
       },
       {
@@ -1444,7 +1444,7 @@
         "pts": 56,
         "lastPts": 0,
         "starts": 5,
-        "gap": 264,
+        "gap": 263,
         "joint": false
       },
       {
@@ -1454,7 +1454,7 @@
         "pts": 56,
         "lastPts": 5,
         "starts": 11,
-        "gap": 264,
+        "gap": 263,
         "joint": false
       },
       {
@@ -1464,7 +1464,7 @@
         "pts": 55,
         "lastPts": 5,
         "starts": 11,
-        "gap": 265,
+        "gap": 264,
         "joint": false
       },
       {
@@ -1474,15 +1474,15 @@
         "pts": 51,
         "lastPts": 0,
         "starts": 10,
-        "gap": 269,
+        "gap": 268,
         "joint": false
       },
       {
         "pos": 40,
         "nr": 37,
         "name": "Rob van der Liende",
-        "pts": 48,
-        "lastPts": 14,
+        "pts": 47,
+        "lastPts": 13,
         "starts": 6,
         "gap": 272,
         "joint": false
@@ -1494,7 +1494,7 @@
         "pts": 47,
         "lastPts": 5,
         "starts": 9,
-        "gap": 273,
+        "gap": 272,
         "joint": false
       },
       {
@@ -1504,7 +1504,7 @@
         "pts": 45,
         "lastPts": 0,
         "starts": 9,
-        "gap": 275,
+        "gap": 274,
         "joint": false
       },
       {
@@ -1514,7 +1514,7 @@
         "pts": 44,
         "lastPts": 0,
         "starts": 6,
-        "gap": 276,
+        "gap": 275,
         "joint": false
       },
       {
@@ -1524,7 +1524,7 @@
         "pts": 41,
         "lastPts": 5,
         "starts": 8,
-        "gap": 279,
+        "gap": 278,
         "joint": true
       },
       {
@@ -1534,65 +1534,65 @@
         "pts": 41,
         "lastPts": 0,
         "starts": 4,
-        "gap": 279,
+        "gap": 278,
         "joint": true
       },
       {
         "pos": 46,
+        "nr": 96,
+        "name": "Luuk de Wijn",
+        "pts": 40,
+        "lastPts": 0,
+        "starts": 3,
+        "gap": 279,
+        "joint": false
+      },
+      {
+        "pos": 47,
+        "nr": 101,
+        "name": "John van Etten",
+        "pts": 40,
+        "lastPts": 0,
+        "starts": 8,
+        "gap": 279,
+        "joint": false
+      },
+      {
+        "pos": 48,
         "nr": 15,
         "name": "Jeroen de Keijzer",
-        "pts": 41,
+        "pts": 40,
         "lastPts": 0,
         "starts": 7,
         "gap": 279,
         "joint": false
       },
       {
-        "pos": 47,
-        "nr": 96,
-        "name": "Luuk de Wijn",
-        "pts": 40,
-        "lastPts": 0,
-        "starts": 3,
-        "gap": 280,
-        "joint": false
-      },
-      {
-        "pos": 48,
+        "pos": 49,
         "nr": 65,
         "name": "Louis Oudshoorn",
         "pts": 40,
         "lastPts": 5,
         "starts": 8,
-        "gap": 280,
+        "gap": 279,
         "joint": false
       },
       {
-        "pos": 49,
+        "pos": 50,
         "nr": 63,
         "name": "Izzy Kreuk",
         "pts": 40,
         "lastPts": 0,
         "starts": 8,
-        "gap": 280,
-        "joint": false
-      },
-      {
-        "pos": 50,
-        "nr": 101,
-        "name": "John van Etten",
-        "pts": 40,
-        "lastPts": 0,
-        "starts": 8,
-        "gap": 280,
+        "gap": 279,
         "joint": false
       },
       {
         "pos": 51,
         "nr": 12,
         "name": "Constantijn Dekker",
-        "pts": 39,
-        "lastPts": 6,
+        "pts": 38,
+        "lastPts": 5,
         "starts": 5,
         "gap": 281,
         "joint": false
@@ -1604,7 +1604,7 @@
         "pts": 36,
         "lastPts": 0,
         "starts": 7,
-        "gap": 284,
+        "gap": 283,
         "joint": false
       },
       {
@@ -1614,7 +1614,7 @@
         "pts": 36,
         "lastPts": 0,
         "starts": 7,
-        "gap": 284,
+        "gap": 283,
         "joint": false
       },
       {
@@ -1624,7 +1624,7 @@
         "pts": 35,
         "lastPts": 0,
         "starts": 4,
-        "gap": 285,
+        "gap": 284,
         "joint": false
       },
       {
@@ -1634,7 +1634,7 @@
         "pts": 35,
         "lastPts": 0,
         "starts": 7,
-        "gap": 285,
+        "gap": 284,
         "joint": false
       },
       {
@@ -1644,7 +1644,7 @@
         "pts": 34,
         "lastPts": 5,
         "starts": 6,
-        "gap": 286,
+        "gap": 285,
         "joint": false
       },
       {
@@ -1654,7 +1654,7 @@
         "pts": 33,
         "lastPts": 0,
         "starts": 4,
-        "gap": 287,
+        "gap": 286,
         "joint": false
       },
       {
@@ -1664,7 +1664,7 @@
         "pts": 32,
         "lastPts": 0,
         "starts": 6,
-        "gap": 288,
+        "gap": 287,
         "joint": false
       },
       {
@@ -1674,7 +1674,7 @@
         "pts": 31,
         "lastPts": 5,
         "starts": 6,
-        "gap": 289,
+        "gap": 288,
         "joint": false
       },
       {
@@ -1684,7 +1684,7 @@
         "pts": 30,
         "lastPts": 0,
         "starts": 6,
-        "gap": 290,
+        "gap": 289,
         "joint": false
       },
       {
@@ -1694,7 +1694,7 @@
         "pts": 30,
         "lastPts": 0,
         "starts": 6,
-        "gap": 290,
+        "gap": 289,
         "joint": true
       },
       {
@@ -1704,7 +1704,7 @@
         "pts": 30,
         "lastPts": 0,
         "starts": 6,
-        "gap": 290,
+        "gap": 289,
         "joint": true
       },
       {
@@ -1714,7 +1714,7 @@
         "pts": 25,
         "lastPts": 0,
         "starts": 2,
-        "gap": 295,
+        "gap": 294,
         "joint": true
       },
       {
@@ -1724,7 +1724,7 @@
         "pts": 25,
         "lastPts": 0,
         "starts": 1,
-        "gap": 295,
+        "gap": 294,
         "joint": true
       },
       {
@@ -1734,7 +1734,7 @@
         "pts": 25,
         "lastPts": 0,
         "starts": 5,
-        "gap": 295,
+        "gap": 294,
         "joint": true
       },
       {
@@ -1744,7 +1744,7 @@
         "pts": 25,
         "lastPts": 0,
         "starts": 1,
-        "gap": 295,
+        "gap": 294,
         "joint": true
       },
       {
@@ -1754,7 +1754,7 @@
         "pts": 24,
         "lastPts": 0,
         "starts": 3,
-        "gap": 296,
+        "gap": 295,
         "joint": false
       },
       {
@@ -1764,7 +1764,7 @@
         "pts": 23,
         "lastPts": 0,
         "starts": 3,
-        "gap": 297,
+        "gap": 296,
         "joint": true
       },
       {
@@ -1774,7 +1774,7 @@
         "pts": 23,
         "lastPts": 0,
         "starts": 1,
-        "gap": 297,
+        "gap": 296,
         "joint": true
       },
       {
@@ -1784,48 +1784,48 @@
         "pts": 22,
         "lastPts": 0,
         "starts": 2,
-        "gap": 298,
+        "gap": 297,
         "joint": true
       },
       {
         "pos": 70,
-        "nr": 112,
-        "name": "Jeroen Van den Berg",
-        "pts": 22,
-        "lastPts": 7,
-        "starts": 4,
-        "gap": 298,
-        "joint": true
-      },
-      {
-        "pos": 72,
         "nr": 88,
         "name": "Mette Houwaard",
         "pts": 22,
         "lastPts": 0,
         "starts": 4,
-        "gap": 298,
+        "gap": 297,
         "joint": true
       },
       {
-        "pos": 72,
+        "pos": 70,
         "nr": 163,
         "name": "Linda Kuiper",
         "pts": 22,
         "lastPts": 0,
         "starts": 3,
+        "gap": 297,
+        "joint": true
+      },
+      {
+        "pos": 73,
+        "nr": 112,
+        "name": "Jeroen Van den Berg",
+        "pts": 21,
+        "lastPts": 6,
+        "starts": 4,
         "gap": 298,
         "joint": true
       },
       {
-        "pos": 74,
+        "pos": 73,
         "nr": 148,
         "name": "Kees Jan Bongaertz",
         "pts": 21,
         "lastPts": 0,
         "starts": 2,
-        "gap": 299,
-        "joint": false
+        "gap": 298,
+        "joint": true
       },
       {
         "pos": 75,
@@ -1834,7 +1834,7 @@
         "pts": 20,
         "lastPts": 0,
         "starts": 4,
-        "gap": 300,
+        "gap": 299,
         "joint": false
       },
       {
@@ -1844,7 +1844,7 @@
         "pts": 20,
         "lastPts": 0,
         "starts": 4,
-        "gap": 300,
+        "gap": 299,
         "joint": true
       },
       {
@@ -1854,14 +1854,14 @@
         "pts": 20,
         "lastPts": 0,
         "starts": 4,
-        "gap": 300,
+        "gap": 299,
         "joint": true
       },
       {
         "pos": 78,
         "nr": 109,
         "name": "Sanne Brouwer",
-        "pts": 20,
+        "pts": 19,
         "lastPts": 0,
         "starts": 3,
         "gap": 300,
@@ -1874,7 +1874,7 @@
         "pts": 17,
         "lastPts": 0,
         "starts": 2,
-        "gap": 303,
+        "gap": 302,
         "joint": false
       },
       {
@@ -1884,7 +1884,7 @@
         "pts": 15,
         "lastPts": 0,
         "starts": 3,
-        "gap": 305,
+        "gap": 304,
         "joint": false
       },
       {
@@ -1894,7 +1894,7 @@
         "pts": 14,
         "lastPts": 0,
         "starts": 2,
-        "gap": 306,
+        "gap": 305,
         "joint": false
       },
       {
@@ -1904,18 +1904,18 @@
         "pts": 13,
         "lastPts": 0,
         "starts": 1,
-        "gap": 307,
-        "joint": true
+        "gap": 306,
+        "joint": false
       },
       {
-        "pos": 82,
+        "pos": 83,
         "nr": 144,
         "name": "G. Rubio",
-        "pts": 13,
-        "lastPts": 13,
+        "pts": 12,
+        "lastPts": 12,
         "starts": 1,
         "gap": 307,
-        "joint": true
+        "joint": false
       },
       {
         "pos": 84,
@@ -1924,7 +1924,7 @@
         "pts": 11,
         "lastPts": 0,
         "starts": 1,
-        "gap": 309,
+        "gap": 308,
         "joint": true
       },
       {
@@ -1934,7 +1934,7 @@
         "pts": 11,
         "lastPts": 0,
         "starts": 2,
-        "gap": 309,
+        "gap": 308,
         "joint": true
       },
       {
@@ -1944,7 +1944,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -1954,7 +1954,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 1,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -1964,7 +1964,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -1974,7 +1974,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -1984,7 +1984,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -1994,7 +1994,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -2004,7 +2004,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 1,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -2014,7 +2014,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -2024,7 +2024,7 @@
         "pts": 10,
         "lastPts": 0,
         "starts": 2,
-        "gap": 310,
+        "gap": 309,
         "joint": true
       },
       {
@@ -2034,7 +2034,7 @@
         "pts": 9,
         "lastPts": 0,
         "starts": 1,
-        "gap": 311,
+        "gap": 310,
         "joint": false
       },
       {
@@ -2044,7 +2044,7 @@
         "pts": 8,
         "lastPts": 0,
         "starts": 1,
-        "gap": 312,
+        "gap": 311,
         "joint": false
       },
       {
@@ -2054,7 +2054,7 @@
         "pts": 7,
         "lastPts": 0,
         "starts": 1,
-        "gap": 313,
+        "gap": 312,
         "joint": false
       },
       {
@@ -2064,7 +2064,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2074,7 +2074,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2084,7 +2084,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2094,7 +2094,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2104,7 +2104,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": false
       },
       {
@@ -2114,7 +2114,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": false
       },
       {
@@ -2124,7 +2124,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": false
       },
       {
@@ -2134,7 +2134,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": false
       },
       {
@@ -2144,7 +2144,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": false
       },
       {
@@ -2154,7 +2154,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": false
       },
       {
@@ -2164,7 +2164,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2174,7 +2174,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2184,7 +2184,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2194,7 +2194,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2204,7 +2204,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2214,7 +2214,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2224,7 +2224,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2234,7 +2234,7 @@
         "pts": 5,
         "lastPts": 0,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2244,7 +2244,7 @@
         "pts": 5,
         "lastPts": 5,
         "starts": 1,
-        "gap": 315,
+        "gap": 314,
         "joint": true
       },
       {
@@ -2254,7 +2254,7 @@
         "pts": 0,
         "lastPts": 0,
         "starts": 0,
-        "gap": 320,
+        "gap": 319,
         "joint": false
       }
     ]
