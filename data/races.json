@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T20:20:42.421Z",
+  "updatedAt": "2026-09-08T23:53:12.054Z",
   "races": [
     {
       "n": 1,
@@ -14467,6 +14467,56 @@
             "pts": 6
           }
         ]
+      },
+      "womenMovers": {
+        "A": [],
+        "B": []
+      }
+    },
+    {
+      "n": 23,
+      "sessionId": 12782892,
+      "date": "2026-09-08",
+      "label": "Race 23",
+      "classes": {
+        "A": {
+          "results": [],
+          "stats": {
+            "winnerTime": null,
+            "laps": 0,
+            "finishers": 0
+          }
+        },
+        "B": {
+          "results": [],
+          "stats": {
+            "winnerTime": null,
+            "laps": 0,
+            "finishers": 0
+          }
+        }
+      },
+      "womenClasses": {
+        "A": {
+          "results": [],
+          "stats": {
+            "winnerTime": null,
+            "laps": 0,
+            "finishers": 0
+          }
+        },
+        "B": {
+          "results": [],
+          "stats": {
+            "winnerTime": null,
+            "laps": 0,
+            "finishers": 0
+          }
+        }
+      },
+      "movers": {
+        "A": [],
+        "B": []
       },
       "womenMovers": {
         "A": [],
