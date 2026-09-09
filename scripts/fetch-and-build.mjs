@@ -102,10 +102,12 @@ async function main() {
   const meta = JSON.parse(await readFile(SESSIONS_PATH, "utf8"));
   const sessions = [];
   for (const s of meta.sessions ?? []) {
-    process.stdout.write(`Race ${s.n} (session ${s.sessionId})… `);
+    const ids = s.sessionIds ?? [s.sessionId];
+    process.stdout.write(`Race ${s.n} (session${ids.length > 1 ? "s" : ""} ${ids.join(", ")})… `);
     try {
-      const csv = await loadCSV(s.sessionId);
-      sessions.push({ ...s, csv });
+      const csvs = [];
+      for (const id of ids) csvs.push(await loadCSV(id));
+      sessions.push(s.sessionIds ? { ...s, csvs } : { ...s, csv: csvs[0] });
       process.stdout.write("ok\n");
     } catch (e) {
       process.stdout.write(`SKIPPED (${e.message})\n`);

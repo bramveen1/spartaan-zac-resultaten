@@ -42,6 +42,10 @@ const MAX_GAP_DAYS = 21;
 const NAME_PATTERN = /zomeravondcomp/i;
 const RACE_SESSION_PATTERN = /zac/i;
 
+// A/B-split night: the jury sometimes runs two race sessions instead of one,
+// named e.g. "A groep" / "B groep" instead of the usual "ZAC A"/"ZAC B".
+const GROUP_LETTER_PATTERN = /(?:^|\b)([ab])\s*groep\b/i;
+
 async function fetchJSON(url) {
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
@@ -57,17 +61,29 @@ function daysBetween(a, b) {
 }
 
 // Picks the single race session out of an /events/{id}/sessions response.
-// Fails closed: anything other than exactly one match returns an error.
+// Falls back to detecting an A/B-split night: exactly two `race`-type
+// sessions named like "A groep" / "B groep" (one of each letter). Anything
+// else fails closed — a wrong sessionId silently corrupts standings.
 export function selectRaceSession(eventSessionsResponse) {
   const groups = eventSessionsResponse?.groups ?? [];
-  const sessions = groups.flatMap((g) => g.sessions ?? []);
-  const candidates = sessions.filter(
-    (s) => (s.type ?? "").toLowerCase() === "race" && RACE_SESSION_PATTERN.test(s.name ?? ""),
+  const raceSessions = (groups.flatMap((g) => g.sessions ?? [])).filter(
+    (s) => (s.type ?? "").toLowerCase() === "race",
   );
-  if (candidates.length !== 1) {
-    return { error: `expected exactly 1 race session, found ${candidates.length}` };
+  const candidates = raceSessions.filter((s) => RACE_SESSION_PATTERN.test(s.name ?? ""));
+  if (candidates.length === 1) {
+    return { session: candidates[0] };
   }
-  return { session: candidates[0] };
+
+  if (raceSessions.length === 2) {
+    const letters = raceSessions.map((s) => GROUP_LETTER_PATTERN.exec(s.name ?? "")?.[1]?.toUpperCase());
+    if (letters[0] && letters[1] && letters[0] !== letters[1]) {
+      const a = raceSessions[letters.indexOf("A")];
+      const b = raceSessions[letters.indexOf("B")];
+      return { sessions: [a, b] };
+    }
+  }
+
+  return { error: `expected exactly 1 race session, found ${candidates.length}` };
 }
 
 // Pure planner: given the current sessions.json, the org's event list, and a
@@ -76,7 +92,7 @@ export function selectRaceSession(eventSessionsResponse) {
 // No I/O — network calls live in main() so this stays unit-testable offline.
 export function planSessionUpdates({ sessionsDoc, events, eventSessionsById }) {
   const sessions = [...(sessionsDoc.sessions ?? [])];
-  const knownSessionIds = new Set(sessions.map((s) => s.sessionId));
+  const knownSessionIds = new Set(sessions.flatMap((s) => s.sessionIds ?? [s.sessionId]));
   const knownDates = new Set(sessions.map((s) => s.date));
   const racesTotal = sessionsDoc.racesTotal ?? Infinity;
   const warnings = [];
@@ -118,27 +134,30 @@ export function planSessionUpdates({ sessionsDoc, events, eventSessionsById }) {
       continue;
     }
 
-    const { session, error } = selectRaceSession(eventSessionsResponse);
+    const { session, sessions: splitSessions, error } = selectRaceSession(eventSessionsResponse);
     if (error) {
       warnings.push(`event ${event.id} ("${event.name}"): ${error}, skipping`);
       continue;
     }
 
-    if (knownSessionIds.has(session.id)) continue; // already recorded
+    const matched = session ? [session] : splitSessions;
+    if (matched.some((s) => knownSessionIds.has(s.id))) continue; // already recorded
 
-    const sessionDate = dateOnly(session.startTime);
-    if (sessionDate !== evDate) {
+    const mismatched = matched.find((s) => dateOnly(s.startTime) !== evDate);
+    if (mismatched) {
       warnings.push(
-        `event ${event.id} ("${event.name}"): session ${session.id} startTime date (${sessionDate}) does not match event startDate (${evDate}), skipping`,
+        `event ${event.id} ("${event.name}"): session ${mismatched.id} startTime date (${dateOnly(mismatched.startTime)}) does not match event startDate (${evDate}), skipping`,
       );
       continue;
     }
 
     maxN += 1;
-    const entry = { n: maxN, sessionId: session.id, date: evDate };
+    const entry = session
+      ? { n: maxN, sessionId: session.id, date: evDate }
+      : { n: maxN, sessionIds: splitSessions.map((s) => s.id), date: evDate };
     sessions.push(entry);
     appended.push(entry);
-    knownSessionIds.add(session.id);
+    for (const s of matched) knownSessionIds.add(s.id);
     knownDates.add(evDate);
     latestKnownDate = evDate;
   }
@@ -191,7 +210,8 @@ async function main() {
 
   await writeFile(SESSIONS_PATH, JSON.stringify(next, null, 2) + "\n", "utf8");
   for (const a of appended) {
-    console.log(`discover-sessions: appended race ${a.n} — session ${a.sessionId} (${a.date})`);
+    const ids = a.sessionIds ?? [a.sessionId];
+    console.log(`discover-sessions: appended race ${a.n} — session${ids.length > 1 ? "s" : ""} ${ids.join(", ")} (${a.date})`);
   }
 }
 

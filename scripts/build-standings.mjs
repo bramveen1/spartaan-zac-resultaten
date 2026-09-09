@@ -49,10 +49,14 @@ export function parseCSV(text) {
 
 // "110536 | ZAC A (31-03) - 19:30:00" → "A"
 // "110537 | ZAC B (31/03) - 19:31:00" → "B"
+// "A" / " b " → "A" / "B" (bare-class format seen from late-season CSVs)
 export function classOf(rawClass) {
   if (!rawClass) return null;
-  const m = /ZAC\s+([AB])\b/i.exec(rawClass);
-  return m ? m[1].toUpperCase() : null;
+  const s = String(rawClass).trim();
+  const m = /ZAC\s+([AB])\b/i.exec(s);
+  if (m) return m[1].toUpperCase();
+  if (/^[AB]$/i.test(s)) return s.toUpperCase();
+  return null;
 }
 
 // Try to read the race date out of the Class field, e.g. "(31-03)" or "(31/03)".
@@ -108,6 +112,29 @@ export function parseRaceCSV(csvText) {
     }));
   }
   return byClass;
+}
+
+// Merge several same-night parseRaceCSV() results (one per sub-session, e.g.
+// an A/B-split night) into a single race: concatenate each class's finishers
+// (each split CSV is single-class in practice, so this is a no-op append)
+// and re-rank/re-point from 1 so the night behaves like one race.
+export function mergeClasses(classesList) {
+  const merged = { A: [], B: [] };
+  for (const classes of classesList) {
+    for (const cls of ["A", "B"]) {
+      for (const { pos, pts, ...rest } of classes?.[cls] ?? []) {
+        merged[cls].push(rest);
+      }
+    }
+  }
+  for (const cls of ["A", "B"]) {
+    merged[cls] = merged[cls].map((r, i) => ({
+      pos: i + 1,
+      ...r,
+      pts: pointsFor(i + 1),
+    }));
+  }
+  return merged;
 }
 
 // Apply DSQ overrides to one race's parsed class arrays.
@@ -305,6 +332,11 @@ function computeMovers(racesByClass, parsedRaceClasses) {
 
 // Top-level builder used by both the fetcher and the tests.
 // `sessions`: [{ n, sessionId, date, label, csv }] — csv is the raw CSV text.
+// A night split across Speedhive sessions (e.g. an A/B group split) instead
+// carries `{ n, sessionIds, date, label, csvs }`: `csvs` is one CSV text per
+// id in `sessionIds`, in the same order; they're parsed and merged into one
+// race before ranking (see mergeClasses). `sessionId`/`csv` still work as
+// the single-session shorthand.
 // `options.roster.women`: optional { A: [...], B: [...] } of start numbers
 //   per class for the women's GC. Per-class because start numbers overlap
 //   across classes.
@@ -312,10 +344,16 @@ export function build(sessions, options = {}) {
   const womenRoster = options?.roster?.women ?? { A: [], B: [] };
   const dsqOverrides = options?.dsq ?? [];
   const parsedRaces = sessions.map((s) => {
-    const classes = applyDsq(parseRaceCSV(s.csv), s.sessionId, dsqOverrides);
+    const sessionIds = s.sessionIds ?? [s.sessionId];
+    const csvs = s.csvs ?? [s.csv];
+    let classes = mergeClasses(csvs.map((csv) => parseRaceCSV(csv)));
+    for (const sessionId of sessionIds) {
+      classes = applyDsq(classes, sessionId, dsqOverrides);
+    }
     return {
       n: s.n,
-      sessionId: s.sessionId,
+      sessionId: s.sessionId ?? sessionIds[0],
+      sessionIds: s.sessionIds,
       date: s.date ?? null,
       label: s.label ?? `Race ${s.n}`,
       classes,
@@ -342,6 +380,7 @@ export function build(sessions, options = {}) {
   const racesOut = parsedRaces.map((r, i) => ({
     n: r.n,
     sessionId: r.sessionId,
+    ...(r.sessionIds ? { sessionIds: r.sessionIds } : {}),
     date: r.date,
     label: r.label,
     classes: {
