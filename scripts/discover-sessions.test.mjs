@@ -38,6 +38,15 @@ test("selectRaceSession: a ZAC A / ZAC B split fails closed", async () => {
   assert.match(error, /found 2/);
 });
 
+test("selectRaceSession: an A groep / B groep split is recognised as one night", async () => {
+  const resp = await fixtureJSON("discover-event-sessions-3686415.json");
+  const { session, sessions, error } = selectRaceSession(resp);
+  assert.equal(session, undefined);
+  assert.equal(error, undefined);
+  assert.equal(sessions.length, 2);
+  assert.deepEqual(sessions.map((s) => s.id), [12739923, 12739926]);
+});
+
 test("planSessionUpdates: appends the one new race, skips known/non-matching/ambiguous/out-of-window events", async () => {
   const events = await fixtureJSON("discover-org-events.json");
   const eventSessionsById = {
@@ -115,4 +124,56 @@ test("planSessionUpdates: an event whose sessions couldn't be fetched is skipped
   assert.equal(result.changed, false);
   assert.equal(result.warnings.length, 1);
   assert.match(result.warnings[0], /could not fetch its sessions/);
+});
+
+// A doc whose latest known race is within MAX_GAP_DAYS of the 2026-09-01
+// split night, so the gap check doesn't shadow the split-detection behavior
+// under test.
+const sessionsDocNearSplitNight = () => ({
+  season: "Zomer 2026",
+  racesTotal: 26,
+  sessions: [{ n: 21, sessionId: 12657300, date: "2026-08-18" }],
+});
+
+test("planSessionUpdates: registers an A/B-split event as one night with sessionIds", async () => {
+  const events = [
+    { id: 3686415, name: "ZomerAvondComp nr-22 De Spartaan", startDate: "2026-09-01T19:30:00Z" },
+  ];
+  const eventSessionsById = {
+    3686415: await fixtureJSON("discover-event-sessions-3686415.json"),
+  };
+
+  const result = planSessionUpdates({ sessionsDoc: sessionsDocNearSplitNight(), events, eventSessionsById });
+
+  assert.equal(result.changed, true);
+  assert.equal(result.warnings.length, 0);
+  assert.deepEqual(result.appended, [
+    { n: 22, sessionIds: [12739923, 12739926], date: "2026-09-01" },
+  ]);
+  assert.deepEqual(result.sessionsDoc.sessions.at(-1), {
+    n: 22,
+    sessionIds: [12739923, 12739926],
+    date: "2026-09-01",
+  });
+});
+
+test("planSessionUpdates: re-running against an already-registered split night is a no-op", async () => {
+  const events = [
+    { id: 3686415, name: "ZomerAvondComp nr-22 De Spartaan", startDate: "2026-09-01T19:30:00Z" },
+  ];
+  const eventSessionsById = {
+    3686415: await fixtureJSON("discover-event-sessions-3686415.json"),
+  };
+  const sessionsDoc = {
+    ...sessionsDocNearSplitNight(),
+    sessions: [
+      ...sessionsDocNearSplitNight().sessions,
+      { n: 22, sessionIds: [12739923, 12739926], date: "2026-09-01" },
+    ],
+  };
+
+  const result = planSessionUpdates({ sessionsDoc, events, eventSessionsById });
+
+  assert.equal(result.changed, false);
+  assert.deepEqual(result.appended, []);
 });

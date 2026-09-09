@@ -13,6 +13,7 @@ import {
   filterAndReRank,
   buildStandings,
   applyDsq,
+  mergeClasses,
   build,
 } from "./build-standings.mjs";
 
@@ -41,6 +42,16 @@ test("classOf: extracts A or B from the Speedhive Class field", () => {
   assert.equal(classOf("110536 | ZAC A (31-03) - 19:30:00"), "A");
   assert.equal(classOf("110537 | ZAC B (31/03) - 19:31:00"), "B");
   assert.equal(classOf("Something else"), null);
+  assert.equal(classOf(""), null);
+  assert.equal(classOf(null), null);
+});
+
+test("classOf: accepts the bare A/B class format seen from late-season CSVs", () => {
+  assert.equal(classOf("A"), "A");
+  assert.equal(classOf("B"), "B");
+  assert.equal(classOf(" a "), "A");
+  assert.equal(classOf("110557 | ZAC A (18/08) - 19:30:00"), "A", "legacy format still parses");
+  assert.equal(classOf("Class"), null, "header row text does not match");
   assert.equal(classOf(""), null);
   assert.equal(classOf(null), null);
 });
@@ -566,4 +577,89 @@ test("applyDsq: computeMovers receives post-DSQ arrays (shift reflects new stand
   // meaning Alice has no R1 start, so she was absent from standings after R1).
   // Verify the movers array is produced without errors.
   assert.ok(Array.isArray(out.races[1].movers.A), "movers computed without error");
+});
+
+// ---- A/B-split night + bare-class CSV regression (issue #27) ----
+
+test("build: 09-08 single session with bare-class CSV imports both A and B finishers", async () => {
+  const csv = await fixture("session-12782892.csv");
+  const out = build([
+    { n: 1, sessionId: 12782892, date: "2026-09-08", label: "Race 1", csv },
+  ]);
+  assert.equal(out.standings.racesCompleted, 1);
+  assert.ok(out.standings.classes.A.length > 0, "class A has finishers");
+  assert.ok(out.standings.classes.B.length > 0, "class B has finishers");
+  assert.equal(out.races[0].classes.A.results[0].name, "Siem Woldesilassie");
+  assert.equal(out.races[0].classes.B.results[0].name, "Sijmen Kwakkel");
+});
+
+test("mergeClasses: concatenates and re-ranks per class from a single source unchanged", () => {
+  const classes = {
+    A: [{ pos: 1, nr: 7, name: "Alice", pts: 25 }, { pos: 2, nr: 9, name: "Bob", pts: 23 }],
+    B: [],
+  };
+  assert.deepEqual(mergeClasses([classes]), classes);
+});
+
+test("mergeClasses: merges single-class sub-sessions (A-only + B-only) into one race", () => {
+  const aOnly = { A: [{ pos: 1, nr: 7, name: "Alice", pts: 25 }], B: [] };
+  const bOnly = { A: [], B: [{ pos: 1, nr: 9, name: "Bob", pts: 25 }] };
+  const merged = mergeClasses([aOnly, bOnly]);
+  assert.equal(merged.A.length, 1);
+  assert.equal(merged.A[0].name, "Alice");
+  assert.equal(merged.A[0].pos, 1);
+  assert.equal(merged.B.length, 1);
+  assert.equal(merged.B[0].name, "Bob");
+  assert.equal(merged.B[0].pos, 1);
+});
+
+test("build: an A/B-split night (sessionIds + csvs) builds as a single race", async () => {
+  const csvA = await fixture("session-12739923.csv");
+  const csvB = await fixture("session-12739926.csv");
+  const out = build([
+    {
+      n: 22,
+      sessionIds: [12739923, 12739926],
+      date: "2026-09-01",
+      label: "Race 22",
+      csvs: [csvA, csvB],
+    },
+  ]);
+  assert.equal(out.standings.racesCompleted, 1, "the split night counts as exactly one race");
+  assert.equal(out.races.length, 1);
+  assert.equal(out.races[0].sessionId, 12739923, "representative sessionId for provenance");
+  assert.deepEqual(out.races[0].sessionIds, [12739923, 12739926]);
+  assert.equal(out.races[0].classes.A.results.length, 5, "A finishers came from the A groep CSV");
+  assert.equal(out.races[0].classes.B.results.length, 5, "B finishers came from the B groep CSV");
+  assert.equal(out.races[0].classes.A.results[0].name, "Jasper Kettenis");
+  assert.equal(out.races[0].classes.B.results[0].name, "Mark Vermeulen");
+  assert.ok(out.standings.classes.A.length > 0);
+  assert.ok(out.standings.classes.B.length > 0);
+});
+
+test("build: legacy single-sessionId entries are unaffected by split-night support", async () => {
+  const csv = await fixture("session-11869003.csv");
+  const legacy = { n: 1, sessionId: 11869003, date: "2026-03-31", label: "Race 1", csv };
+  const out = build([legacy]);
+  assert.equal(out.races[0].sessionId, 11869003);
+  assert.equal(out.races[0].sessionIds, undefined, "no sessionIds field for legacy single-session nights");
+});
+
+test("build: DSQ override referencing either sub-session id of a merged night applies", async () => {
+  const csvA = await fixture("session-12739923.csv");
+  const csvB = await fixture("session-12739926.csv");
+  const sessions = [
+    { n: 22, sessionIds: [12739923, 12739926], date: "2026-09-01", label: "Race 22", csvs: [csvA, csvB] },
+  ];
+  const outA = build(sessions, {
+    dsq: [{ sessionId: 12739923, class: "A", name: "Jasper Kettenis", nr: 120, reason: "test", appliedAt: "2026-09-02T00:00:00Z", appliedBy: "admin" }],
+  });
+  const jasper = outA.races[0].classes.A.results.find((r) => r.name === "Jasper Kettenis");
+  assert.equal(jasper.dsq, true, "DSQ override against the A sub-session id applies to the merged A class");
+
+  const outB = build(sessions, {
+    dsq: [{ sessionId: 12739926, class: "B", name: "Mark Vermeulen", nr: 185, reason: "test", appliedAt: "2026-09-02T00:00:00Z", appliedBy: "admin" }],
+  });
+  const mark = outB.races[0].classes.B.results.find((r) => r.name === "Mark Vermeulen");
+  assert.equal(mark.dsq, true, "DSQ override against the B sub-session id applies to the merged B class");
 });

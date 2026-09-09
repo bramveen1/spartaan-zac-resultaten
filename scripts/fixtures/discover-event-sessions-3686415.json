@@ -1,0 +1,10 @@
+{
+  "groups": [
+    {
+      "sessions": [
+        { "id": 12739923, "name": "A groep", "type": "race", "startTime": "2026-09-01T19:30:00" },
+        { "id": 12739926, "name": "B groep", "type": "race", "startTime": "2026-09-01T19:31:00" }
+      ]
+    }
+  ]
+}
