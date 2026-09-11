@@ -49,6 +49,52 @@ test("buildDocs: falls back to defaults for missing season/racesTotal", async ()
   assert.equal(standingsDoc.racesTotal, 26);
 });
 
+test("buildDocs: emits finalClassification, and reads its minRaces threshold from meta config", async () => {
+  const csv = await fixture("session-11869003.csv");
+  const sessions = [{ n: 1, sessionId: 11869003, date: "2026-03-31", csv }];
+
+  const defaultDoc = buildDocs({
+    meta: { season: "Zomer 2026", racesTotal: 26 },
+    sessions,
+    roster: { women: [] },
+    dsq: [],
+    updatedAt: "x",
+  }).standingsDoc;
+  assert.ok(defaultDoc.finalClassification, "finalClassification is present");
+  // Only 1 of 26 races played — nobody meets the default 14-start threshold yet.
+  assert.deepEqual(defaultDoc.finalClassification.A, []);
+
+  const lowThresholdDoc = buildDocs({
+    meta: { season: "Zomer 2026", racesTotal: 26, finalClassification: { minRaces: 1 } },
+    sessions,
+    roster: { women: [] },
+    dsq: [],
+    updatedAt: "x",
+  }).standingsDoc;
+  assert.ok(
+    lowThresholdDoc.finalClassification.A.length > 0,
+    "meta.finalClassification.minRaces feeds the engine's threshold",
+  );
+});
+
+test("buildDocs: finalClassification is emitted regardless of racesCompleted vs racesTotal — visibility gating is a frontend concern", async () => {
+  const csv = await fixture("session-11869003.csv");
+  const sessions = [{ n: 1, sessionId: 11869003, date: "2026-03-31", csv }];
+
+  const { standingsDoc } = buildDocs({
+    meta: { season: "Zomer 2026", racesTotal: 26, finalClassification: { minRaces: 1 } },
+    sessions,
+    roster: { women: [] },
+    dsq: [],
+    updatedAt: "x",
+  });
+  // The season is nowhere near complete (1 of 26)...
+  assert.ok(standingsDoc.racesCompleted < standingsDoc.racesTotal, "not-yet-complete season");
+  // ...but the engine still computes the classification; the site hides the
+  // tab client-side until racesCompleted >= racesTotal (see prototype.js).
+  assert.ok(standingsDoc.finalClassification.A.length > 0);
+});
+
 test("writeJSONIfChanged: writes a new file and reports changed", async () => {
   await withTmpDir(async (dir) => {
     const path = join(dir, "out.json");

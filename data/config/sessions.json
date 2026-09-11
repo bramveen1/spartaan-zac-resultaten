@@ -1,6 +1,7 @@
 {
   "season": "Zomer 2026",
   "racesTotal": 26,
+  "finalClassification": { "minRaces": 14 },
   "sessions": [
     {
       "n": 1,

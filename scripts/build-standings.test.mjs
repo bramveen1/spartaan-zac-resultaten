@@ -11,6 +11,7 @@ import {
   classOf,
   parseRaceCSV,
   filterAndReRank,
+  finalClassificationByClass,
   buildStandings,
   applyDsq,
   mergeClasses,
@@ -662,4 +663,148 @@ test("build: DSQ override referencing either sub-session id of a merged night ap
   });
   const mark = outB.races[0].classes.B.results.find((r) => r.name === "Mark Vermeulen");
   assert.equal(mark.dsq, true, "DSQ override against the B sub-session id applies to the merged B class");
+});
+
+// ---- Eindklassement / finalClassification (issue #29) ----
+
+// Builds `raceCount` single-class-A races. Each race's field is driven by
+// `attends(name, raceNumber)`; a rider's `starts` count in the resulting
+// standings equals how many races attends() returns true for them.
+function finalClassificationSessions(raceCount, riders, attends) {
+  const sessions = [];
+  for (let n = 1; n <= raceCount; n++) {
+    const field = riders.filter((r) => attends(r.name, n));
+    const rows = field.map(
+      (r, i) =>
+        `${i + 1},${r.nr},${r.name},110001 | ZAC A (01/01) - 19:30:00,1:0:${i + 1}.000,${i === 0 ? "0.000" : `${i + 1}.000`},30,1:00,1,40`,
+    );
+    sessions.push({
+      n,
+      sessionId: 6000 + n,
+      date: `2026-01-${String(n).padStart(2, "0")}`,
+      label: `R${n}`,
+      csv: mkCSV(...rows),
+    });
+  }
+  return sessions;
+}
+
+test("build: finalClassification includes riders with exactly 14 starts, excludes 13-start riders (boundary)", () => {
+  const riders = [
+    { nr: 1, name: "Fourteen" },
+    { nr: 2, name: "Thirteen" },
+  ];
+  // Fourteen races every night; Thirteen skips race 14 → 13 starts.
+  const sessions = finalClassificationSessions(14, riders, (name, n) =>
+    name === "Thirteen" ? n !== 14 : true,
+  );
+  const out = build(sessions);
+  const fourteen = out.standings.classes.A.find((r) => r.name === "Fourteen");
+  const thirteen = out.standings.classes.A.find((r) => r.name === "Thirteen");
+  assert.equal(fourteen.starts, 14);
+  assert.equal(thirteen.starts, 13);
+
+  const names = out.standings.finalClassification.A.map((r) => r.name);
+  assert.ok(names.includes("Fourteen"), "14-start rider is included");
+  assert.ok(!names.includes("Thirteen"), "13-start rider is excluded");
+});
+
+test("build: finalClassification excludes a rider whose DSQ'd night drops them below the threshold", () => {
+  const riders = [
+    { nr: 1, name: "Clean" },
+    { nr: 2, name: "AlmostClean" },
+  ];
+  // Both race all 14 nights; AlmostClean is DSQ'd in race 1, which does not
+  // count as a start, leaving her at 13 valid starts.
+  const sessions = finalClassificationSessions(14, riders, () => true);
+  const out = build(sessions, {
+    dsq: [
+      {
+        sessionId: 6001,
+        class: "A",
+        name: "AlmostClean",
+        nr: 2,
+        reason: "test",
+        appliedAt: "2026-01-01T00:00:00Z",
+        appliedBy: "admin",
+      },
+    ],
+  });
+  const almostClean = out.standings.classes.A.find((r) => r.name === "AlmostClean");
+  assert.equal(almostClean.starts, 13, "DSQ'd night does not count as a start");
+
+  const names = out.standings.finalClassification.A.map((r) => r.name);
+  assert.ok(names.includes("Clean"));
+  assert.ok(!names.includes("AlmostClean"), "DSQ-reduced starts count excludes the rider");
+});
+
+test("build: finalClassification renumbers pos contiguously 1..N over the eligible set only", () => {
+  const riders = [
+    { nr: 1, name: "First" },
+    { nr: 2, name: "Second" },
+    { nr: 3, name: "Third" },
+    { nr: 4, name: "TooFewStarts" },
+  ];
+  // First/Second/Third race all 14 nights (finishing in that order every
+  // time, so First > Second > Third on points); TooFewStarts races only 5.
+  const sessions = finalClassificationSessions(14, riders, (name, n) =>
+    name === "TooFewStarts" ? n <= 5 : true,
+  );
+  const out = build(sessions);
+  const finalA = out.standings.finalClassification.A;
+  assert.equal(finalA.length, 3, "only the three eligible riders are ranked");
+  assert.deepEqual(
+    finalA.map((r) => [r.name, r.pos]),
+    [["First", 1], ["Second", 2], ["Third", 3]],
+    "positions are contiguous 1..N with no gap for the excluded rider",
+  );
+});
+
+test("build: finalClassification preserves cumulative season pts — it does not recompute from the new position", () => {
+  const riders = [
+    { nr: 1, name: "First" },
+    { nr: 2, name: "Second" },
+    { nr: 3, name: "ExcludedLeader" },
+  ];
+  // ExcludedLeader wins every race it enters (would outscore both eligible
+  // riders on points) but only starts 5 nights, so it must be excluded and
+  // must NOT influence First/Second's points or positions.
+  const sessions = finalClassificationSessions(14, riders, (name, n) =>
+    name === "ExcludedLeader" ? n <= 5 : true,
+  );
+  const out = build(sessions);
+  const overallFirst = out.standings.classes.A.find((r) => r.name === "First");
+  const finalFirst = out.standings.finalClassification.A.find((r) => r.name === "First");
+  assert.equal(finalFirst.pts, overallFirst.pts, "pts on the final row match the season-cumulative pts");
+  assert.notEqual(finalFirst.pts, 25, "pts were not recomputed from pointsFor(new pos)");
+});
+
+test("build: finalClassification minRaces is read from options, not hard-coded", () => {
+  const riders = [
+    { nr: 1, name: "FiveStarts" },
+    { nr: 2, name: "TwoStarts" },
+  ];
+  const sessions = finalClassificationSessions(5, riders, (name, n) =>
+    name === "TwoStarts" ? n <= 2 : true,
+  );
+  const defaultOut = build(sessions);
+  assert.deepEqual(defaultOut.standings.finalClassification.A, [], "default 14-start threshold excludes everyone in a 5-race sample");
+
+  const customOut = build(sessions, { finalClassification: { minRaces: 3 } });
+  const names = customOut.standings.finalClassification.A.map((r) => r.name);
+  assert.deepEqual(names, ["FiveStarts"], "lowering minRaces via options changes the eligible set");
+});
+
+test("finalClassificationByClass: pure helper keeps pts, renumbers pos, ignores dsq rows", () => {
+  const classes = {
+    A: [
+      { pos: 1, nr: 1, name: "A1", pts: 300, starts: 20 },
+      { pos: 2, nr: 2, name: "A2", pts: 10, starts: 5 },
+      { pos: 3, nr: 3, name: "A3", pts: 250, starts: 14, dsq: true },
+    ],
+    B: [{ pos: 1, nr: 4, name: "B1", pts: 100, starts: 14 }],
+  };
+  const out = finalClassificationByClass(classes, 14);
+  assert.deepEqual(out.A.map((r) => [r.name, r.pos, r.pts]), [["A1", 1, 300]]);
+  assert.deepEqual(out.B.map((r) => [r.name, r.pos, r.pts]), [["B1", 1, 100]]);
 });

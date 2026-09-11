@@ -83,7 +83,8 @@ export async function writeJSONIfChanged(path, data, ignore = []) {
 // Pure: turns fetched sessions + config into the two output docs. No I/O, so
 // it's unit-testable against fixture CSVs without touching the filesystem.
 export function buildDocs({ meta, sessions, roster, dsq, updatedAt }) {
-  const { standings, races } = build(sessions, { roster, dsq });
+  const finalClassification = { minRaces: meta.finalClassification?.minRaces ?? 14 };
+  const { standings, races } = build(sessions, { roster, dsq, finalClassification });
 
   const standingsDoc = {
     season: meta.season ?? "Zomer 2026",
@@ -92,6 +93,7 @@ export function buildDocs({ meta, sessions, roster, dsq, updatedAt }) {
     updatedAt,
     classes: standings.classes,
     womenClasses: standings.womenClasses,
+    finalClassification: standings.finalClassification,
   };
   const racesDoc = { updatedAt, races };
 

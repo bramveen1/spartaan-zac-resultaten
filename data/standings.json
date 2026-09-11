@@ -2,7 +2,7 @@
   "season": "Zomer 2026",
   "racesCompleted": 24,
   "racesTotal": 26,
-  "updatedAt": "2026-09-09T06:10:29.449Z",
+  "updatedAt": "2026-09-11T08:49:09.808Z",
   "classes": {
     "A": [
       {
@@ -2511,6 +2511,312 @@
         "lastPts": 0,
         "starts": 1,
         "gap": 309,
+        "joint": false
+      }
+    ]
+  },
+  "finalClassification": {
+    "A": [
+      {
+        "pos": 1,
+        "nr": 50,
+        "name": "Siem Woldesilassie",
+        "pts": 346,
+        "lastPts": 25,
+        "starts": 17,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 23,
+        "name": "Joost te Braake",
+        "pts": 214,
+        "lastPts": 0,
+        "starts": 16,
+        "gap": 132,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 21,
+        "name": "Erik de Niet",
+        "pts": 202,
+        "lastPts": 0,
+        "starts": 19,
+        "gap": 144,
+        "joint": false
+      },
+      {
+        "pos": 4,
+        "nr": 2,
+        "name": "Dennis van der Velden",
+        "pts": 147,
+        "lastPts": 0,
+        "starts": 17,
+        "gap": 199,
+        "joint": false
+      },
+      {
+        "pos": 5,
+        "nr": 1,
+        "name": "Guido Smit",
+        "pts": 126,
+        "lastPts": 0,
+        "starts": 17,
+        "gap": 220,
+        "joint": false
+      },
+      {
+        "pos": 6,
+        "nr": 28,
+        "name": "Jan Gudde",
+        "pts": 121,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 225,
+        "joint": false
+      },
+      {
+        "pos": 7,
+        "nr": 17,
+        "name": "Juul Hubert",
+        "pts": 112,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 234,
+        "joint": false
+      },
+      {
+        "pos": 8,
+        "nr": 32,
+        "name": "Martijn Coeveld",
+        "pts": 106,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 240,
+        "joint": true
+      },
+      {
+        "pos": 9,
+        "nr": 43,
+        "name": "Ronald Geleynse",
+        "pts": 106,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 240,
+        "joint": true
+      },
+      {
+        "pos": 10,
+        "nr": 44,
+        "name": "Don de Leeuw",
+        "pts": 91,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 255,
+        "joint": false
+      },
+      {
+        "pos": 11,
+        "nr": 4,
+        "name": "Marc Plönes",
+        "pts": 83,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 263,
+        "joint": false
+      },
+      {
+        "pos": 12,
+        "nr": 29,
+        "name": "Richard Schouten",
+        "pts": 77,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 269,
+        "joint": false
+      }
+    ],
+    "B": [
+      {
+        "pos": 1,
+        "nr": 7,
+        "name": "Sijmen Kwakkel",
+        "pts": 358,
+        "lastPts": 25,
+        "starts": 18,
+        "gap": 0,
+        "joint": false
+      },
+      {
+        "pos": 2,
+        "nr": 2,
+        "name": "Oskar Loman",
+        "pts": 349,
+        "lastPts": 23,
+        "starts": 18,
+        "gap": 9,
+        "joint": false
+      },
+      {
+        "pos": 3,
+        "nr": 8,
+        "name": "Jan Kwakkel",
+        "pts": 319,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 39,
+        "joint": false
+      },
+      {
+        "pos": 4,
+        "nr": 4,
+        "name": "Bram van der Velden",
+        "pts": 310,
+        "lastPts": 0,
+        "starts": 19,
+        "gap": 48,
+        "joint": false
+      },
+      {
+        "pos": 5,
+        "nr": 45,
+        "name": "Joost van Giesen",
+        "pts": 286,
+        "lastPts": 0,
+        "starts": 19,
+        "gap": 72,
+        "joint": false
+      },
+      {
+        "pos": 6,
+        "nr": 17,
+        "name": "Olen Olsthoorn",
+        "pts": 252,
+        "lastPts": 0,
+        "starts": 16,
+        "gap": 106,
+        "joint": false
+      },
+      {
+        "pos": 7,
+        "nr": 19,
+        "name": "Tijme Aleman",
+        "pts": 247,
+        "lastPts": 0,
+        "starts": 18,
+        "gap": 111,
+        "joint": false
+      },
+      {
+        "pos": 8,
+        "nr": 107,
+        "name": "Ricardo Hillegers",
+        "pts": 242,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 116,
+        "joint": false
+      },
+      {
+        "pos": 9,
+        "nr": 24,
+        "name": "Ole Olsthoorn",
+        "pts": 229,
+        "lastPts": 17,
+        "starts": 17,
+        "gap": 129,
+        "joint": false
+      },
+      {
+        "pos": 10,
+        "nr": 11,
+        "name": "Thomas Vobl",
+        "pts": 179,
+        "lastPts": 21,
+        "starts": 16,
+        "gap": 179,
+        "joint": false
+      },
+      {
+        "pos": 11,
+        "nr": 42,
+        "name": "Leo Perera",
+        "pts": 147,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 211,
+        "joint": false
+      },
+      {
+        "pos": 12,
+        "nr": 28,
+        "name": "Bas Neuteboom",
+        "pts": 101,
+        "lastPts": 0,
+        "starts": 16,
+        "gap": 257,
+        "joint": false
+      },
+      {
+        "pos": 13,
+        "nr": 57,
+        "name": "Djurre Aleman",
+        "pts": 85,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 273,
+        "joint": false
+      },
+      {
+        "pos": 14,
+        "nr": 76,
+        "name": "Hans Kruithof",
+        "pts": 84,
+        "lastPts": 0,
+        "starts": 15,
+        "gap": 274,
+        "joint": false
+      },
+      {
+        "pos": 15,
+        "nr": 18,
+        "name": "Ot Kuiper",
+        "pts": 79,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 279,
+        "joint": false
+      },
+      {
+        "pos": 16,
+        "nr": 29,
+        "name": "Sanne Kerklaan",
+        "pts": 77,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 281,
+        "joint": false
+      },
+      {
+        "pos": 17,
+        "nr": 23,
+        "name": "Marc Semmeling",
+        "pts": 72,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 286,
+        "joint": false
+      },
+      {
+        "pos": 18,
+        "nr": 46,
+        "name": "Saar Mooij",
+        "pts": 70,
+        "lastPts": 0,
+        "starts": 14,
+        "gap": 288,
         "joint": false
       }
     ]
