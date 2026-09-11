@@ -40,6 +40,7 @@
         <button class="viewnav__tab is-active" data-view="standings" type="button">Klassement</button>
         <button class="viewnav__tab" data-view="race" type="button">Race-avond</button>
         <button class="viewnav__tab" data-view="rider" type="button">Renner</button>
+        <button class="viewnav__tab" data-view="final" type="button" hidden>Eindklassement</button>
       </div>
     </nav>
 
@@ -264,6 +265,40 @@
               </button>
             </footer>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= VIEW 4 — EINDKLASSEMENT ========================= -->
+    <!--
+      Final season classification: riders with enough starts, re-ranked 1..N.
+      Only reachable once the tab above is unhidden (racesCompleted >= racesTotal,
+      or the ?preview=final override) — see applyFinalVisibility() in prototype.js.
+    -->
+    <section id="final" class="view" aria-labelledby="final-title">
+      <div class="container">
+        <div class="view__head">
+          <h1 id="final-title" class="view__title">Eindklassement</h1>
+          <p class="view__sub">Eindstand seizoen laden…</p>
+        </div>
+
+        <div class="classtoggle" role="tablist" aria-label="Klasse" id="final-class-toggle">
+          <button class="classtoggle__opt is-active" role="tab" aria-selected="true" data-final-class="A" type="button">Klasse A</button>
+          <button class="classtoggle__opt" role="tab" aria-selected="false" data-final-class="B" type="button">Klasse B</button>
+        </div>
+
+        <div class="card">
+          <table class="table table--standings">
+            <thead>
+              <tr>
+                <th scope="col" class="num">#</th>
+                <th scope="col" class="num">Nr.</th>
+                <th scope="col">Renner</th>
+                <th scope="col" class="num">Punten</th>
+              </tr>
+            </thead>
+            <tbody id="final-body"><!-- rendered by prototype.js --></tbody>
+          </table>
         </div>
       </div>
     </section>

@@ -31,6 +31,9 @@ to fix a wrong `sessionId` after the fact.
 {
   "season": "string — human-readable season label, e.g. \"Zomer 2026\"",
   "racesTotal": "integer — total races planned for the season",
+  "finalClassification": {
+    "minRaces": "integer — starts threshold for the Eindklassement (final season classification); riders with fewer starts are excluded"
+  },
   "sessions": [
     {
       "n": "integer — race number (1-based, sequential)",
@@ -47,6 +50,7 @@ to fix a wrong `sessionId` after the fact.
 {
   "season": "Zomer 2026",
   "racesTotal": 26,
+  "finalClassification": { "minRaces": 14 },
   "sessions": [
     { "n": 1, "sessionId": 11869003, "date": "2026-03-31" },
     { "n": 2, "sessionId": 11899083, "date": "2026-04-07" }
@@ -55,6 +59,8 @@ to fix a wrong `sessionId` after the fact.
 ```
 
 To add a new race: append one entry to `sessions` with the next `n`, the session ID copied from the Speedhive URL, and the race date. Commit to `main`; the next cron run picks it up.
+
+`finalClassification.minRaces` is the eligibility threshold for the Eindklassement: only riders whose `starts` count meets or exceeds it are ranked (currently `14`, i.e. `(26 ÷ 2) + 1` for the 2026 season). The Eindklassement itself is only shown on the site once `racesCompleted >= racesTotal` — see `prototype.js`.
 
 ---
 

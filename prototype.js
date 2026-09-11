@@ -10,6 +10,7 @@
 
 const STORAGE_KEY = "despartaan.me";       // "<class>:<startNumber>", e.g. "A:47"
 const WOMEN_PREVIEW_KEY = "womenGcPreview"; // sessionStorage: "true" enables Women GC tabs
+const FINAL_PREVIEW_KEY = "finalPreview";   // sessionStorage: "true" reveals Eindklassement early
 
 const MAANDEN = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 const DAGEN_FULL = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag"];
@@ -158,6 +159,7 @@ const state = {
   raceIdx: 0,        // currently selected race index (0-based)
   rider: null,       // { cls, name } when rider detail is open
   riderView: "overall", // "overall" | "women" — toggled from inside the rider modal
+  finalCls: "A",     // currently selected class on the Eindklassement view: "A" | "B" (no women's cut)
 };
 
 // "WA" / "WB" → "A" / "B"; passthrough for non-women classes. Women's tabs
@@ -172,6 +174,17 @@ function isWomenCls(cls) {
 function isWomenVisible() {
   if (state.siteConfig?.features?.womenGc === true) return true;
   try { return sessionStorage.getItem(WOMEN_PREVIEW_KEY) === "true"; }
+  catch (_) { return false; }
+}
+
+// Eindklassement reveals itself once the season is actually over — no manual
+// flag. A preview override (mirroring WOMEN_PREVIEW_KEY) lets us see it early.
+function isFinalVisible() {
+  const s = state.standings;
+  if (s && Number.isFinite(s.racesCompleted) && Number.isFinite(s.racesTotal) && s.racesCompleted >= s.racesTotal) {
+    return true;
+  }
+  try { return sessionStorage.getItem(FINAL_PREVIEW_KEY) === "true"; }
   catch (_) { return false; }
 }
 
@@ -229,7 +242,9 @@ function renderHeaderMeta() {
 
 function renderClassToggle() {
   // Both views now have 4 options (A, B, WA, WB) — exact match on state.cls.
-  document.querySelectorAll(".classtoggle__opt").forEach((opt) => {
+  // Scoped to [data-class] so the Eindklassement's separate class toggle
+  // (data-final-class, driven by state.finalCls) isn't touched here.
+  document.querySelectorAll(".classtoggle__opt[data-class]").forEach((opt) => {
     const active = opt.dataset.class === state.cls;
     opt.classList.toggle("is-active", active);
     opt.setAttribute("aria-selected", String(active));
@@ -250,6 +265,17 @@ function applyWomenVisibility() {
   if (!visible) {
     if (isWomenCls(state.cls)) state.cls = effectiveCls(state.cls);
     if (state.riderView === "women") state.riderView = "overall";
+  }
+}
+
+function applyFinalVisibility() {
+  const visible = isFinalVisible();
+  const tab = document.querySelector('.viewnav__tab[data-view="final"]');
+  if (tab) tab.hidden = !visible;
+  // If the tab disappears (flag cleared, or checked before data loaded)
+  // while that view is open, fall back to the standings view.
+  if (!visible && document.getElementById("final")?.classList.contains("is-active")) {
+    switchView("standings");
   }
 }
 
@@ -549,12 +575,42 @@ function renderRider() {
   }
 }
 
+function renderFinalClassToggle() {
+  document.querySelectorAll("#final-class-toggle .classtoggle__opt").forEach((opt) => {
+    const active = opt.dataset.finalClass === state.finalCls;
+    opt.classList.toggle("is-active", active);
+    opt.setAttribute("aria-selected", String(active));
+  });
+}
+
+function renderFinal() {
+  if (!state.standings) return;
+  const s = state.standings;
+  const sub = document.querySelector("#final .view__sub");
+  if (sub) sub.textContent = `Eindstand ${s.season ?? ""} · bijgewerkt ${nlDateTime(s.updatedAt)}`.trim();
+
+  const body = document.getElementById("final-body");
+  if (!body) return;
+  const rows = s.finalClassification?.[state.finalCls] ?? [];
+  body.innerHTML = rows.map((row) => `
+    <tr>
+      <td class="num pos">${row.pos}</td>
+      <td class="num nr">#${row.nr}</td>
+      <td>${esc(row.name)}</td>
+      <td class="num pts">${row.pts}</td>
+    </tr>
+  `).join("");
+}
+
 function renderAll() {
   applyWomenVisibility();
+  applyFinalVisibility();
   renderHeaderMeta();
   renderClassToggle();
+  renderFinalClassToggle();
   renderStandings();
   renderRace();
+  renderFinal();
   renderMePin();
   if (state.rider) renderRider();
 }
@@ -578,14 +634,16 @@ function openRider(cls, name) {
 /* ---------- BOOT ---------- */
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Preview gate: ?preview=women flips sessionStorage so navigating the site
-  // (and refresh) keeps the Women GC tabs visible. A new tab from a clean URL
-  // drops the flag. Once site_config.features.womenGc is true, this is a no-op.
+  // Preview gate: ?preview=women and/or ?preview=final (comma-separated, e.g.
+  // ?preview=women,final) flips sessionStorage so navigating the site (and
+  // refresh) keeps the previewed tabs visible. A new tab from a clean URL
+  // drops the flags. Once the real reveal condition is met (site_config
+  // womenGc flag / racesCompleted >= racesTotal), this is a no-op.
   try {
     const params = new URLSearchParams(window.location.search);
-    if (params.get("preview") === "women") {
-      sessionStorage.setItem(WOMEN_PREVIEW_KEY, "true");
-    }
+    const preview = (params.get("preview") ?? "").split(",").map((s) => s.trim());
+    if (preview.includes("women")) sessionStorage.setItem(WOMEN_PREVIEW_KEY, "true");
+    if (preview.includes("final")) sessionStorage.setItem(FINAL_PREVIEW_KEY, "true");
   } catch (_) { /* sessionStorage unavailable — fall back to flag-only */ }
 
   try {
@@ -620,13 +678,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // Class toggle
-  document.querySelectorAll(".classtoggle__opt").forEach((opt) => {
+  document.querySelectorAll(".classtoggle__opt[data-class]").forEach((opt) => {
     opt.addEventListener("click", () => {
       state.cls = opt.dataset.class;
       renderClassToggle();
       renderStandings();
       renderRace();
       renderMePin();
+    });
+  });
+
+  // Eindklassement class toggle (separate state from the main A/B/WA/WB
+  // toggle — the Eindklassement never has a women's cut, see issue #29).
+  document.querySelectorAll("#final-class-toggle .classtoggle__opt").forEach((opt) => {
+    opt.addEventListener("click", () => {
+      state.finalCls = opt.dataset.finalClass;
+      renderFinalClassToggle();
+      renderFinal();
     });
   });
 

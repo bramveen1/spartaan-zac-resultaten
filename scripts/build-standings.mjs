@@ -190,6 +190,22 @@ export function filterAndReRank(byClass, rosterByClass) {
   return out;
 }
 
+// Final season classification: filter the already-ranked overall classes
+// down to riders who started at least `minRaces` nights, then renumber pos
+// 1..N over the eligible set. Unlike filterAndReRank, cumulative season pts
+// are kept as-is — this ranks who scored most among the eligible riders, not
+// a fresh points award for a new field (see issue #29). `starts` already
+// excludes DSQ'd nights (buildStandings), so the threshold alone also
+// excludes DSQ-only riders; the `!r.dsq` check is defensive.
+export function finalClassificationByClass(classes, minRaces) {
+  const out = { A: [], B: [] };
+  for (const cls of ["A", "B"]) {
+    const eligible = (classes?.[cls] ?? []).filter((r) => !r.dsq && r.starts >= minRaces);
+    out[cls] = eligible.map((r, i) => ({ ...r, pos: i + 1 }));
+  }
+  return out;
+}
+
 // Head-to-head over a list of per-race results for two riders.
 // Counts races both rode (both have a finish position).
 function headToHead(a, b) {
@@ -340,9 +356,13 @@ function computeMovers(racesByClass, parsedRaceClasses) {
 // `options.roster.women`: optional { A: [...], B: [...] } of start numbers
 //   per class for the women's GC. Per-class because start numbers overlap
 //   across classes.
+// `options.finalClassification.minRaces`: optional starts threshold for the
+//   Eindklassement (final season classification); defaults to 14. Read from
+//   config (data/config/sessions.json), not hard-coded by callers.
 export function build(sessions, options = {}) {
   const womenRoster = options?.roster?.women ?? { A: [], B: [] };
   const dsqOverrides = options?.dsq ?? [];
+  const minRaces = options?.finalClassification?.minRaces ?? 14;
   const parsedRaces = sessions.map((s) => {
     const sessionIds = s.sessionIds ?? [s.sessionId];
     const csvs = s.csvs ?? [s.csv];
@@ -371,6 +391,7 @@ export function build(sessions, options = {}) {
   };
   const standings = buildStandings(racesByClass);
   const womenStandings = buildStandings(womenRacesByClass);
+  const finalClassification = finalClassificationByClass(standings, minRaces);
 
   // Movers per race: position shift in season standing caused by that race.
   // O(R²) total; trivially fast for ≤26 races, keeps the math obvious.
@@ -400,6 +421,7 @@ export function build(sessions, options = {}) {
       racesCompleted: parsedRaces.length,
       classes: standings,
       womenClasses: womenStandings,
+      finalClassification,
     },
     races: racesOut,
   };
