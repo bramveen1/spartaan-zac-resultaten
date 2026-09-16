@@ -1,7 +1,9 @@
 {
   "season": "Zomer 2026",
   "racesTotal": 26,
-  "finalClassification": { "minRaces": 14 },
+  "finalClassification": {
+    "minRaces": 14
+  },
   "sessions": [
     {
       "n": 1,
@@ -115,13 +117,21 @@
     },
     {
       "n": 23,
-      "sessionIds": [12739923, 12739926],
+      "sessionIds": [
+        12739923,
+        12739926
+      ],
       "date": "2026-09-01"
     },
     {
       "n": 24,
       "sessionId": 12782892,
       "date": "2026-09-08"
+    },
+    {
+      "n": 25,
+      "sessionId": 12828488,
+      "date": "2026-09-15"
     }
   ]
 }
