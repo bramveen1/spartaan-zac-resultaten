@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T00:00:05.336Z",
+  "updatedAt": "2026-09-18T06:38:27.721Z",
   "races": [
     {
       "n": 1,
@@ -14082,19 +14082,19 @@
           "results": [
             {
               "pos": 1,
-              "nr": 7,
-              "name": "Sijmen Kwakkel",
+              "nr": 2,
+              "name": "Oskar Loman",
               "laps": 27,
-              "time": "53:48.033",
+              "time": "53:48.000",
               "diff": "8 laps",
               "pts": 25
             },
             {
               "pos": 2,
-              "nr": 2,
-              "name": "Oskar Loman",
+              "nr": 7,
+              "name": "Sijmen Kwakkel",
               "laps": 27,
-              "time": "53:48.058",
+              "time": "53:48.033",
               "diff": "8 laps",
               "pts": 23
             },
@@ -14361,7 +14361,7 @@
             }
           ],
           "stats": {
-            "winnerTime": "53:48.033",
+            "winnerTime": "53:48.000",
             "laps": 27,
             "finishers": 31
           }
